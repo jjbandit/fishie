@@ -6,10 +6,17 @@ if (Meteor.isClient) {
 	Template.body.helpers ({
 		classes: function() {
 			return Classes.find();
-		}
+		},
+
 
 	});
-
+// START HERE 
+// TODO MAKE CLEAR BUTTON WORK
+	Template.body.events ({
+		'click .clear' : function() {
+				Classes.
+			}
+	});
   Template.newClassButtons.events({
 
     'click button': function () {
