@@ -1,14 +1,51 @@
 <head>
-  <title>fishie</title>
+  <title>Fishie</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>Fishie</h1>
 
-  {{> hello}}
+  {{> newClassButtons}}
+
+      {{#each classes}}
+        {{> class}}
+      {{/each}}
+
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
+
+<template name="class">
+
+<div id="{{level}}">
+	{{level}}
+</div>
+	
+</template> 
+
+
+
+<template name="newClassButtons">
+<div id="swim-kids-wrapper">
+	<button class="swim-kids sk1"> SK 1 </button>
+	<button class="swim-kids sk2"> SK 2 </button>
+	<button class="swim-kids sk3"> SK 3 </button>
+	<button class="swim-kids sk4"> SK 4 </button>
+	<button class="swim-kids sk5"> SK 5 </button>
+	<button class="swim-kids sk6"> SK 6 </button>
+	<button class="swim-kids sk7"> SK 7 </button>
+	<button class="swim-kids sk8"> SK 8 </button>
+	<button class="swim-kids sk9"> SK 9 </button>
+	<button class="swim-kids sk10"> SK 10 </button>
+</div>
+
+<div id="swim-preschool-wrapper">
+	<button class="swim-preschool starfish"> Starfish </button>
+	<button class="swim-preschool duck"> Duck </button>
+	<button class="swim-preschool sea-turtle"> Sea Turtle </button>
+	<button class="swim-preschool sea-otter"> Sea Otter </button>
+	<button class="swim-preschool salamander"> Salamander </button>
+	<button class="swim-preschool sunfish"> Sunfish </button>
+	<button class="swim-preschool crocodile"> Crocodile </button>
+	<button class="swim-preschool whale"> Whale </button>
+</div>
+</template> 
