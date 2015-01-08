@@ -12,7 +12,7 @@ if (Meteor.isClient) {
 	Template.body.events ({
 		'click .clear' : function() {
 				Meteor.call("clearClasses");
-			}
+		}
 	});
 
   Template.newClassButtons.events({
