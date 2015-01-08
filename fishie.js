@@ -7,41 +7,35 @@ if (Meteor.isClient) {
 		classes: function() {
 			return Classes.find();
 		},
-
-
 	});
-// START HERE 
-// TODO MAKE CLEAR BUTTON WORK
+
 	Template.body.events ({
 		'click .clear' : function() {
-				Classes.
+				Meteor.call("clearClasses");
 			}
 	});
-  Template.newClassButtons.events({
 
+  Template.newClassButtons.events({
     'click button': function () {
 			level = event.target.classList.item(1);
-
-			// level.forEach(getLevel);
-			
-			// function getLevel (element, index, array) {
-			// 	console.log(index + element);
-			// }
-
 			Meteor.call ("addClass", level);
 		}
   });
+
 }
 
 Meteor.methods ({
+
 	addClass: function(level) {
 		Classes.insert ({
 			level: level,
 			createdAt: new Date()
 		});
-			console.log(Classes.find().count());
-			console.log(Classes.findOne({}, {skip: Classes.find().count()-1})); 
-	} 
+	},
+
+	clearClasses: function() {
+				Classes.remove({})
+	}
 }); 
 
 if (Meteor.isServer) {
