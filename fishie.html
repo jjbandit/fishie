@@ -5,9 +5,12 @@
 <body>
   <h1>Fishie</h1>
 	
+	<form>
 	{{> time }}
 
   {{> createClass}}
+
+	</form>
 
 	{{#each classes}}
 		{{> class}}
@@ -20,18 +23,18 @@
 
 <template name="time">
 	<div id="time-wrapper">
-		<input type="radio" name="time-toggle" value="1">
-		<input type="radio" name="time-toggle" value="2">
-		<input type="radio" name="time-toggle" value="3">
-		<input type="radio" name="time-toggle" value="4">
-		<input type="radio" name="time-toggle" value="5">
-		<input type="radio" name="time-toggle" value="6">
-		<input type="radio" name="time-toggle" value="7">
-		<input type="radio" name="time-toggle" value="8">
-		<input type="radio" name="time-toggle" value="9">
-		<input type="radio" name="time-toggle" value="10">
-		<input type="radio" name="time-toggle" value="11">
-		<input type="radio" name="time-toggle" value="12">
+		<label for="time-1">1</label><input type="radio" name="time-toggle" id="time-1" value="1">
+		<label for="time-2">2</label><input type="radio" name="time-toggle" id="time-2" value="2">
+		<label for="time-3">3</label><input type="radio" name="time-toggle" id="time-3" value="3">
+		<label for="time-4">4</label><input type="radio" name="time-toggle" id="time-4" value="4">
+		<label for="time-5">5</label><input type="radio" name="time-toggle" id="time-5" value="5">
+		<label for="time-6">6</label><input type="radio" name="time-toggle" id="time-6" value="6">
+		<label for="time-7">7</label><input type="radio" name="time-toggle" id="time-7" value="7">
+		<label for="time-8">8</label><input type="radio" name="time-toggle" id="time-8" value="8">
+		<label for="time-9">9</label><input type="radio" name="time-toggle" id="time-9" value="9">
+		<label for="time-10">10</label><input type="radio" name="time-toggle" id="time-10" value="10">
+		<label for="time-11">11</label><input type="radio" name="time-toggle" id="time-11" value="11">
+		<label for="time-12">12</label><input type="radio" name="time-toggle" id="time-12" value="12">
 
 		<div id="am-pm">
 			<label for="AM">AM</label><input type="radio" name="am-pm-toggle" id="AM" value="AM">

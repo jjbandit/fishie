@@ -29,7 +29,6 @@ if (Meteor.isClient) {
 	Template.time.events ({
 		'click button' : function() {
 			time = event.target.value;
-			Session.set("classTime", time);
 		}
 	});
 
