@@ -22,6 +22,12 @@ if (Meteor.isClient) {
 		}
   });
 
+	Template.time.events ({
+		'click button' : function() {
+			Meteor.call("addTime");
+		}
+	});
+
 }
 
 Meteor.methods ({
@@ -31,6 +37,9 @@ Meteor.methods ({
 			level: level,
 			createdAt: new Date()
 		});
+	},
+	addTime: function() {
+		
 	},
 
 	clearClasses: function() {
