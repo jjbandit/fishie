@@ -5,12 +5,7 @@
 <body>
   <h1>Fishie</h1>
 	
-	<form>
-	{{> time }}
-
-  {{> createClass}}
-
-	</form>
+	{{> createClass }}
 
 	{{#each classes}}
 		{{> class}}
@@ -20,8 +15,25 @@
 
 </body>
 
+<template name="class">
+	<div id="{{level}}">
+		{{level}}
+	</div>
+</template> 
 
-<template name="time">
+<template name="createClass">
+	<form>
+		{{> timeSelector }}
+		{{> levelSelector }}
+
+		<div id="class-submit-wrapper">
+			<button type="submit" class="create" name='create-class'> Create Class </button>
+		</div>
+	</form>
+</template>
+
+
+<template name="timeSelector">
 	<div id="time-wrapper">
 		<label for="time-1">1</label><input type="radio" name="time-toggle" id="time-1" value="1">
 		<label for="time-2">2</label><input type="radio" name="time-toggle" id="time-2" value="2">
@@ -43,14 +55,7 @@
 	</div>
 </template>
 
-
-<template name="class">
-	<div id="{{level}}">
-		{{level}}
-	</div>
-</template> 
-
-<template name="createClass">
+<template name="levelSelector">
 	<div id="swim-kids-wrapper">
 		<label for="sk1">SK 1</label><input type="radio" name="level-toggle" id="sk1" value="Swim Kids 1">
 		<label for="sk2">SK 2</label><input type="radio" name="level-toggle" id="sk2" value="Swim Kids 2">
@@ -73,9 +78,5 @@
 		<label for="sunfish">Sunfish</label><input type="radio" name="level-toggle" id="sunfish">
 		<label for="crocodile">Crocodile</label><input type="radio" name="level-toggle" id="crocodile">
 		<label for="whale">Whale</label><input type="radio" name="level-toggle" id="whale">
-	</div>
-
-	<div id="class-submit-wrapper">
-		<button type="submit" class="create" name='create-class'> Create Class </button>
 	</div>
 </template> 

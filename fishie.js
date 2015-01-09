@@ -15,28 +15,26 @@ if (Meteor.isClient) {
 		}
 	});
 
-  Template.createClass.events({
-    'click button': function () {
-			level = event.target.classList.item(1);
-			Session.set("classLevel", level);
-		},
-		'click .create': function() {
-			console.log('yay!');
-			Meteor.call('addClass', 'level!');
-		}
-  });
+	Template.createClass.events ({
+		'submit form' : function() {
+			event.preventDefault();
 
-	Template.time.events ({
-		'click button' : function() {
-			time = event.target.value;
+			// TODO Submit new event based on radio selection
+			console.log(event);
+
+			level = event.target.level-toggle.value;
+			time = event.target.time-toggle.value;
+
+			console.log(level);
 		}
 	});
-
+	
+	
 }
 
 Meteor.methods ({
 
-	addClass: function(level) {
+	createClass: function(level, time) {
 		Classes.insert ({
 			level: level,
 			createdAt: new Date()
