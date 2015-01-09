@@ -15,16 +15,21 @@ if (Meteor.isClient) {
 		}
 	});
 
-  Template.newClassButtons.events({
+  Template.createClass.events({
     'click button': function () {
 			level = event.target.classList.item(1);
-			Meteor.call ("addClass", level);
+			Session.set("classLevel", level);
+		},
+		'click .create': function() {
+			console.log('yay!');
+			Meteor.call('addClass', 'level!');
 		}
   });
 
 	Template.time.events ({
 		'click button' : function() {
-			Meteor.call("addTime");
+			time = event.target.value;
+			Session.set("classTime", time);
 		}
 	});
 
@@ -37,9 +42,6 @@ Meteor.methods ({
 			level: level,
 			createdAt: new Date()
 		});
-	},
-	addTime: function() {
-		
 	},
 
 	clearClasses: function() {

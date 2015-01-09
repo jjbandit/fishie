@@ -7,69 +7,72 @@
 	
 	{{> time }}
 
-  {{> newClassButtons}}
-
-	<button type="button" class="clear"> Clear Classes </button>
+  {{> createClass}}
 
 	{{#each classes}}
 		{{> class}}
 	{{/each}}
 
+	<button type="button" class="clear"> Clear Classes </button>
+
 </body>
 
 
-
-
 <template name="time">
-	<input type="button" name="1" value="1" />
-	<input type="button" name="2" value="2" />
-	<input type="button" name="3" value="3" />
-	<input type="button" name="4" value="4" />
-	<input type="button" name="5" value="5" />
-	<input type="button" name="6" value="6" />
-	<input type="button" name="7" value="7" />
-	<input type="button" name="8" value="8" />
-	<input type="button" name="9" value="9" />
-	<input type="button" name="10" value="10" />
-	<input type="button" name="11" value="11" />
-	<input type="button" name="12" value="12" />
-	
-	<div id="am-pm">
-		<input type="button" name="AM" value="AM" />
-		<input type="button" name="PM" value="PM" />
+	<div id="time-wrapper">
+		<input type="radio" name="time-toggle" value="1">
+		<input type="radio" name="time-toggle" value="2">
+		<input type="radio" name="time-toggle" value="3">
+		<input type="radio" name="time-toggle" value="4">
+		<input type="radio" name="time-toggle" value="5">
+		<input type="radio" name="time-toggle" value="6">
+		<input type="radio" name="time-toggle" value="7">
+		<input type="radio" name="time-toggle" value="8">
+		<input type="radio" name="time-toggle" value="9">
+		<input type="radio" name="time-toggle" value="10">
+		<input type="radio" name="time-toggle" value="11">
+		<input type="radio" name="time-toggle" value="12">
+
+		<div id="am-pm">
+			<label for="AM">AM</label><input type="radio" name="am-pm-toggle" id="AM" value="AM">
+			<label for="PM">PM</label><input type="radio" name="am-pm-toggle" id="PM" value="PM">
+		</div>
 	</div>
 </template>
 
 
 <template name="class">
-<div id="{{level}}">
-	{{level}}
-</div>
+	<div id="{{level}}">
+		{{level}}
+	</div>
 </template> 
 
+<template name="createClass">
+	<div id="swim-kids-wrapper">
+		<label for="sk1">SK 1</label><input type="radio" name="level-toggle" id="sk1" value="Swim Kids 1">
+		<label for="sk2">SK 2</label><input type="radio" name="level-toggle" id="sk2" value="Swim Kids 2">
+		<label for="sk3">SK 3</label><input type="radio" name="level-toggle" id="sk3" value="Swim Kids 3">
+		<label for="sk4">SK 4</label><input type="radio" name="level-toggle" id="sk4" value="Swim Kids 4">
+		<label for="sk5">SK 5</label><input type="radio" name="level-toggle" id="sk5" value="Swim Kids 5">
+		<label for="sk6">SK 6</label><input type="radio" name="level-toggle" id="sk6" value="Swim Kids 6">
+		<label for="sk7">SK 7</label><input type="radio" name="level-toggle" id="sk7" value="Swim Kids 7">
+		<label for="sk8">SK 8</label><input type="radio" name="level-toggle" id="sk8" value="Swim Kids 8">
+		<label for="sk9">SK 9</label><input type="radio" name="level-toggle" id="sk9" value="Swim Kids 9">
+		<label for="sk10">SK 10</label><input type="radio" name="level-toggle" id="sk10" value="Swim Kids 10">
+	</div>
 
-<template name="newClassButtons">
-<div id="swim-kids-wrapper">
-	<button type="button" class="swim-kids sk1"> SK 1 </button>
-	<button type="button" class="swim-kids sk2"> SK 2 </button>
-	<button type="button" class="swim-kids sk3"> SK 3 </button>
-	<button type="button" class="swim-kids sk4"> SK 4 </button>
-	<button type="button" class="swim-kids sk5"> SK 5 </button>
-	<button type="button" class="swim-kids sk6"> SK 6 </button>
-	<button type="button" class="swim-kids sk7"> SK 7 </button>
-	<button type="button" class="swim-kids sk8"> SK 8 </button>
-	<button type="button" class="swim-kids sk9"> SK 9 </button>
-	<button type="button" class="swim-kids sk10"> SK 10 </button>
-</div>
+	<div id="swim-preschool-wrapper">
+		<label for="starfish">Starfish</label><input type="radio" name="level-toggle" id="starfish"> 
+		<label for="duck">Duck</label><input type="radio" name="level-toggle" id="duck"> 
+		<label for="sea-turtle">Sea turtle</label><input type="radio" name="level-toggle" id="sea-turtle"> 
+		<label for="sea-otter">Sea otter</label><input type="radio" name="level-toggle" id="sea-otter">
+		<label for="salamander">Salamander</label><input type="radio" name="level-toggle" id="salamander">
+		<label for="sunfish">Sunfish</label><input type="radio" name="level-toggle" id="sunfish">
+		<label for="crocodile">Crocodile</label><input type="radio" name="level-toggle" id="crocodile">
+		<label for="whale">Whale</label><input type="radio" name="level-toggle" id="whale">
+	</div>
 
-<div id="swim-preschool-wrapper">
-	<button type="button" class="swim-preschool starfish"> Starfish </button>
-	<button type="button" class="swim-preschool duck"> Duck </button>
-	<button type="button" class="swim-preschool sea-turtle"> Sea Turtle </button>
-	<button type="button" class="swim-preschool sea-otter"> Sea Otter </button>
-	<button type="button" class="swim-preschool salamander"> Salamander </button>
-	<button type="button" class="swim-preschool sunfish"> Sunfish </button>
-	<button type="button" class="swim-preschool crocodile"> Crocodile </button>
-	<button type="button" class="swim-preschool whale"> Whale </button>
-</div>
+	<div id="class-submit-wrapper">
+		<button type="submit" class="create" name='create-class'> Create Class </button>
+	</div>
 </template> 
