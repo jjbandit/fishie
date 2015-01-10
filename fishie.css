@@ -1,1 +1,16 @@
 /* CSS declarations go here */
+
+input[type='radio'] {
+	display: none;
+}
+
+input[type='radio'] + label {
+	outline: 1px solid black;
+	display: inline-block;
+	width: 60px;
+	height: 40px;
+}
+
+input[type='radio']:checked + label {
+	background-color: red;
+}

@@ -18,6 +18,9 @@
 <template name="class">
 	<div id="{{level}}">
 		{{level}}
+		{{hour}}
+		{{minute}}
+		{{amPm}}
 	</div>
 </template> 
 
@@ -35,48 +38,62 @@
 
 <template name="timeSelector">
 	<div id="time-wrapper">
-		<label for="time-1">1</label><input type="radio" name="time-toggle" id="time-1" value="1">
-		<label for="time-2">2</label><input type="radio" name="time-toggle" id="time-2" value="2">
-		<label for="time-3">3</label><input type="radio" name="time-toggle" id="time-3" value="3">
-		<label for="time-4">4</label><input type="radio" name="time-toggle" id="time-4" value="4">
-		<label for="time-5">5</label><input type="radio" name="time-toggle" id="time-5" value="5">
-		<label for="time-6">6</label><input type="radio" name="time-toggle" id="time-6" value="6">
-		<label for="time-7">7</label><input type="radio" name="time-toggle" id="time-7" value="7">
-		<label for="time-8">8</label><input type="radio" name="time-toggle" id="time-8" value="8">
-		<label for="time-9">9</label><input type="radio" name="time-toggle" id="time-9" value="9">
-		<label for="time-10">10</label><input type="radio" name="time-toggle" id="time-10" value="10">
-		<label for="time-11">11</label><input type="radio" name="time-toggle" id="time-11" value="11">
-		<label for="time-12">12</label><input type="radio" name="time-toggle" id="time-12" value="12">
-
-		<div id="am-pm">
-			<label for="AM">AM</label><input type="radio" name="am-pm-toggle" id="AM" value="AM">
-			<label for="PM">PM</label><input type="radio" name="am-pm-toggle" id="PM" value="PM">
+		<div id="hour-wrapper">
+			<input type="radio" name="time-toggle" id="time-1" value="1"><label for="time-1">1</label>
+			<input type="radio" name="time-toggle" id="time-2" value="2"><label for="time-2">2</label>
+			<input type="radio" name="time-toggle" id="time-3" value="3"><label for="time-3">3</label>
+			<input type="radio" name="time-toggle" id="time-4" value="4"><label for="time-4">4</label>
+			<input type="radio" name="time-toggle" id="time-5" value="5"><label for="time-5">5</label>
+			<input type="radio" name="time-toggle" id="time-6" value="6"><label for="time-6">6</label>
+			<input type="radio" name="time-toggle" id="time-7" value="7"><label for="time-7">7</label>
+			<input type="radio" name="time-toggle" id="time-8" value="8"><label for="time-8">8</label>
+			<input type="radio" name="time-toggle" id="time-9" value="9"><label for="time-9">9</label>
+			<input type="radio" name="time-toggle" id="time-10" value="10"><label for="time-10">10</label>
+			<input type="radio" name="time-toggle" id="time-11" value="11"><label for="time-11">11</label>
+			<input type="radio" name="time-toggle" id="time-12" value="12"><label for="time-12">12</label>
 		</div>
+
+		<div id="minute-wrapper">
+
+			<input type="radio" name="minute-toggle" value="00" id="00"><label for="00">00</label>
+			<input type="radio" name="minute-toggle" value="15" id="15"><label for="15">15</label>
+			<input type="radio" name="minute-toggle" value="30" id="30"><label for="30">30</label>
+			<input type="radio" name="minute-toggle" value="45" id="45"><label for="45">45</label>
+			
+		</div>
+
+		<div id="am-pm-wrapper">
+			<input type="radio" name="am-pm-toggle" id="AM" value="AM"><label for="AM">AM</label>
+			<input type="radio" name="am-pm-toggle" id="PM" value="PM"><label for="PM">PM</label>
+		</div>
+
 	</div>
 </template>
 
 <template name="levelSelector">
-	<div id="swim-kids-wrapper">
-		<label for="sk1">SK 1</label><input type="radio" name="level-toggle" id="sk1" value="Swim Kids 1">
-		<label for="sk2">SK 2</label><input type="radio" name="level-toggle" id="sk2" value="Swim Kids 2">
-		<label for="sk3">SK 3</label><input type="radio" name="level-toggle" id="sk3" value="Swim Kids 3">
-		<label for="sk4">SK 4</label><input type="radio" name="level-toggle" id="sk4" value="Swim Kids 4">
-		<label for="sk5">SK 5</label><input type="radio" name="level-toggle" id="sk5" value="Swim Kids 5">
-		<label for="sk6">SK 6</label><input type="radio" name="level-toggle" id="sk6" value="Swim Kids 6">
-		<label for="sk7">SK 7</label><input type="radio" name="level-toggle" id="sk7" value="Swim Kids 7">
-		<label for="sk8">SK 8</label><input type="radio" name="level-toggle" id="sk8" value="Swim Kids 8">
-		<label for="sk9">SK 9</label><input type="radio" name="level-toggle" id="sk9" value="Swim Kids 9">
-		<label for="sk10">SK 10</label><input type="radio" name="level-toggle" id="sk10" value="Swim Kids 10">
-	</div>
+	<div id="level-wrapper">
+		<div id="swim-kids-wrapper">
+			<input type="radio" name="level-toggle" id="sk1" value="Swim Kids 1"><label for="sk1">SK 1</label>
+			<input type="radio" name="level-toggle" id="sk2" value="Swim Kids 2"><label for="sk2">SK 2</label>
+			<input type="radio" name="level-toggle" id="sk3" value="Swim Kids 3"><label for="sk3">SK 3</label>
+			<input type="radio" name="level-toggle" id="sk4" value="Swim Kids 4"><label for="sk4">SK 4</label>
+			<input type="radio" name="level-toggle" id="sk5" value="Swim Kids 5"><label for="sk5">SK 5</label>
+			<input type="radio" name="level-toggle" id="sk6" value="Swim Kids 6"><label for="sk6">SK 6</label>
+			<input type="radio" name="level-toggle" id="sk7" value="Swim Kids 7"><label for="sk7">SK 7</label>
+			<input type="radio" name="level-toggle" id="sk8" value="Swim Kids 8"><label for="sk8">SK 8</label>
+			<input type="radio" name="level-toggle" id="sk9" value="Swim Kids 9"><label for="sk9">SK 9</label>
+			<input type="radio" name="level-toggle" id="sk10" value="Swim Kids 10"><label for="sk10">SK 10</label>
+		</div>
 
-	<div id="swim-preschool-wrapper">
-		<label for="starfish">Starfish</label><input type="radio" name="level-toggle" id="starfish"> 
-		<label for="duck">Duck</label><input type="radio" name="level-toggle" id="duck"> 
-		<label for="sea-turtle">Sea turtle</label><input type="radio" name="level-toggle" id="sea-turtle"> 
-		<label for="sea-otter">Sea otter</label><input type="radio" name="level-toggle" id="sea-otter">
-		<label for="salamander">Salamander</label><input type="radio" name="level-toggle" id="salamander">
-		<label for="sunfish">Sunfish</label><input type="radio" name="level-toggle" id="sunfish">
-		<label for="crocodile">Crocodile</label><input type="radio" name="level-toggle" id="crocodile">
-		<label for="whale">Whale</label><input type="radio" name="level-toggle" id="whale">
+		<div id="preschool-wrapper">
+			<label for="starfish">Starfish</label><input type="radio" name="level-toggle" value="starfish" id="starfish"> 
+			<label for="duck">Duck</label><input type="radio" name="level-toggle" value="duck" id="duck"> 
+			<label for="sea-turtle">Sea turtle</label><input type="radio" name="level-toggle" value="sea-turtle" id="sea-turtle"> 
+			<label for="sea-otter">Sea otter</label><input type="radio" name="level-toggle" value="sea-otter" id="sea-otter">
+			<label for="salamander">Salamander</label><input type="radio" name="level-toggle" value="salamander" id="salamander">
+			<label for="sunfish">Sunfish</label><input type="radio" name="level-toggle" value="sunfish" id="sunfish">
+			<label for="crocodile">Crocodile</label><input type="radio" name="level-toggle" value="crocodile" id="crocodile">
+			<label for="whale">Whale</label><input type="radio" name="level-toggle" value="whale" id="whale">
+		</div>
 	</div>
 </template> 

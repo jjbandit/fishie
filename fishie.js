@@ -19,13 +19,13 @@ if (Meteor.isClient) {
 		'submit form' : function() {
 			event.preventDefault();
 
-			// TODO Submit new event based on radio selection
-			console.log(event);
+			hour = $('input[name=time-toggle]:checked', '#hour-wrapper').val();
+			minute = $('input[name=minute-toggle]:checked', '#minute-wrapper').val();
+			amPm = $('input[name=am-pm-toggle]:checked', '#am-pm-wrapper').val();
 
-			level = event.target.level-toggle.value;
-			time = event.target.time-toggle.value;
+			level = $('input[name=level-toggle]:checked', '#level-wrapper').val();
 
-			console.log(level);
+			Meteor.call('createClass', level, hour, minute, amPm);
 		}
 	});
 	
@@ -34,10 +34,12 @@ if (Meteor.isClient) {
 
 Meteor.methods ({
 
-	createClass: function(level, time) {
+	createClass: function(level, hour, minute, amPm) {
 		Classes.insert ({
 			level: level,
-			createdAt: new Date()
+			hour: hour,
+			minute: minute,
+			amPm: amPm
 		});
 	},
 
