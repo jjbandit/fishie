@@ -18,9 +18,7 @@
 <template name="class">
 	<div id="{{level}}">
 		{{level}}
-		{{hour}}
-		{{minute}}
-		{{amPm}}
+		{{time}}
 	</div>
 </template> 
 
@@ -62,8 +60,8 @@
 		</div>
 
 		<div id="am-pm-wrapper" class="form-field-wrapper">
-			<input type="radio" name="am-pm-toggle" id="AM" class="first" value="AM"><label for="AM">AM</label><!--
-			--><input type="radio" name="am-pm-toggle" id="PM" class="last" value="PM"><label for="PM">PM</label>
+			<input type="radio" name="am-pm-toggle" id="AM" class="first" value="0"><label for="AM">AM</label><!--
+			--><input type="radio" name="am-pm-toggle" id="PM" class="last" value="1"><label for="PM">PM</label>
 		</div>
 
 	</div>
@@ -85,14 +83,14 @@
 		</div>
 
 		<div id="preschool-wrapper" class="form-field-wrapper">
-			<input type="radio" name="level-toggle" class="first" value="starfish" id="starfish"><label for="starfish">Starfish</label><!--
-			--><input type="radio" name="level-toggle" value="duck" id="duck"><label for="duck">Duck</label><!--
-			--><input type="radio" name="level-toggle" value="sea-turtle" id="sea-turtle"><label for="sea-turtle">Sea turtle</label><!--
-			--><input type="radio" name="level-toggle" value="sea-otter" id="sea-otter"><label for="sea-otter">Sea otter</label><!--
-			--><input type="radio" name="level-toggle" value="salamander" id="salamander"><label for="salamander">Salamander</label><!--
-			--><input type="radio" name="level-toggle" value="sunfish" id="sunfish"><label for="sunfish">Sunfish</label><!--
-			--><input type="radio" name="level-toggle" value="crocodile" id="crocodile"><label for="crocodile">Crocodile</label><!--
-			--><input type="radio" name="level-toggle" class="last" value="whale" id="whale"><label for="whale">Whale</label>
+			<input type="radio" name="level-toggle" class="first" value="Starfish" id="starfish"><label for="starfish">Starfish</label><!--
+			--><input type="radio" name="level-toggle" value="Duck" id="duck"><label for="duck">Duck</label><!--
+			--><input type="radio" name="level-toggle" value="Sea Turtle" id="sea-turtle"><label for="sea-turtle">Sea Turtle</label><!--
+			--><input type="radio" name="level-toggle" value="Sea Otter" id="sea-otter"><label for="sea-otter">Sea Otter</label><!--
+			--><input type="radio" name="level-toggle" value="Salamander" id="salamander"><label for="salamander">Salamander</label><!--
+			--><input type="radio" name="level-toggle" value="Sunfish" id="sunfish"><label for="sunfish">Sunfish</label><!--
+			--><input type="radio" name="level-toggle" value="Crocodile" id="crocodile"><label for="crocodile">Crocodile</label><!--
+			--><input type="radio" name="level-toggle" class="last" value="Whale" id="whale"><label for="whale">Whale</label>
 		</div>
 	</div>
 </template> 

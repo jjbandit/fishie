@@ -17,15 +17,31 @@ if (Meteor.isClient) {
 
 	Template.createClass.events ({
 		'submit form' : function() {
+			// Prevent form submit
 			event.preventDefault();
 
-			hour = $('input[name=time-toggle]:checked', '#hour-wrapper').val();
-			minute = $('input[name=minute-toggle]:checked', '#minute-wrapper').val();
-			amPm = $('input[name=am-pm-toggle]:checked', '#am-pm-wrapper').val();
+			// Set time for lesson
+			var time = new Date;
+
+			// Get values from radio buttons and convert to integers
+			hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
+			minute = parseInt($('input[name=minute-toggle]:checked', '#minute-wrapper').val());
+			Pm = parseInt($('input[name=am-pm-toggle]:checked', '#am-pm-wrapper').val());
+
+			// Convert PM times to 24h
+			if (Pm) {
+				hour=hour+12;
+			};
+
+			time.setHours(hour);
+			time.setMinutes(minute);
+			// Set seconds/milliseconds for sorting
+			time.setSeconds(0);
+			time.setMilliseconds(0);
 
 			level = $('input[name=level-toggle]:checked', '#level-wrapper').val();
 
-			Meteor.call('createClass', level, hour, minute, amPm);
+			Meteor.call('createClass', level, time);
 		}
 	});
 	
@@ -34,12 +50,14 @@ if (Meteor.isClient) {
 
 Meteor.methods ({
 
-	createClass: function(level, hour, minute, amPm) {
+	createClass: function(level, time) {
+
+		check(level, String);
+		check(time, Date);
+
 		Classes.insert ({
 			level: level,
-			hour: hour,
-			minute: minute,
-			amPm: amPm
+			time: time
 		});
 	},
 
