@@ -1,16 +1,39 @@
 /* CSS declarations go here */
 
+	/* Layout */
+.form-wrapper {
+  margin-bottom: 15px;
+}
+
+.form-field-wrapper {
+  margin-top: 5px;
+}
+
+	/* Button styles */
 input[type='radio'] {
 	display: none;
 }
 
+input[type='radio'].first + label  {	
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-left: 1px solid black;
+}
+input[type='radio'].last + label  {	
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-right: 1px solid black;
+}
+
 input[type='radio'] + label {
-	outline: 1px solid black;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
 	display: inline-block;
-	width: 60px;
-	height: 40px;
+	position: relative;
+	text-align: center;
+	padding: 0.8em 1.2em;
 }
 
 input[type='radio']:checked + label {
-	background-color: red;
+	background-color: #E0F0FF;
 }
