@@ -51,7 +51,7 @@ if (Meteor.isClient) {
 Meteor.methods ({
 
 	createClass: function(level, time) {
-
+		// Minimilist validation
 		check(level, String);
 		check(time, Date);
 
@@ -63,6 +63,10 @@ Meteor.methods ({
 
 	clearClasses: function() {
 				Classes.remove({})
+	},
+
+	createInstructor: function() {
+		Instructor.inse
 	}
 }); 
 
