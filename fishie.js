@@ -19,10 +19,14 @@ if (Meteor.isClient) {
 		}
 	});
 
+	Template.instructor.helpers ({
+		showClasses: function() {
+		}
+	});
+	
+	
+
 	Template.createInstructor.events ({
-		'click .create-instructor' : function () {
-			Meteor.call('createInstructor');
-		},
 		'click .clear-instructor': function() {
 			Meteor.call('clearInstructors');
 		}
@@ -55,7 +59,9 @@ if (Meteor.isClient) {
 
 			level = $('input[name=level-toggle]:checked', '#level-wrapper').val();
 
-			Meteor.call('createClass', level, time);
+			classID = new Meteor.Collection.ObjectID();
+
+			Meteor.call('createClass', level, time, classID);
 		}
 	});
 	
@@ -64,14 +70,67 @@ if (Meteor.isClient) {
 
 Meteor.methods ({
 
-	createClass: function(level, time) {
+	createClass: function(level, time, classID) {
 		// Minimilist validation
 		check(level, String);
 		check(time, Date);
+		check(classID, Meteor.Collection.ObjectID);
+		
+		// Convert the ID object to a string
+		// so we don't have to fuck around with a callback
+		strClassID = classID._str;
 
-		Classes.insert ({
+		newClass = Classes.insert ({
 			level: level,
-			time: time
+			time: time,
+			_id: strClassID
+		});
+
+		Meteor.call('sortNewClass', classID);
+	},
+
+	sortNewClass: function(classID) {
+		newClass = Classes.findOne(classID._str);
+
+		inst = Instructors.find({});
+
+		// Initialize Instructors collection
+		if (inst.count() == 0) {
+			instID = new Meteor.Collection.ObjectID();
+			Meteor.call('createInstructor', instID, newClass);
+			return;
+		}
+
+		// TODO Fix these for preformance
+		// nested forEach loops.. fuck.
+		inst.forEach(
+
+			function  (instr) {
+				instr.classList.forEach(
+
+					function (eachClass) {
+						console.log(eachClass.time);
+						if (eachClass.time.getTime() == newClass.time.getTime()) {
+							instID = new Meteor.Collection.ObjectID();
+							Meteor.call('createInstructor', instID, newClass); } }		
+				);
+
+			}
+		);
+
+	},
+
+		// accepts optional ObjectID and Class object to initialize classList
+	createInstructor: function(instID, initClass) {
+		// check if an ID is passed in and create one if not
+		if (instID == null) {
+			instID = new Meteor.Collection.ObjectID();
+		}
+
+		Instructors.insert ({
+			name: 'Instructor ' + (Instructors.find().count() + 1),
+			classList: [initClass],
+			_id: instID,
 		});
 	},
 
@@ -79,20 +138,17 @@ Meteor.methods ({
 				Classes.remove({})
 	},
 
-	createInstructor: function() {
-		Instructors.insert ({
-			name: 'Instructor ' + (Instructors.find().count() + 1)
-		});
-	},
 	clearInstructors: function() {
 		Instructors.remove({});
 	}
 }); 
 
 if (Meteor.isServer) {
+
   Meteor.startup(function () {
     // code to run on server at startup
   });
+	
 
 	// Meteor.publish("classes",  function() {
 	// 	return Classes.find()
