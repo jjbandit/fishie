@@ -1,4 +1,5 @@
 Classes = new Mongo.Collection("classes");
+Instructors = new Mongo.Collection("instructors");
 
 if (Meteor.isClient) {
 	// Meteor.subscribe("classes");
@@ -7,6 +8,9 @@ if (Meteor.isClient) {
 		classes: function() {
 			return Classes.find();
 		},
+		instructors: function() {
+			return Instructors.find();
+		}
 	});
 
 	Template.body.events ({
@@ -15,6 +19,16 @@ if (Meteor.isClient) {
 		}
 	});
 
+	Template.createInstructor.events ({
+		'click .create-instructor' : function () {
+			Meteor.call('createInstructor');
+		},
+		'click .clear-instructor': function() {
+			Meteor.call('clearInstructors');
+		}
+	});
+	
+	
 	Template.createClass.events ({
 		'submit form' : function() {
 			// Prevent form submit
@@ -51,7 +65,7 @@ if (Meteor.isClient) {
 Meteor.methods ({
 
 	createClass: function(level, time) {
-
+		// Minimilist validation
 		check(level, String);
 		check(time, Date);
 
@@ -63,6 +77,15 @@ Meteor.methods ({
 
 	clearClasses: function() {
 				Classes.remove({})
+	},
+
+	createInstructor: function() {
+		Instructors.insert ({
+			name: 'Instructor ' + (Instructors.find().count() + 1)
+		});
+	},
+	clearInstructors: function() {
+		Instructors.remove({});
 	}
 }); 
 

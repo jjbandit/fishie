@@ -6,14 +6,21 @@
   <h1>Fishie</h1>
 	
 	{{> createClass }}
+	{{> createInstructor }}
+
+	{{#each instructors}}
+	 {{> instructor}}
+	{{/each}}
 
 	{{#each classes}}
 		{{> class}}
 	{{/each}}
 
-	<button type="button" class="clear"> Clear Classes </button>
+	<button type="button" class="clear form-wrapper"> Clear Classes </button>
 
 </body>
+
+
 
 <template name="class">
 	<div id="{{level}}">
@@ -21,6 +28,17 @@
 		{{time}}
 	</div>
 </template> 
+
+<template name="createInstructor">
+	<div id="instructor-create" class="form-wrapper">
+		<input type="button" class="create-instructor" name="create-instructor" value="Create Instructor" />
+		<input type="button" class="clear-instructor" name="clear-instructor" value="Clear Instructors" />
+	</div>
+</template>
+
+<template name="instructor">
+	{{name}}
+</template>
 
 <template name="createClass">
 	<form>
