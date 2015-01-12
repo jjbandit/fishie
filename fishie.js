@@ -92,40 +92,62 @@ Meteor.methods ({
 	sortNewClass: function(classID) {
 		newClass = Classes.findOne(classID._str);
 
-		inst = Instructors.find({});
+		instCursor = Instructors.find({});
 
 		// Initialize Instructors collection
-		if (inst.count() == 0) {
+		if (instCursor.count() == 0) {
 			instID = new Meteor.Collection.ObjectID();
-			Meteor.call('createInstructor', instID, newClass);
+			Meteor.call('createInstructor', newClass, instID);
 			return;
 		}
 
+
+
 		// TODO Fix these for preformance
 		// nested forEach loops.. fuck.
-		inst.forEach(
+
+		instCursor.forEach(
 
 			function  (instr) {
-				instr.classList.forEach(
 
+				// Assume there is a slot
+				var slotAvailable = true;
+
+				instr.classList.forEach(
 					function (eachClass) {
-						console.log(eachClass.time);
 						if (eachClass.time.getTime() == newClass.time.getTime()) {
-							instID = new Meteor.Collection.ObjectID();
-							Meteor.call('createInstructor', instID, newClass); } }		
+							slotAvailable = false;
+							return;
+						} else {
+						}
+					}
 				);
 
+				if (slotAvailable) {
+					instr.classList.push(newClass);
+					console.log(instr.classList);
+					console.log('Slot');
+					slotAvailable = true;
+				} else {
+					Meteor.call('createInstructor', newClass, null);
+					console.log('noSlot');
+				}
 			}
+
+			
 		);
 
 	},
 
 		// accepts optional ObjectID and Class object to initialize classList
-	createInstructor: function(instID, initClass) {
+	createInstructor: function(initClass, instID) {
 		// check if an ID is passed in and create one if not
 		if (instID == null) {
 			instID = new Meteor.Collection.ObjectID();
 		}
+
+		// TODO Validate with check()
+		// figure out how to use class objects; Prototype?
 
 		Instructors.insert ({
 			name: 'Instructor ' + (Instructors.find().count() + 1),
