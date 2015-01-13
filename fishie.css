@@ -1,6 +1,16 @@
 /* CSS declarations go here */
 
-	/* Layout */
+	/* Instructor Layout */
+
+#instructor {
+  margin-top: 15px;
+}
+
+#instructor #class-list {
+	padding-left: 10px;
+}
+
+	/* Form Layout */
 .form-wrapper {
   margin-bottom: 15px;
 }

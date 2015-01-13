@@ -21,6 +21,7 @@ if (Meteor.isClient) {
 
 	Template.instructor.helpers ({
 		showClasses: function() {
+			return 'this is a class!';
 		}
 	});
 	
@@ -95,8 +96,6 @@ Meteor.methods ({
 		classTime = classObj.time;
 		instCursor = Instructors.find({});
 
-		// assume there is a time slot
-		timeAvailable = true;
 
 		// cannot break out of the forEach function :/
 		// so we have to keep track of whether or not the class
@@ -107,6 +106,9 @@ Meteor.methods ({
 		// a class at the new class time
 		// TODO  Implement checking for class length
 		instCursor.forEach( function(instr) {
+
+			// assume there is a time slot
+			timeAvailable = true;
 
 			// Loop through class times looking for a match
 			instr.classTimes.forEach( function(ct) {

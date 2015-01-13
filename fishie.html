@@ -11,9 +11,9 @@
 	 {{> instructor}}
 	{{/each}}
 
-	{{#each classes}}
-		{{> swimClass}}
-	{{/each}}
+	<!-- {{#each classes}} -->
+	<!-- 	{{> swimClass}} -->
+	<!-- {{/each}} -->
 
 	<div id="clear-button">
 		<button type="button" class="clear form-wrapper"> Clear Classes </button>
@@ -25,9 +25,13 @@
 
 
 <template name="swimClass">
-	<div id="{{level}}">
-		{{level}}
-		{{time}}
+	<div id="swim-class">
+		<div id="level">
+			{{level}}
+		</div>
+		<div id="time">
+			{{time}}
+		</div>
 	</div>
 </template> 
 
@@ -38,8 +42,15 @@
 </template>
 
 <template name="instructor">
-	{{name}}
-	{{showClasses}}
+	<div id="instructor">
+		{{name}}
+		<div id="class-list">
+			{{#each classList}}
+				{{> swimClass}}
+			{{/each}}
+		</div>
+	</div>
+	<!-- {{showClasses}} -->
 </template>
 
 <template name="createClass">
@@ -52,7 +63,6 @@
 		</div>
 	</form>
 </template>
-
 
 <template name="timeSelector">
 	<div id="time-wrapper" class="form-wrapper">
