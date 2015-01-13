@@ -90,55 +90,53 @@ Meteor.methods ({
 	},
 
 	sortNewClass: function(classID) {
-		// Class Object
+
 		classObj = Classes.findOne(classID._str);
+		classTime = classObj.time;
 		instCursor = Instructors.find({});
 
-		// Initialize Instructors collection if empty
-		if (instCursor.count() == 0) {
-			instID = new Meteor.Collection.ObjectID();
-			Meteor.call('createInstructor', instID);
-		}
+		// assume there is a time slot
+		timeAvailable = true;
+
+		// cannot break out of the forEach function :/
+		// so we have to keep track of whether or not the class
+		// has been assigned to an instructor
+		classAssigned = false;
 
 		// Loop through instructors to find one that doesn't already have
 		// a class at the new class time
-
-		classTime = classObj.time;
-
-		console.log(classTime);
-
+		// TODO  Implement checking for class length
 		instCursor.forEach( function(instr) {
 
-			// if the current instr doesn't have a class at this time add it to their shit
-			// TODO This if doesn't work, fix it
-			if (instr.classTimes.indexOf(classObj.time) < 0) {
-				Instructors.update(instr._id, {$push: {classTimes: classObj.time, classList: classObj}});
-				console.log('updated instr');
-				return;
-			} else {
-				console.log('need a new instr');
-			}
+			// Loop through class times looking for a match
+			instr.classTimes.forEach( function(ct) {
+				if (ct.getTime() == classObj.time.getTime()) {
+					timeAvailable = false;
+				}
+			});
 
+			// If the current instructor has a time slot available and
+			// the class hasn't already been assigned assign it to this instr
+			if (timeAvailable && !classAssigned) {
+				Instructors.update(instr._id, {$push: {classTimes: classObj.time, classList: classObj}});
+				classAssigned = true;
+			}
 		});
 
-			// Meteor.call('addClassToInst', classObj, Instructors.findOne(instID._str));
+		// if the class didn't get assigned during the previous loops
+		// create a new instructor and assign it
+		if (!classAssigned) {
+		Meteor.call('createAndInitInstructor', classObj);
+		}
 	},
 
-	// addClassToInst: function(classObj, inst) {
-	// 	console.log('yay');
-	// 	console.log(classObj);
-	// 	console.log(inst);
-	// },
-
 		// accepts optional ObjectID and Class object to initialize classList
-	createInstructor: function(instID) {
+	createInstructor: function(instID, initClass) {
 		// check if an ID is passed in and create one if not
+		// figure out how to use class objects; Prototype?
 		if (instID == null) {
 			instID = new Meteor.Collection.ObjectID();
 		}
-
-		// TODO Validate with check()
-		// figure out how to use class objects; Prototype?
 
 		Instructors.insert ({
 			name: 'Instructor ' + (Instructors.find().count() + 1),
@@ -146,7 +144,16 @@ Meteor.methods ({
 			// because a nested forEach looop sucks
 			classTimes: [],
 			classList: [],
-			_id: instID,
+			_id: instID
+		});
+	},
+	createAndInitInstructor: function(initClass) {
+		Instructors.insert ({
+			name: 'Instructor ' + (Instructors.find().count() + 1),
+			// Keep track of what time each instr has classes at
+			// because a nested forEach looop sucks
+			classTimes: [initClass.time],
+			classList: [initClass],
 		});
 	},
 
@@ -163,6 +170,13 @@ if (Meteor.isServer) {
 
   Meteor.startup(function () {
     // code to run on server at startup
+		instCursor = Instructors.find({});
+
+		// Initialize Instructors collection if empty
+		if (instCursor.count() == 0) {
+			instID = new Meteor.Collection.ObjectID();
+			Meteor.call('createInstructor', instID);
+		}
   });
 	
 
