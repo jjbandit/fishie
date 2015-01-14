@@ -40,7 +40,7 @@ if (Meteor.isClient) {
 			event.preventDefault();
 
 			// Set time for lesson
-			var time = new Date;
+			var startTime = new Date;
 
 			// Get values from radio buttons and convert to integers
 			hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
@@ -52,17 +52,18 @@ if (Meteor.isClient) {
 				hour=hour+12;
 			};
 
-			time.setHours(hour);
-			time.setMinutes(minute);
+			startTime.setHours(hour);
+			startTime.setMinutes(minute);
 			// Set seconds/milliseconds for sorting
-			time.setSeconds(0);
-			time.setMilliseconds(0);
+			startTime.setSeconds(0);
+			startTime.setMilliseconds(0);
 
 			level = $('input[name=level-toggle]:checked', '#level-wrapper').val();
+			length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
 
 			classID = new Meteor.Collection.ObjectID();
 
-			Meteor.call('createClass', level, time, classID);
+			Meteor.call('createClass', level, startTime, length, classID);
 		}
 	});
 	
@@ -71,10 +72,11 @@ if (Meteor.isClient) {
 
 Meteor.methods ({
 
-	createClass: function(level, time, classID) {
+	createClass: function(level, startTime, length, classID) {
 		// Minimilist validation
 		check(level, String);
-		check(time, Date);
+		check(startTime, Date);
+		check(length, Number);
 		check(classID, Meteor.Collection.ObjectID);
 		
 		// Convert the ID object to a string
@@ -83,8 +85,9 @@ Meteor.methods ({
 
 		Classes.insert ({
 			level: level,
-			time: time,
-			_id: strClassID
+			startTime: startTime,
+			length: length,
+			_id: strClassID,
 		});
 
 		Meteor.call('sortNewClass', classID);
@@ -93,8 +96,8 @@ Meteor.methods ({
 	sortNewClass: function(classID) {
 
 		classObj = Classes.findOne(classID._str);
-		classTime = classObj.time;
-		instCursor = Instructors.find({});
+		startTime = classObj.startTime;
+		instCursor = Instructors.find({}, {sort: {name: 1}});
 
 
 		// cannot break out of the forEach function :/
@@ -112,7 +115,7 @@ Meteor.methods ({
 
 			// Loop through class times looking for a match
 			instr.classTimes.forEach( function(ct) {
-				if (ct.getTime() == classObj.time.getTime()) {
+				if (ct.getTime() == classObj.startTime.getTime()) {
 					timeAvailable = false;
 				}
 			});
@@ -120,7 +123,7 @@ Meteor.methods ({
 			// If the current instructor has a time slot available and
 			// the class hasn't already been assigned assign it to this instr
 			if (timeAvailable && !classAssigned) {
-				Instructors.update(instr._id, {$push: {classTimes: classObj.time, classList: classObj}});
+				Instructors.update(instr._id, {$push: {classTimes: classObj.startTime, classList: classObj}});
 				classAssigned = true;
 			}
 		});
@@ -154,7 +157,7 @@ Meteor.methods ({
 			name: 'Instructor ' + (Instructors.find().count() + 1),
 			// Keep track of what time each instr has classes at
 			// because a nested forEach looop sucks
-			classTimes: [initClass.time],
+			classTimes: [initClass.startTime],
 			classList: [initClass],
 		});
 	},
