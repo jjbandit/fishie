@@ -28,8 +28,8 @@
 		<div id="time">
 			{{startTime}}
 		</div>
-		<div id="length">
-			{{length}}
+		<div id="end-time">
+			{{endTime}}
 		</div>
 	</div>
 </template> 
@@ -92,14 +92,11 @@
 			--><input type="radio" name="am-pm-toggle" id="PM" class="last" value="1"><label for="PM">PM</label>
 		</div>
 
-
+		<div id="length-wrapper" class='form-field-wrapper'>
+			<input type="radio" name="length-toggle" id="30-min" class="first" value="29"><label for="30-min">30 Min</label><!--
+			--><input type="radio" name="length-toggle" id="45-min" class="last" value="44"><label for="45-min">45 Min</label>
+		</div>
 	</div>
-
-	<div id="length-wrapper" class='form-field-wrapper'>
-		<input type="radio" name="length-toggle" id="30-min" class="first" value="29"><label for="30-min">30 Min</label><!--
-		--><input type="radio" name="length-toggle" id="45-min" class="last" value="44"><label for="45-min">45 Min</label>
-	</div>
-
 </template>
 
 <template name="levelSelector">

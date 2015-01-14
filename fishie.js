@@ -66,8 +66,6 @@ if (Meteor.isClient) {
 			Meteor.call('createClass', level, startTime, length, classID);
 		}
 	});
-	
-	
 }
 
 Meteor.methods ({
@@ -83,10 +81,15 @@ Meteor.methods ({
 		// so it parses correctly
 		strClassID = classID._str;
 
+		// Set the end time to the start time + the length of the class
+		var endTime = new Date(startTime.toJSON());
+		endTime.setMinutes(startTime.getMinutes() + length);
+
 		Classes.insert ({
 			level: level,
 			startTime: startTime,
 			length: length,
+			endTime: endTime,
 			_id: strClassID,
 		});
 
@@ -115,7 +118,7 @@ Meteor.methods ({
 
 			// Loop through class times looking for a match
 			instr.classTimes.forEach( function(ct) {
-				if (ct.getTime() == classObj.startTime.getTime()) {
+				if (ct.getTime() == classObj.startTime.getTime()) { 
 					timeAvailable = false;
 				}
 			});
