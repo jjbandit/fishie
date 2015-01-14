@@ -27,7 +27,7 @@ if (Meteor.isClient) {
 	
 	
 
-	Template.createInstructor.events ({
+	Template.clearButtons.events ({
 		'click .clear-instructor': function() {
 			Meteor.call('clearInstructors');
 		}
@@ -117,7 +117,6 @@ Meteor.methods ({
 		startTime = classObj.startTime;
 		instCursor = Instructors.find({}, {sort: {name: 1}});
 
-
 		// cannot break out of the forEach function :/
 		// so we have to keep track of whether or not the class
 		// has been assigned to an instructor
@@ -141,7 +140,7 @@ Meteor.methods ({
 			// If the current instructor has a time slot available and
 			// the class hasn't already been assigned assign it to this instr
 			if (timeAvailable && !classAssigned) {
-				Instructors.update(instr._id, {$push: { classList: classObj}});
+				Instructors.update(instr._id, {$push: { classList: classObj }});
 				classAssigned = true;
 			}
 		});
@@ -196,7 +195,7 @@ if (Meteor.isServer) {
 		// Initialize Instructors collection if empty
 		if (instCursor.count() == 0) {
 			instID = new Meteor.Collection.ObjectID();
-			Meteor.call('createInstructor', instID);
+			Meteor.call('clearButtons', instID);
 		}
   });
 	

@@ -11,10 +11,8 @@
 	 {{> instructor}}
 	{{/each}}
 
-	<div id="clear-buttons">
-		<button type="button" class="clear form-wrapper"> Clear Classes </button>
-	</div>
-	{{> createInstructor }}
+
+	{{> clearButtons }}
 
 </body>
 
@@ -34,9 +32,12 @@
 	</div>
 </template> 
 
-<template name="createInstructor">
+<template name="clearButtons">
 	<div id="instructor-create" class="form-wrapper">
 		<input type="button" class="clear-instructor" name="clear-instructor" value="Clear Instructors" />
+	</div>
+	<div id="clear-buttons" class="form-wrapper">
+		<button type="button" class="clear form-wrapper"> Clear Classes </button>
 	</div>
 </template>
 
