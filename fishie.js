@@ -33,6 +33,19 @@ if (Meteor.isClient) {
 		}
 	});
 	
+
+		function Lesson (level, startTime, length) {
+		this.level = level;
+		this.length = length;
+		this.startTime = startTime;
+
+		// Set the end time to the start time + the length of the class
+		endTime = function() {
+			new Date(startTime.toJSON());
+			endTime.setMinutes(startTime.getMinutes() + length);
+		};
+	}
+	
 	
 	Template.createClass.events ({
 		'submit form' : function() {
@@ -40,7 +53,7 @@ if (Meteor.isClient) {
 			event.preventDefault();
 
 			// Set time for lesson
-			var startTime = new Date;
+			var startTime = new Date();
 
 			// Get values from radio buttons and convert to integers
 			hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
