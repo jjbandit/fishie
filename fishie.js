@@ -34,17 +34,6 @@ if (Meteor.isClient) {
 	});
 	
 
-		function Lesson (level, startTime, length) {
-		this.level = level;
-		this.length = length;
-		this.startTime = startTime;
-
-		// Set the end time to the start time + the length of the class
-		endTime = function() {
-			new Date(startTime.toJSON());
-			endTime.setMinutes(startTime.getMinutes() + length);
-		};
-	}
 	
 	
 	Template.createClass.events ({
@@ -79,6 +68,19 @@ if (Meteor.isClient) {
 			Meteor.call('createClass', level, startTime, length, classID);
 		}
 	});
+
+		// Lesson = function (level, startTime, length) {
+		// this.level = level;
+		// this.length = length;
+		// this.startTime = startTime;
+
+		// // Set the end time to the start time + the length of the class
+		// endTime = function() {
+		// 	new Date(startTime.toJSON());
+		// 	endTime.setMinutes(startTime.getMinutes() + length);
+		// };
+		// Meteor.call('createClass', level, startTime, length, classID);
+	// }
 }
 
 Meteor.methods ({
@@ -130,8 +132,8 @@ Meteor.methods ({
 			timeAvailable = true;
 
 			// Loop through class times looking for a match
-			instr.classTimes.forEach( function(ct) {
-				if (ct.getTime() == classObj.startTime.getTime()) { 
+			instr.classList.forEach( function(ct) {
+				if (ct.startTime.getTime() == classObj.startTime.getTime()) { 
 					timeAvailable = false;
 				}
 			});
@@ -139,7 +141,7 @@ Meteor.methods ({
 			// If the current instructor has a time slot available and
 			// the class hasn't already been assigned assign it to this instr
 			if (timeAvailable && !classAssigned) {
-				Instructors.update(instr._id, {$push: {classTimes: classObj.startTime, classList: classObj}});
+				Instructors.update(instr._id, {$push: { classList: classObj}});
 				classAssigned = true;
 			}
 		});
@@ -163,7 +165,6 @@ Meteor.methods ({
 			name: 'Instructor ' + (Instructors.find().count() + 1),
 			// Keep track of what time each instr has classes at
 			// because a nested forEach looop sucks
-			classTimes: [],
 			classList: [],
 			_id: instID
 		});
@@ -173,7 +174,6 @@ Meteor.methods ({
 			name: 'Instructor ' + (Instructors.find().count() + 1),
 			// Keep track of what time each instr has classes at
 			// because a nested forEach looop sucks
-			classTimes: [initClass.startTime],
 			classList: [initClass],
 		});
 	},
