@@ -7,10 +7,9 @@
 	
 	{{> createClass }}
 
-	{{#each instructors}}
-	 {{> instructor}}
+	{{#each lessons}}
+		{{> lesson}}
 	{{/each}}
-
 
 	{{> clearButtons }}
 
@@ -18,7 +17,7 @@
 
 
 
-<template name="swimClass">
+<template name="lesson">
 	<div id="swim-class">
 		<div id="level">
 			{{level}}
@@ -33,25 +32,11 @@
 </template> 
 
 <template name="clearButtons">
-	<div id="instructor-create" class="form-wrapper">
-		<input type="button" class="clear-instructor" name="clear-instructor" value="Clear Instructors" />
-	</div>
 	<div id="clear-buttons" class="form-wrapper">
 		<button type="button" class="clear form-wrapper"> Clear Classes </button>
 	</div>
 </template>
 
-<template name="instructor">
-	<div id="instructor">
-		{{name}}
-		<div id="class-list">
-			{{#each classList}}
-				{{> swimClass}}
-			{{/each}}
-		</div>
-	</div>
-	<!-- {{showClasses}} -->
-</template>
 
 <template name="createClass">
 	<form>

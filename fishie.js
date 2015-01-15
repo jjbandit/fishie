@@ -1,27 +1,17 @@
-Classes = new Mongo.Collection("classes");
-Instructors = new Mongo.Collection("instructors");
+Lessons = new Mongo.Collection("lessons");
 
 if (Meteor.isClient) {
 	// Meteor.subscribe("classes");
 
 	Template.body.helpers ({
-		classes: function() {
-			return Classes.find();
-		},
-		instructors: function() {
-			return Instructors.find();
+		lessons: function() {
+			return Lessons.find();
 		}
 	});
 
 	Template.body.events ({
 		'click .clear' : function() {
-				Meteor.call("clearClasses");
-		}
-	});
-
-	Template.instructor.helpers ({
-		showClasses: function() {
-			return 'this is a class!';
+				Meteor.call("clearLessons");
 		}
 	});
 	
@@ -33,6 +23,9 @@ if (Meteor.isClient) {
 		}
 	});
 	
+	getVal = function (key) {
+		return this.key;
+	}
 
 	
 	
@@ -63,144 +56,70 @@ if (Meteor.isClient) {
 			level = $('input[name=level-toggle]:checked', '#level-wrapper').val();
 			length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
 
-			classID = new Meteor.Collection.ObjectID();
+			lessonID = new Meteor.Collection.ObjectID();
 
-			Meteor.call('createClass', level, startTime, length, classID);
+			Meteor.call('createClass', level, startTime, length, lessonID);
 		}
 	});
-
-		// Lesson = function (level, startTime, length) {
-		// this.level = level;
-		// this.length = length;
-		// this.startTime = startTime;
-
-		// // Set the end time to the start time + the length of the class
-		// endTime = function() {
-		// 	new Date(startTime.toJSON());
-		// 	endTime.setMinutes(startTime.getMinutes() + length);
-		// };
-		// Meteor.call('createClass', level, startTime, length, classID);
-	// }
 }
 
 Meteor.methods ({
 
-	createClass: function(level, startTime, length, classID) {
+	createClass: function(level, startTime, length, lessonID) {
 		// Minimilist validation
 		check(level, String);
 		check(startTime, Date);
 		check(length, Number);
-		check(classID, Meteor.Collection.ObjectID);
+		check(lessonID, Meteor.Collection.ObjectID);
 		
 		// Convert the ID object to a string
 		// so it parses correctly
-		strClassID = classID._str;
+		strLessonID = lessonID._str;
 
 		// Set the end time to the start time + the length of the class
 		var endTime = new Date(startTime.toJSON());
 		endTime.setMinutes(startTime.getMinutes() + length);
 
-		Classes.insert ({
+		Lessons.insert ({
 			level: level,
 			startTime: startTime,
 			length: length,
 			endTime: endTime,
-			_id: strClassID,
+			_id: strLessonID,
 		});
 
-		Meteor.call('sortNewClass', classID);
+		Meteor.call('sortNewClass', lessonID);
 	},
 
-	sortNewClass: function(classID) {
+	sortNewClass: function(newLessonID) {
 
-		classObj = Classes.findOne(classID._str);
-		startTime = classObj.startTime;
-		instCursor = Instructors.find({}, {sort: {name: 1}});
+		newLessonID_str = newLessonID._str;
+		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
 
-		// cannot break out of the forEach function :/
-		// so we have to keep track of whether or not the class
-		// has been assigned to an instructor
-		classAssigned = false;
+		nst = newLesson_obj.startTime;
+		net = newLesson_obj.endTime;
 
-		// Loop through instructors to find one that doesn't already have
-		// a class at the new class time
-		// TODO  Implement checking for class length
-		instCursor.forEach( function(instr) {
-
-			// assume there is a time slot
-			timeAvailable = true;
-
-			// Loop through class times looking for a match
-			instr.classList.forEach( function(ct) {
-				if (ct.startTime.getTime() == classObj.startTime.getTime()) { 
-					timeAvailable = false;
-				}
-			});
-
-			// If the current instructor has a time slot available and
-			// the class hasn't already been assigned assign it to this instr
-			if (timeAvailable && !classAssigned) {
-				Instructors.update(instr._id, {$push: { classList: classObj }});
-				classAssigned = true;
-			}
-		});
-
-		// if the class didn't get assigned during the previous loops
-		// create a new instructor and assign it
-		if (!classAssigned) {
-		Meteor.call('createAndInitInstructor', classObj);
-		}
+		// returns a cursor containing all classes that conflict with the new one
+		conflictCursor = Lessons.find({$and: [{ $and: [{startTime:  {$lte: net}}, {_id: {$not: newLessonID_str}}] }, { $and: [{endTime: {$gte: nst}}, {_id: {$not: newLessonID_str}}] } ]});
 	},
 
-		// accepts optional ObjectID and Class object to initialize classList
-	createInstructor: function(instID, initClass) {
-		// check if an ID is passed in and create one if not
-		// figure out how to use class objects; Prototype?
-		if (instID == null) {
-			instID = new Meteor.Collection.ObjectID();
-		}
-
-		Instructors.insert ({
-			name: 'Instructor ' + (Instructors.find().count() + 1),
-			// Keep track of what time each instr has classes at
-			// because a nested forEach looop sucks
-			classList: [],
-			_id: instID
-		});
-	},
-	createAndInitInstructor: function(initClass) {
-		Instructors.insert ({
-			name: 'Instructor ' + (Instructors.find().count() + 1),
-			// Keep track of what time each instr has classes at
-			// because a nested forEach looop sucks
-			classList: [initClass],
-		});
-	},
-
-	clearClasses: function() {
-				Classes.remove({})
-	},
-
-	clearInstructors: function() {
-		Instructors.remove({});
+	clearLessons: function() {
+				Lessons.remove({})
 	}
+
 }); 
 
 if (Meteor.isServer) {
 
   Meteor.startup(function () {
     // code to run on server at startup
-		instCursor = Instructors.find({});
+});
 
-		// Initialize Instructors collection if empty
-		if (instCursor.count() == 0) {
-			instID = new Meteor.Collection.ObjectID();
-			Meteor.call('clearButtons', instID);
-		}
-  });
+Meteor.methods ({
 	
 
+});
 	// Meteor.publish("classes",  function() {
-	// 	return Classes.find()
+	// 	return Lessons.find()
 	// 		});
 }
