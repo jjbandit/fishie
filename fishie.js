@@ -1,7 +1,7 @@
 Lessons = new Mongo.Collection("lessons");
 
 if (Meteor.isClient) {
-	// Meteor.subscribe("classes");
+	Meteor.subscribe("lessons");
 
 	Template.body.helpers ({
 		lessons: function() {
@@ -82,26 +82,60 @@ Meteor.methods ({
 
 		Lessons.insert ({
 			level: level,
+			instructor: 1,
 			startTime: startTime,
 			length: length,
 			endTime: endTime,
 			_id: strLessonID,
 		});
-
 		Meteor.call('sortNewClass', lessonID);
 	},
 
 	sortNewClass: function(newLessonID) {
-
 		newLessonID_str = newLessonID._str;
 		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
 
 		nst = newLesson_obj.startTime;
 		net = newLesson_obj.endTime;
 
+		// return the nubmer of instructors by sorting by instructor # and returning the first one
+		numInstructors = Lessons.findOne({},{sort: {instructor: -1}}).instructor;
 		// returns a cursor containing all classes that conflict with the new one
-		conflictCursor = Lessons.find({$and: [{ $and: [{startTime:  {$lte: net}}, {_id: {$not: newLessonID_str}}] }, { $and: [{endTime: {$gte: nst}}, {_id: {$not: newLessonID_str}}] } ]});
+		conflictCursor = Lessons.find({$and: [{ $and: [{startTime:  {$lte: net}}, {_id: {$ne: newLessonID_str}}] }, { $and: [{endTime: {$gte: nst}}, {_id: {$ne: newLessonID_str}}] } ]});
+
+		// We need to deal with assigning a lesson to an instructor when there are less
+		// conflicts than instructors
+		if (conflictCursor.count() > 0 && conflictCursor.count() != numInstructors) {
+			console.log("1");
+
+			conflictInstrs = [];
+			conflictObjs = conflictCursor.fetch();
+			
+			conflictObjs.forEach(function(lsn) {
+				conflictInstrs.push(lsn.instructor);
+			});
+
+			for (var i = 1; i <= numInstructors; i++) {
+				if (conflictInstrs.indexOf(i) == -1) {
+					Lessons.update(newLessonID_str, {$set: {instructor: i}});
+					break;
+				}
+			};
+		}
+
+		// This deals with cases where there are as many instructors as conflicts
+		// It adds a new instructor and assigns it to the new lesson
+		if (conflictCursor.count() > 0 && conflictCursor.count() == numInstructors) {
+
+			numInstructors = numInstructors + 1;
+			Lessons.update(newLessonID_str, {$set: {instructor: numInstructors}});
+			
+		}
+
+
+
 	},
+
 
 	clearLessons: function() {
 				Lessons.remove({})
@@ -119,7 +153,7 @@ Meteor.methods ({
 	
 
 });
-	// Meteor.publish("classes",  function() {
-	// 	return Lessons.find()
-	// 		});
+	Meteor.publish("lessons",  function() {
+		return Lessons.find()
+	});
 }
