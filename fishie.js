@@ -103,37 +103,22 @@ Meteor.methods ({
 		// returns a cursor containing all classes that conflict with the new one
 		conflictCursor = Lessons.find({$and: [{ $and: [{startTime:  {$lte: net}}, {_id: {$ne: newLessonID_str}}] }, { $and: [{endTime: {$gte: nst}}, {_id: {$ne: newLessonID_str}}] } ]});
 
-		// We need to deal with assigning a lesson to an instructor when there are less
-		// conflicts than instructors
-		if (conflictCursor.count() > 0 && conflictCursor.count() != numInstructors) {
-			console.log("1");
+		conflictInstrs = [];
+		conflictObjs = conflictCursor.fetch();
+		
+		conflictObjs.forEach(function(lsn) {
+			conflictInstrs.push(lsn.instructor);
+		});
 
-			conflictInstrs = [];
-			conflictObjs = conflictCursor.fetch();
-			
-			conflictObjs.forEach(function(lsn) {
-				conflictInstrs.push(lsn.instructor);
-			});
-
-			for (var i = 1; i <= numInstructors; i++) {
-				if (conflictInstrs.indexOf(i) == -1) {
-					Lessons.update(newLessonID_str, {$set: {instructor: i}});
-					break;
-				}
-			};
-		}
-
-		// This deals with cases where there are as many instructors as conflicts
-		// It adds a new instructor and assigns it to the new lesson
-		if (conflictCursor.count() > 0 && conflictCursor.count() == numInstructors) {
-
-			numInstructors = numInstructors + 1;
-			Lessons.update(newLessonID_str, {$set: {instructor: numInstructors}});
-			
-		}
-
-
-
+		// search from 1 until the total number of instructors + 1 (in the case there is not a free block) until we find
+		// an available instructor.
+		// If the loop gets to numInstructors + 1 that means there are no spots available and adds a new instructor to the array 
+		for (var i = 1; i <= numInstructors + 1; i++) {
+			if (conflictInstrs.indexOf(i) == -1) {
+				Lessons.update(newLessonID_str, {$set: {instructor: i}});
+				break;
+			}
+		};
 	},
 
 
