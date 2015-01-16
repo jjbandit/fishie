@@ -16,19 +16,6 @@ if (Meteor.isClient) {
 	});
 	
 	
-
-	Template.clearButtons.events ({
-		'click .clear-instructor': function() {
-			Meteor.call('clearInstructors');
-		}
-	});
-	
-	getVal = function (key) {
-		return this.key;
-	}
-
-	
-	
 	Template.createClass.events ({
 		'submit form' : function() {
 			// Prevent form refresh
