@@ -5,7 +5,7 @@ if (Meteor.isClient) {
 
 	Template.body.helpers ({
 		lessons: function() {
-			return Lessons.find();
+			return Lessons.find({}, {sort: {instructor: 1}});
 		}
 	});
 
@@ -55,17 +55,18 @@ if (Meteor.isClient) {
 
 			level = $('input[name=level-toggle]:checked', '#level-wrapper').val();
 			length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
+			swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
 
 			lessonID = new Meteor.Collection.ObjectID();
 
-			Meteor.call('createClass', level, startTime, length, lessonID);
+			Meteor.call('createClass', level, startTime, length, lessonID, swimmers);
 		}
 	});
 }
 
 Meteor.methods ({
 
-	createClass: function(level, startTime, length, lessonID) {
+	createClass: function(level, startTime, length, lessonID, swimmers) {
 		// Minimilist validation
 		check(level, String);
 		check(startTime, Date);
@@ -82,7 +83,9 @@ Meteor.methods ({
 
 		Lessons.insert ({
 			level: level,
+			split: false,
 			instructor: 1,
+			swimmers: swimmers,
 			startTime: startTime,
 			length: length,
 			endTime: endTime,
@@ -94,6 +97,13 @@ Meteor.methods ({
 	sortNewClass: function(newLessonID) {
 		newLessonID_str = newLessonID._str;
 		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
+
+
+		// return a cursor containing any candidates for a split
+
+
+
+
 
 		nst = newLesson_obj.startTime;
 		net = newLesson_obj.endTime;
