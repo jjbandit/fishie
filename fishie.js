@@ -100,9 +100,7 @@ Meteor.methods ({
 
 
 		// return a cursor containing any candidates for a split
-
-
-
+		splitCursor = Lessons.find({ $and: [{ startTime: newLesson_obj.startTime, endTime: newLesson_obj.endTime}, {_id:{$ne: newLessonID_str}}] } );
 
 
 		nst = newLesson_obj.startTime;
