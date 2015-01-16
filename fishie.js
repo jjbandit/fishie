@@ -31,7 +31,7 @@ if (Meteor.isClient) {
 	
 	Template.createClass.events ({
 		'submit form' : function() {
-			// Prevent form submit
+			// Prevent form refresh
 			event.preventDefault();
 
 			// Set time for lesson
@@ -53,7 +53,7 @@ if (Meteor.isClient) {
 			startTime.setSeconds(0);
 			startTime.setMilliseconds(0);
 
-			level = $('input[name=level-toggle]:checked', '#level-wrapper').val();
+			level = parseInt($('input[name=level-toggle]:checked', '#level-wrapper').val());
 			length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
 			swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
 
@@ -68,7 +68,7 @@ Meteor.methods ({
 
 	createClass: function(level, startTime, length, lessonID, swimmers) {
 		// Minimilist validation
-		check(level, String);
+		check(level, Number);
 		check(startTime, Date);
 		check(length, Number);
 		check(lessonID, Meteor.Collection.ObjectID);
@@ -81,8 +81,20 @@ Meteor.methods ({
 		var endTime = new Date(startTime.toJSON());
 		endTime.setMinutes(startTime.getMinutes() + length);
 
+		// Check what level and set the class type 
+		var classType = 'Swim Kids';
+
+		if (level > 10) {
+		classType = 'Preschool'
+		level = level - 10;
+		}
+
+
+
+
 		Lessons.insert ({
 			level: level,
+			classType: classType,
 			split: false,
 			instructor: 1,
 			swimmers: swimmers,
@@ -99,7 +111,7 @@ Meteor.methods ({
 		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
 
 
-		// return a cursor containing any candidates for a split
+		//  }return a cursor containing any candidates for a split
 		splitCursor = Lessons.find({ $and: [{ startTime: newLesson_obj.startTime, endTime: newLesson_obj.endTime}, {_id:{$ne: newLessonID_str}}] } );
 
 
