@@ -6,17 +6,26 @@
   <h1>Fishie</h1>
 	{{> createClass }}
 
-	{{#each lessons}}
-		{{> lesson}}
+	<!-- return an array containing an index for every instructor we have -->
+	{{#each instructor}}
+
+		<div id="instructor-{{this}}">
+			<span>Instructor {{this}}</span>
+
+			<!-- loop through the array returned by instructor helper rendering lessons for each index -->
+			{{#each lessons this}}
+				{{> lesson}}
+			{{/each}}
+
+		</div>
 	{{/each}}
+
 </body>
 
 
 
 <template name="lesson">
 	<div id="swim-class">
-		Instructor {{instructor}}
-
 		<div id="class-info">
 			<div id="level">
 				{{classType}} {{level}} -- {{swimmers}} Swimmers

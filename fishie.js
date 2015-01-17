@@ -6,7 +6,28 @@ if (Meteor.isClient) {
 	Template.body.helpers ({
 		lessons: function() {
 			return Lessons.find({}, {sort: {instructor: 1}});
-		}
+		},
+		instructor: function() {
+			// find the number of instructors
+			maxInstrCursor = Lessons.findOne({},{sort: {instructor: -1}});
+			// check if there are any
+			if (maxInstrCursor) {
+
+				// push values into an array for each instructor
+				// this array gets looped over again and renders classes
+				// for each index it contains
+				var numInstrs = maxInstrCursor.instructor;
+				var instrArray = [];
+				for (var i = 1; i <= numInstrs; i++) {
+					instrArray.push(i);
+				};
+				return instrArray;
+			}
+		},
+		lessons: function(instr) {
+			// render lessons for each index (instructor) in the array built by the instructor helper
+			return Lessons.find({instructor: instr});
+		},
 	});
 
 	Template.body.events ({
@@ -73,11 +94,7 @@ Meteor.methods ({
 
 		if (level > 10) {
 		classType = 'Preschool'
-		level = level - 10;
 		}
-
-
-
 
 		Lessons.insert ({
 			level: level,
@@ -98,15 +115,22 @@ Meteor.methods ({
 		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
 
 
-		//  }return a cursor containing any candidates for a split
-		splitCursor = Lessons.find({ $and: [{ startTime: newLesson_obj.startTime, endTime: newLesson_obj.endTime}, {_id:{$ne: newLessonID_str}}] } );
+		//  Return a cursor containing any candidates for a split
+		splitCursor = Lessons.find({ $and: [{startTime: newLesson_obj.startTime, endTime: newLesson_obj.endTime, level: newLesson_obj.level + 1, level: newLesson_obj.level - 1}, {_id:{$ne: newLessonID_str}}] } );
+
+
+
+
+
+
+
 
 
 		nst = newLesson_obj.startTime;
 		net = newLesson_obj.endTime;
 
 		// return the nubmer of instructors by sorting by instructor # and returning the first one
-		numInstructors = Lessons.findOne({},{sort: {instructor: -1}}).instructor;
+		var numInstructors = Lessons.findOne({},{sort: {instructor: -1}}).instructor;
 		// returns a cursor containing all classes that conflict with the new one
 		conflictCursor = Lessons.find({$and: [{ $and: [{startTime:  {$lte: net}}, {_id: {$ne: newLessonID_str}}] }, { $and: [{endTime: {$gte: nst}}, {_id: {$ne: newLessonID_str}}] } ]});
 
