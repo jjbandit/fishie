@@ -115,13 +115,57 @@ Meteor.methods ({
 		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
 
 
-		//  Return a cursor containing any candidates for a split
-		splitCursor = Lessons.find({ $and: [{startTime: newLesson_obj.startTime, endTime: newLesson_obj.endTime, level: newLesson_obj.level + 1, level: newLesson_obj.level - 1}, {_id:{$ne: newLessonID_str}}] } );
+		//  Return a cursor containing any candidates for a split 
+		//  not sure if the AND is nessicary because of mongos implied and, but it works.
+		splitCursor = Lessons.find({
+			$and : [
+				{ startTime: newLesson_obj.startTime },
+				{ endTime: newLesson_obj.endTime },
+				{ _id:{$ne: newLessonID_str} },
+				{ $or : [
+					{ level: newLesson_obj.level + 1 },{ level: newLesson_obj.level - 1 } 
+				] },
+			]
+		});
 
+		splitArray = splitCursor.fetch();
 
+		// FIXME This logic is dependant on which lesson is created first
+		// splits spanning a breakpoint will apply this rule according to the 
+		// second lesson
+		// ie. a 4/5 split will have a max of 8 but a 5/4 split will have a max of 6
 
+		// Determine the max number of swimmers for the new lessons level
+		maxSwimmers = 0;
+	
+		// Several breakpoints for SK lessons
+		if (newLesson_obj.level < 5) {
+			maxSwimmers = 6;
 
+		} else if (newLesson_obj.level < 7) {
+			maxSwimmers = 8;
 
+		} else {
+			maxSwimmers = 10;
+		}
+
+		// Preschool lessons cap out at 5
+		if (newLesson_obj.level > 10) {
+			maxSwimmers = 5;
+		}
+
+		// loop through candidates for a split
+		for (var i = 0; i < splitCursor.count(); i++) {
+
+			// if we find one where both swimmers properties add to less than the breakpoint
+			if (splitArray[i].swimmers + newLesson_obj.swimmers <= maxSwimmers) {
+				
+				// set their split properites to the opposite classes _id
+				Lessons.update(newLessonID_str, {$set: {split: splitArray[i]._id}});
+				Lessons.update(splitArray[i]._id, {$set: {split: newLessonID_str}});
+				break;
+			}
+		};
 
 
 
@@ -143,7 +187,7 @@ Meteor.methods ({
 
 		// search from 1 until the total number of instructors + 1 (in the case there is not a free block) until we find
 		// an available instructor.
-		// If the loop gets to numInstructors + 1 that means there are no spots available and adds a new instructor to the array 
+		// If the loop gets to numInstructors + 1 that means there are no spots available and adds a new instructor
 		for (var i = 1; i <= numInstructors + 1; i++) {
 			if (conflictInstrs.indexOf(i) == -1) {
 				Lessons.update(newLessonID_str, {$set: {instructor: i}});
