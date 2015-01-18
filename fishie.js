@@ -95,19 +95,20 @@ Meteor.methods ({
 		if (level > 10) {
 		classType = 'Preschool'
 		}
-		
 
 
-
-
-		// Check if 
-
+		// Check if there are classes within 1 level that coincide with the proposed class and if there are
+		// check number of participants.  Split it and return from the method if there are
 
 		//  Return a cursor containing any candidates for a split 
 		//  not sure if the AND is nessicary because of mongos implied and, but it works.
+
+		//  FIXME This doesn't split classes three ways because a split level ends up with an array
+		//  in the level property.  This is going to become a problem for 7-10 splits
 		splitCursor = Lessons.find({
 			$and : [
 				{ startTime: startTime },
+				{ classType: classType },
 				{ endTime: endTime },
 				{ $or : [
 					{ level: level + 1 },{ level: level - 1 } 
@@ -115,7 +116,7 @@ Meteor.methods ({
 			]
 		});
 
-		splitArray = splitCursor.fetch();
+		var splitArray = splitCursor.fetch();
 
 		// FIXME This logic is dependant on which lesson is created first
 		// splits spanning a breakpoint will apply this rule according to the 
@@ -123,7 +124,7 @@ Meteor.methods ({
 		// ie. a 4/5 split will have a max of 8 but a 5/4 split will have a max of 6
 
 		// Determine the max number of swimmers for the new lessons level
-		maxSwimmers = 0;
+		var maxSwimmers = 0;
 	
 		// Several breakpoints for SK lessons
 		if (level < 5) {
@@ -156,7 +157,7 @@ Meteor.methods ({
 			}
 		};
 
-		// TODO Check to see if a split was made and insert a new lesson if not
+		// if the return above in the split loop didn't hit then insert a new class
 		Lessons.insert ({
 			level: level,
 			classType: classType,
@@ -168,23 +169,25 @@ Meteor.methods ({
 			endTime: endTime,
 			_id: strLessonID,
 		});
+		
+		// and sort it
 		Meteor.call('sortNewClass', lessonID);
 	},
 
 	sortNewClass: function(newLessonID) {
-		newLessonID_str = newLessonID._str;
-		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
+		var newLessonID_str = newLessonID._str;
+		var newLesson_obj = Lessons.findOne({_id: newLessonID_str});
 
-		nst = newLesson_obj.startTime;
-		net = newLesson_obj.endTime;
+		var nst = newLesson_obj.startTime;
+		var net = newLesson_obj.endTime;
 
 		// return the nubmer of instructors by sorting by instructor # and returning the first one
 		var numInstructors = Lessons.findOne({},{sort: {instructor: -1}}).instructor;
 		// returns a cursor containing all classes that conflict with the new one
-		conflictCursor = Lessons.find({$and: [{ $and: [{startTime:  {$lte: net}}, {_id: {$ne: newLessonID_str}}] }, { $and: [{endTime: {$gte: nst}}, {_id: {$ne: newLessonID_str}}] } ]});
+		var conflictCursor = Lessons.find({ startTime:  {$lte: net}, _id: {$ne: newLessonID_str}, endTime: {$gte: nst} });
 
-		conflictInstrs = [];
-		conflictObjs = conflictCursor.fetch();
+		var conflictInstrs = [];
+		var conflictObjs = conflictCursor.fetch();
 		
 		conflictObjs.forEach(function(lsn) {
 			conflictInstrs.push(lsn.instructor);
