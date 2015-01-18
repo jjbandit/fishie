@@ -95,7 +95,68 @@ Meteor.methods ({
 		if (level > 10) {
 		classType = 'Preschool'
 		}
+		
 
+
+
+
+		// Check if 
+
+
+		//  Return a cursor containing any candidates for a split 
+		//  not sure if the AND is nessicary because of mongos implied and, but it works.
+		splitCursor = Lessons.find({
+			$and : [
+				{ startTime: startTime },
+				{ endTime: endTime },
+				{ $or : [
+					{ level: level + 1 },{ level: level - 1 } 
+				] },
+			]
+		});
+
+		splitArray = splitCursor.fetch();
+
+		// FIXME This logic is dependant on which lesson is created first
+		// splits spanning a breakpoint will apply this rule according to the 
+		// second lesson
+		// ie. a 4/5 split will have a max of 8 but a 5/4 split will have a max of 6
+
+		// Determine the max number of swimmers for the new lessons level
+		maxSwimmers = 0;
+	
+		// Several breakpoints for SK lessons
+		if (level < 5) {
+			maxSwimmers = 6;
+
+		} else if (level < 7) {
+			maxSwimmers = 8;
+
+		} else {
+			maxSwimmers = 10;
+		}
+
+		// Preschool lessons cap out at 5
+		if (level > 10) {
+			maxSwimmers = 5;
+		}
+
+		// loop through candidates for a split
+		for (var i = 0; i < splitCursor.count(); i++) {
+
+			// if we find one where both swimmers properties add to less than the breakpoint
+			if (splitArray[i].swimmers + swimmers <= maxSwimmers) {
+				
+				// nest the new lesson in the split property of the existing lesson 
+				Lessons.update(splitArray[i]._id, {$set: {split: true}});
+
+				Lessons.update(splitArray[i]._id, {$set: {level: [splitArray[i].level, level]}});
+				Lessons.update(splitArray[i]._id, {$set: {swimmers: [splitArray[i].swimmers, swimmers]}});
+				return;
+			}
+		};
+
+		// TODO Check to see if a split was made and insert a new lesson if not
 		Lessons.insert ({
 			level: level,
 			classType: classType,
@@ -113,62 +174,6 @@ Meteor.methods ({
 	sortNewClass: function(newLessonID) {
 		newLessonID_str = newLessonID._str;
 		newLesson_obj = Lessons.findOne({_id: newLessonID_str});
-
-
-		//  Return a cursor containing any candidates for a split 
-		//  not sure if the AND is nessicary because of mongos implied and, but it works.
-		splitCursor = Lessons.find({
-			$and : [
-				{ startTime: newLesson_obj.startTime },
-				{ endTime: newLesson_obj.endTime },
-				{ _id:{$ne: newLessonID_str} },
-				{ $or : [
-					{ level: newLesson_obj.level + 1 },{ level: newLesson_obj.level - 1 } 
-				] },
-			]
-		});
-
-		splitArray = splitCursor.fetch();
-
-		// FIXME This logic is dependant on which lesson is created first
-		// splits spanning a breakpoint will apply this rule according to the 
-		// second lesson
-		// ie. a 4/5 split will have a max of 8 but a 5/4 split will have a max of 6
-
-		// Determine the max number of swimmers for the new lessons level
-		maxSwimmers = 0;
-	
-		// Several breakpoints for SK lessons
-		if (newLesson_obj.level < 5) {
-			maxSwimmers = 6;
-
-		} else if (newLesson_obj.level < 7) {
-			maxSwimmers = 8;
-
-		} else {
-			maxSwimmers = 10;
-		}
-
-		// Preschool lessons cap out at 5
-		if (newLesson_obj.level > 10) {
-			maxSwimmers = 5;
-		}
-
-		// loop through candidates for a split
-		for (var i = 0; i < splitCursor.count(); i++) {
-
-			// if we find one where both swimmers properties add to less than the breakpoint
-			if (splitArray[i].swimmers + newLesson_obj.swimmers <= maxSwimmers) {
-				
-				// set their split properites to the opposite classes _id
-				Lessons.update(newLessonID_str, {$set: {split: splitArray[i]._id}});
-				Lessons.update(splitArray[i]._id, {$set: {split: newLessonID_str}});
-				break;
-			}
-		};
-
-
-
 
 		nst = newLesson_obj.startTime;
 		net = newLesson_obj.endTime;
