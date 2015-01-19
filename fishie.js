@@ -4,12 +4,10 @@ if (Meteor.isClient) {
 	Meteor.subscribe("lessons");
 
 	Template.body.helpers ({
-		lessons: function() {
-			return Lessons.find({}, {sort: {instructor: 1}});
-		},
+
 		instructor: function() {
 			// find the number of instructors
-			maxInstrCursor = Lessons.findOne({},{sort: {instructor: -1}});
+			var maxInstrCursor = Lessons.findOne({},{sort: {instructor: -1}});
 			// check if there are any
 			if (maxInstrCursor) {
 
@@ -26,7 +24,7 @@ if (Meteor.isClient) {
 		},
 		lessons: function(instr) {
 			// render lessons for each index (instructor) in the array built by the instructor helper
-			return Lessons.find({instructor: instr});
+			return Lessons.find({instructor: instr}, {sort: {startTime: 1}});
 		},
 	});
 
@@ -36,6 +34,30 @@ if (Meteor.isClient) {
 		}
 	});
 	
+	Template.timeHeader.helpers ({
+		getTimeBlocks: function() {
+			if (Lessons.findOne({})) {
+				var firstTime = Lessons.findOne({}, {sort: {startTime: 1}}).startTime;
+				var lastTime = Lessons.findOne({}, {sort: {endTime: -1}}).endTime;
+
+				var timeSpan = lastTime.getTime() - firstTime.getTime(); 
+
+				// returns one block per 15 minute increment
+				var timeBlocks = (Math.round(timeSpan / 60000) + 1) / 15;
+
+				var timeAry = [];
+
+				for (var i = 1; i <= timeBlocks; i++) {
+					var blockTime = new Date(); 
+					blockTime.setTime(firstTime.getTime() + (1000 * 60 * 15 * i));
+
+					timeAry.push(blockTime.toLocaleTimeString());
+				};
+
+				return timeAry;
+			}
+		},
+	});
 	
 	Template.createClass.events ({
 		'submit form' : function() {

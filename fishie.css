@@ -1,9 +1,33 @@
 /* CSS declarations go here */
 
+	/* Time Header layout */
+
+#time-block {
+	display: inline-block;
+	height: 40px;
+	width: 68px;
+	text-align: center;
+	margin: 0 5px;
+	border: 1px solid black;
+	
+}
+
+
 	/* Instructor Layout */
 
 #instructor {
   margin-top: 15px;
+}
+.instructor-label {
+	width: 100%;
+	display: block;
+}
+
+#swim-class {
+	display: inline-block;
+	width: 150px;
+	margin: 5px 6px;
+	border: 1px black solid;
 }
 
 #class-info {
