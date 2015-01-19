@@ -2,6 +2,8 @@ Lessons = new Mongo.Collection("lessons");
 
 if (Meteor.isClient) {
 
+	
+	
 	Template.body.helpers ({
 
 		instructor: function() {
@@ -29,7 +31,6 @@ if (Meteor.isClient) {
 		breakBlock: function(lesson) {
 				
 			//FIXME Collection is possibly not ready before this fires.
-
 			prevLesson = Lessons.findOne({instructor: lesson.instructor, endTime: {$lt: lesson.startTime}, _id: {$ne: lesson._id}}, {sort: {startTime: -1}});
 
 		// get 15 minute blocks between the two lessons
@@ -58,8 +59,16 @@ if (Meteor.isClient) {
 
 	Template.body.events ({
 		'click .clear' : function() {
-				Meteor.call("clearLessons");
+				Meteor.call("clearAllLessons");
 		}
+	});
+
+	Template.lesson.events ({
+
+		'click .delete-lesson' : function() {
+			Meteor.call('clearLesson', this._id);
+		},
+	
 	});
 	
 	Template.timeHeader.helpers ({
@@ -259,8 +268,11 @@ Meteor.methods ({
 		};
 	},
 
+	clearLesson: function(lessonID) {
+		Lessons.remove(lessonID);
+	},
 
-	clearLessons: function() {
+	clearAllLessons: function() {
 				Lessons.remove({})
 	}
 

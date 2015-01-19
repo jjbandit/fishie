@@ -32,11 +32,18 @@
 	border: 1px solid black;
 }
 
+	/* Swim Class Styling */
+
 #swim-class {
 	display: inline-block;
 	width: 150px;
 	margin: 5px 6px;
 	border: 1px black solid;
+}
+
+.delete-lesson {
+  float: right;
+	margin: 3px 3px 0 0;
 }
 
 #class-info {
