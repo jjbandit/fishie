@@ -1,7 +1,6 @@
 Lessons = new Mongo.Collection("lessons");
 
 if (Meteor.isClient) {
-	Meteor.subscribe("lessons");
 
 	Template.body.helpers ({
 
@@ -26,6 +25,35 @@ if (Meteor.isClient) {
 			// render lessons for each index (instructor) in the array built by the instructor helper
 			return Lessons.find({instructor: instr}, {sort: {startTime: 1}});
 		},
+
+		breakBlock: function(lesson) {
+				
+				console.log('start rendering breakBlock');
+				prevLesson = Lessons.findOne({endTime: {$lt: lesson.startTime}, _id: {$ne: lesson._id}}, {sort: {startTime: -1}});
+
+			if (prevLesson) {
+				console.log('for ' + lesson.level);
+				console.log(prevLesson);
+
+				// get 15 minute blocks between the two lessons
+				var timeSpan = lesson.startTime.getTime() - prevLesson.endTime.getTime(); 
+
+				// returns one block per 15 minute increment
+				var timeBlocks = (Math.round(timeSpan / 60000) + 1) / 15;
+
+				var timeAry = [];
+
+				// return an array with one index for each block between lessons
+				for (var i = 1; i <= timeBlocks; i++) {
+					var blockTime = new Date(); 
+					timeAry.push(i);
+				};
+				console.log('finish rendering breakBlock');
+
+				return timeAry;
+			}	
+			
+		},
 	});
 
 	Template.body.events ({
@@ -36,6 +64,7 @@ if (Meteor.isClient) {
 	
 	Template.timeHeader.helpers ({
 		getTimeBlocks: function() {
+			console.log('gettingTimeHeader');
 			if (Lessons.findOne({})) {
 				var firstTime = Lessons.findOne({}, {sort: {startTime: 1}}).startTime;
 				var lastTime = Lessons.findOne({}, {sort: {endTime: -1}}).endTime;
@@ -47,8 +76,11 @@ if (Meteor.isClient) {
 
 				var timeAry = [];
 
-				for (var i = 1; i <= timeBlocks; i++) {
+				for (var i = 0; i < timeBlocks; i++) {
 					var blockTime = new Date(); 
+
+					// set the current blocks time to the time of the first class
+					// plus offset it by the number of 15 minute increments we've been through
 					blockTime.setTime(firstTime.getTime() + (1000 * 60 * 15 * i));
 
 					timeAry.push(blockTime.toLocaleTimeString());
@@ -179,7 +211,7 @@ Meteor.methods ({
 			}
 		};
 
-		// if the return above in the split loop didn't hit then insert a new class
+		// if split-class logic didn't hit a return insert a new Lesson record
 		Lessons.insert ({
 			level: level,
 			classType: classType,
@@ -239,11 +271,4 @@ if (Meteor.isServer) {
     // code to run on server at startup
 });
 
-Meteor.methods ({
-	
-
-});
-	Meteor.publish("lessons",  function() {
-		return Lessons.find()
-	});
 }

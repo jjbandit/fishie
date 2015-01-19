@@ -23,6 +23,15 @@
 	display: block;
 }
 
+#break-blocks {
+	display: inline-block;
+	height: 100%;
+	width: 68px;
+	text-align: center;
+	margin: 0 5px;
+	border: 1px solid black;
+}
+
 #swim-class {
 	display: inline-block;
 	width: 150px;
