@@ -5,7 +5,7 @@
 <body>
   <h1>Fishie</h1>
 	{{> createClass }}
-	<!-- {{> timeHeader }} -->
+	{{> timeHeader }}
 
 	<!-- return an array containing an index for every instructor we have -->
 	{{#each instructor}}
@@ -16,9 +16,9 @@
 			<!-- loop through the array returned by instructor helper rendering lessons for each index -->
 			{{#each lessons this}}
 
-				<!-- {{#each breakBlock this}} -->
-				<!-- 	{{> breakBlocks}} -->
-				<!-- {{/each}} -->
+				{{#each breakBlock this}}
+					{{> breakBlocks}}
+				{{/each}}
 
 				{{> lesson}}
 			{{/each}}

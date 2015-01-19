@@ -100,9 +100,9 @@ if (Meteor.isClient) {
 			var startTime = new Date();
 
 			// Get values from radio buttons and convert to integers
-			hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
-			minute = parseInt($('input[name=minute-toggle]:checked', '#minute-wrapper').val());
-			Pm = parseInt($('input[name=am-pm-toggle]:checked', '#am-pm-wrapper').val());
+			var hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
+			var minute = parseInt($('input[name=minute-toggle]:checked', '#minute-wrapper').val());
+			var Pm = parseInt($('input[name=am-pm-toggle]:checked', '#am-pm-wrapper').val());
 
 			// Convert PM times to 24h
 			if (Pm) {
@@ -115,26 +115,28 @@ if (Meteor.isClient) {
 			startTime.setSeconds(0);
 			startTime.setMilliseconds(0);
 
-			level = parseInt($('input[name=level-toggle]:checked', '#level-wrapper').val());
-			length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
-			swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
+			var level = parseInt($('input[name=level-toggle]:checked', '#level-wrapper').val());
+			var length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
+			var swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
 
-			lessonID = new Meteor.Collection.ObjectID();
-
-			Meteor.call('createClass', level, startTime, length, lessonID, swimmers);
+			Meteor.call('createClass', level, startTime, length, swimmers);
 		}
 	});
 }
 
 Meteor.methods ({
 
-	createClass: function(level, startTime, length, lessonID, swimmers) {
-		// Minimilist validation
-		check(level, Number);
+	createClass: function(level, startTime, length, swimmers) {
+
+		// Validation
+		check(level, Match.Integer);
 		check(startTime, Date);
-		check(length, Number);
-		check(lessonID, Meteor.Collection.ObjectID);
-		
+		check(length, Match.Integer);
+		check(swimmers, Match.Integer);
+
+		// initialize lessonID
+		var lessonID = new Meteor.Collection.ObjectID();
+
 		// Convert the ID object to a string
 		// so it parses correctly
 		strLessonID = lessonID._str;
