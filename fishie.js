@@ -28,30 +28,30 @@ if (Meteor.isClient) {
 
 		breakBlock: function(lesson) {
 				
-				console.log('start rendering breakBlock');
-				prevLesson = Lessons.findOne({endTime: {$lt: lesson.startTime}, _id: {$ne: lesson._id}}, {sort: {startTime: -1}});
+			//FIXME Collection is possibly not ready before this fires.
 
-			if (prevLesson) {
-				console.log('for ' + lesson.level);
-				console.log(prevLesson);
+			prevLesson = Lessons.findOne({instructor: lesson.instructor, endTime: {$lt: lesson.startTime}, _id: {$ne: lesson._id}}, {sort: {startTime: -1}});
 
-				// get 15 minute blocks between the two lessons
-				var timeSpan = lesson.startTime.getTime() - prevLesson.endTime.getTime(); 
+		// get 15 minute blocks between the two lessons
+		if (prevLesson) {
+			var timeSpan = lesson.startTime.getTime() - prevLesson.endTime.getTime(); 
+		}	else { 
+			var firstTime = Lessons.findOne({}, {sort: {startTime: 1}}).startTime;
+			var timeSpan = lesson.startTime.getTime() - firstTime; 
+		}
 
-				// returns one block per 15 minute increment
-				var timeBlocks = (Math.round(timeSpan / 60000) + 1) / 15;
+			// returns one block per 15 minute increment
+			var timeBlocks = (Math.round(timeSpan / 60000) + 1) / 15;
 
-				var timeAry = [];
+			var timeAry = [];
 
-				// return an array with one index for each block between lessons
-				for (var i = 1; i <= timeBlocks; i++) {
-					var blockTime = new Date(); 
-					timeAry.push(i);
-				};
-				console.log('finish rendering breakBlock');
+			// return an array with one index for each block between lessons
+			for (var i = 1; i <= timeBlocks; i++) {
+				var blockTime = new Date(); 
+				timeAry.push(i);
+			};
 
-				return timeAry;
-			}	
+			return timeAry;
 			
 		},
 	});
@@ -64,7 +64,6 @@ if (Meteor.isClient) {
 	
 	Template.timeHeader.helpers ({
 		getTimeBlocks: function() {
-			console.log('gettingTimeHeader');
 			if (Lessons.findOne({})) {
 				var firstTime = Lessons.findOne({}, {sort: {startTime: 1}}).startTime;
 				var lastTime = Lessons.findOne({}, {sort: {endTime: -1}}).endTime;
