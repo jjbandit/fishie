@@ -63,6 +63,46 @@ if (Meteor.isClient) {
 		}
 	});
 
+	Template.lesson.helpers ({
+		getClassName: function(lesson) {
+			if (lesson.classType == 'Swim Kids') {
+			 return lesson.classType + ' ' +lesson.level;
+			} else if (lesson.classType == 'Preschool') {
+
+				switch(lesson.level) {
+					case 1:
+						return 'Starfish';
+						break;
+					case 2:
+						return 'Duck';
+						break;
+					case 3:
+						return 'Sea Turtle';
+						break;
+					case 4:
+						return 'Sea Otter';
+						break;
+					case 5:
+						return 'Salamander';
+						break;
+					case 6:
+						return 'Sunfish';
+						break;
+					case 7:
+						return 'Crocodile';
+						break;
+					case 8:
+						return 'Whale';
+						break;
+					default:
+						return 'Swim Preschool' + lesson.level;
+						console.log('default');
+				}
+			}
+			
+		},
+	});
+	
 	Template.lesson.events ({
 
 		'click .delete-lesson' : function() {
@@ -157,7 +197,8 @@ Meteor.methods ({
 		var classType = 'Swim Kids';
 
 		if (level > 10) {
-		classType = 'Preschool'
+		classType = 'Preschool';
+		level = level -10;
 		}
 
 
