@@ -68,7 +68,11 @@ if (Meteor.isClient) {
 
 			// SK levels are easy to get out.
 			if (lesson.classType == 'Swim Kids') {
-			 return lesson.classType + ' ' +lesson.level.join('/');
+				if (lesson.split) {
+					 return lesson.classType + ' ' +lesson.level.join('/');
+				} else {
+					return lesson.classType + ' ' + lesson.level;
+				}
 
 			// Prechool levels need special handling
 			} else if (lesson.classType == 'Preschool') {
@@ -95,12 +99,12 @@ if (Meteor.isClient) {
 			}
 
 				if (lesson.split) {
-					var levelAry = [];
 
+					var levelAry = [];
 					for (var i = 0; i < lesson.level.length; i++) {
 						levelAry.push(getPreschoolLevel(lesson.level[i]));
-				}
-				return levelAry.join(' / ');
+						}
+					return levelAry.join('/');
 				} else {
 					return getPreschoolLevel(lesson.level);
 				}

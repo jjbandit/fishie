@@ -60,13 +60,18 @@
 	border: 1px black solid;
 }
 
-.delete-lesson {
-  float: right;
-	margin: 3px 3px 0 0;
+#class-info {
+	margin-top: 3px;
+	padding-left: 5px;
 }
 
-#class-info {
-	padding-left: 10px;
+ /* Class buttons */
+.button-wrapper {
+	width: auto;
+}
+
+.delete-lesson {
+	margin: 3px 0 0 3px;
 }
 
 	/* Form Layout */
