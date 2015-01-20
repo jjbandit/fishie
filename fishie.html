@@ -5,27 +5,29 @@
 <body>
   <h1>Fishie</h1>
 	{{> createClass }}
-	{{> timeHeader }}
+	<div id="roster">
+		{{> timeHeader }}
 
-	{{!-- return an array containing an index for every instructor we have --}}
-	{{#each instructor}}
+		{{!-- return an array containing an index for every instructor we have --}}
+		{{#each instructor}}
 
-		<span class='instructor-label'>Instructor {{this}}</span>
-		<div class="classes-wrapper">
-			{{!-- loop through the array returned by instructor helper rendering lessons for each index --}}
-			{{#each lessons this}}
+			<span class='instructor-label'>Instructor {{this}}</span>
+			<div class="classes-wrapper">
+				{{!-- loop through the array returned by instructor helper rendering lessons for each index --}}
+				{{#each lessons this}}
 
-				{{!-- before rendering the lesson render any breaks preceding it --}}
-				{{#each breakBlock this}}
-					{{> breakBlocks}}
+					{{!-- before rendering the lesson render any breaks preceding it --}}
+					{{#each breakBlock this}}
+						{{> breakBlocks}}
+					{{/each}}
+
+					{{!-- then render the lesson --}}
+					{{> lesson}}
 				{{/each}}
 
-				{{!-- then render the lesson --}}
-				{{> lesson}}
-			{{/each}}
-
-		</div>
-	{{/each}}
+			</div>
+		{{/each}}
+	</div>
 </body>
 
 
@@ -53,11 +55,16 @@
 </template>
 
 
+
+
+
 <template name="lesson">
 	<div id="swim-class" class="length-{{length}}">
 
-		<div class="button-wrapper">
-			<input type="button" class='delete-lesson'	name="remove-class" value="X" />
+		<div class="lesson-control-wrapper">
+			<input type="text" class='change-lesson-instructor-value' name="change-lesson-instructor-value" value="" />
+			<input type="button" class='change-lesson-instructor' name="change-lesson-instructor" value=">" />
+			<input type="button" class='delete-lesson'	name="delete-lesson" value="X" />
 		</div>
 
 		<div id="class-info">
@@ -77,8 +84,13 @@
 	</div>
 </template> 
 
+
+
+
+
+
 <template name="buttonControls">
-	<div id="control-buttons" class="form-field-wrapper form-wrapper">
+	<div id="control-buttons" class="form-wrapper">
 		<button type="submit" class="create" name='create-class'> Create Class </button>
 		<button type="button" class="clear"> Clear Classes </button>
 	</div>
@@ -87,10 +99,9 @@
 
 <template name="createClass">
 	<form>
-		{{> timeSelector }}
 		{{> levelSelector }}
-
 		{{> buttonControls }}
+		{{> timeSelector }}
 	</form>
 </template>
 
@@ -156,18 +167,18 @@
 			--><input type="radio" name="level-toggle" value="17" id="crocodile"><label for="crocodile">Crocodile</label><!--
 			--><input type="radio" name="level-toggle" class="last" value="18" id="whale"><label for="whale">Whale</label>
 		</div>
-	</div>
 
-	<div id="swimmers-wrapper" class="form-wrapper form-field-wrapper">
-		<input checked type="radio" name="swimmers-toggle" id="1" class="first" value="1"><label for="1">1</label><!--
-		--><input type="radio" name="swimmers-toggle" id="2" value="2"><label for="2">2</label><!--
-		--><input type="radio" name="swimmers-toggle" id="3" value="3"><label for="3">3</label><!--
-		--><input type="radio" name="swimmers-toggle" id="4" value="4"><label for="4">4</label><!--
-		--><input type="radio" name="swimmers-toggle" id="5" value="5"><label for="5">5</label><!--
-		--><input type="radio" name="swimmers-toggle" id="6" value="6"><label for="6">6</label><!--
-		--><input type="radio" name="swimmers-toggle" id="7" value="7"><label for="7">7</label><!--
-		--><input type="radio" name="swimmers-toggle" id="8" value="8"><label for="8">8</label><!--
-		--><input type="radio" name="swimmers-toggle" id="9" value="9"><label for="9">9</label><!--
-		--><input type="radio" name="swimmers-toggle" id="10" class="last" value="10"><label for="10">10</label>
+		<div id="swimmers-wrapper" class="form-field-wrapper">
+			<input checked type="radio" name="swimmers-toggle" id="1" class="first" value="1"><label for="1">1</label><!--
+			--><input type="radio" name="swimmers-toggle" id="2" value="2"><label for="2">2</label><!--
+			--><input type="radio" name="swimmers-toggle" id="3" value="3"><label for="3">3</label><!--
+			--><input type="radio" name="swimmers-toggle" id="4" value="4"><label for="4">4</label><!--
+			--><input type="radio" name="swimmers-toggle" id="5" value="5"><label for="5">5</label><!--
+			--><input type="radio" name="swimmers-toggle" id="6" value="6"><label for="6">6</label><!--
+			--><input type="radio" name="swimmers-toggle" id="7" value="7"><label for="7">7</label><!--
+			--><input type="radio" name="swimmers-toggle" id="8" value="8"><label for="8">8</label><!--
+			--><input type="radio" name="swimmers-toggle" id="9" value="9"><label for="9">9</label><!--
+			--><input type="radio" name="swimmers-toggle" id="10" class="last" value="10"><label for="10">10</label>
+		</div>
 	</div>
 </template> 

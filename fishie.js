@@ -111,9 +111,17 @@ if (Meteor.isClient) {
 	});
 	
 	Template.lesson.events ({
-
 		'click .delete-lesson' : function() {
 			Meteor.call('clearLesson', this._id);
+		},
+
+		'click .change-lesson-instructor' : function(lessonID) {
+			// this depends on the text input being immedietly before the button in the DOM
+			var newInstr = parseInt($(event.target.previousElementSibling, '#swim-class').val());
+			console.log(newInstr);
+
+			Meteor.call('updateLessonInstr', this._id, newInstr);
+
 		},
 	
 	});
@@ -300,7 +308,7 @@ Meteor.methods ({
 		// return the nubmer of instructors by sorting by instructor # and returning the first one
 		var numInstructors = Lessons.findOne({},{sort: {instructor: -1}}).instructor;
 		// returns a cursor containing all classes that conflict with the new one
-		var conflictCursor = Lessons.find({ startTime:  {$lte: net}, _id: {$ne: newLessonID_str}, endTime: {$gte: nst} });
+		var conflictCursor = Lessons.find({ startTime:  {$lte: net}, length: newLesson_obj.length, _id: {$ne: newLessonID_str}, endTime: {$gte: nst} });
 
 		var conflictInstrs = [];
 		var conflictObjs = conflictCursor.fetch();
@@ -319,9 +327,23 @@ Meteor.methods ({
 			}
 		};
 	},
+	
+	updateLessonInstr: function(lessonID, newInstr) {
+
+		
+		
+	
+
+		Lessons.update(lessonID, {$set: {instructor: newInstr}});
+	},
 
 	clearLesson: function(lessonID) {
 		Lessons.remove(lessonID);
+		//	FIXME
+		//	It is possible for this behavior to leave an empty instructor by removing all
+		//	classes mapped to that instructor.
+		//	TODO Write a loop that checks for empty instructors and bumps all proceeding classes
+		//	down one instructor
 	},
 
 	clearAllLessons: function() {

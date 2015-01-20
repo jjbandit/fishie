@@ -1,0 +1,148 @@
+body {
+	#roster {
+		border-top: 3px black solid;
+			/* Time Header layout */
+
+		#time-header {
+			padding-top: 25px;
+			display: flex;
+		}
+
+		#time-block {
+			border-radius: 5px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+		}
+	}
+	background: #eee;
+
+			/* Sizing Class/Break blocks */
+
+	.length-14 {
+		border: 1px solid black;
+		width: 68px;      /* think 70 px (+2px border) */
+
+		margin: 5px 5px;
+	}
+
+	.length-29 {
+		border: 1px solid black;
+		width: 148px;
+
+		margin: 5px 5px;
+	}
+
+	.length-44 {
+		border: 1px solid black;
+		width: 230px;
+
+		margin: 5px 5px;
+	}
+
+	.length-59 {
+		border: 1px solid black;
+		width: 310px;
+
+		margin: 5px 5px;
+	}
+
+			/* Instructor Layout */
+
+	.classes-wrapper {
+		display: flex;
+		margin-top: 5px;
+	}
+	.instructor-label {
+		margin-top: 15px;
+		width: 100%;
+		display: block;
+	}
+
+	#break-blocks {
+		border-radius: 5px;
+		text-align: center;
+	}
+
+	#break-blocks span {
+		position: relative;
+		top: 40px;
+	}
+		/* Swim Class Styling */
+
+
+	 /* Class buttons */
+	.lesson-control-wrapper {
+		height: 25px;
+		width: auto;
+	}
+
+	input.delete-lesson {
+		float: right;
+	}
+
+	#swim-class {
+		background: #fff;
+		border-radius: 5px;
+
+		#class-info {
+			margin-top: 3px;
+			padding-left: 5px;
+		}
+
+		.lesson-control-wrapper {
+
+			input.change-lesson-instructor-value {
+				width: 20px;
+				height: 18px;
+				margin-right: 0;
+				border: 0;
+				border-bottom: 1px solid #333;
+				text-align: center;
+				background: #ccc;
+			}
+
+			input {
+				margin: 3px 4px;
+			}
+		}
+	}
+
+		/* Form Layout */
+	.form-wrapper {
+		padding-bottom: 30px;
+	}
+
+	.form-field-wrapper {
+		margin-top: 5px;
+	}
+
+		/* Button styles */
+	input[type='radio'] {
+		display: none;
+	}
+
+	input[type='radio'].first + label  {	
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+		border-left: 1px solid black;
+	}
+	input[type='radio'].last + label  {	
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-right: 1px solid black;
+	}
+
+	input[type='radio'] + label {
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		display: inline-block;
+		position: relative;
+		text-align: center;
+		padding: 0.8em 1.2em;
+	}
+
+	input[type='radio']:checked + label {
+		background-color: #E0F0FF;
+	}
+}
