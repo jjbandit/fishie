@@ -7,63 +7,59 @@
 	{{> createClass }}
 	{{> timeHeader }}
 
-	<!-- return an array containing an index for every instructor we have -->
+	{{!-- return an array containing an index for every instructor we have --}}
 	{{#each instructor}}
 
-		<div id="instructor">
-			<span class='instructor-label'>Instructor {{this}}</span>
-
-			<!-- loop through the array returned by instructor helper rendering lessons for each index -->
+		<span class='instructor-label'>Instructor {{this}}</span>
+		<div class="classes-wrapper">
+			{{!-- loop through the array returned by instructor helper rendering lessons for each index --}}
 			{{#each lessons this}}
 
+				{{!-- before rendering the lesson render any breaks preceding it --}}
 				{{#each breakBlock this}}
 					{{> breakBlocks}}
 				{{/each}}
 
+				{{!-- then render the lesson --}}
 				{{> lesson}}
 			{{/each}}
 
 		</div>
 	{{/each}}
-
 </body>
 
-<template	name='breakBlocks'>
 
-	<div id="break-blocks">
+<template	name='breakBlocks'>
+	<div id="break-blocks" class="length-14">
 		Break
 	</div>
-
 </template>
+
 
 <template name='timeHeader'>
 
 	<div id="time-header">
-
 		{{#each getTimeBlocks}}
 			{{> headerTimeBlock this}}
 		{{/each}}
-		
 	</div>
-
 </template>
+
 
 <template name="headerTimeBlock">
-
-	<div id="time-block">
-		
+	<div id="time-block" class="length-14">
 		{{this}}
-		
 	</div>
-
 </template>
 
+
 <template name="lesson">
-	<div id="swim-class">
+	<div id="swim-class" class="length-{{length}}">
 			<input type="button" class='delete-lesson'	name="remove-class" value="X" />
 		<div id="class-info">
 			<div id="level">
-				{{classType}} {{level}}<br>
+				{{classType}} {{level}}
+				<br>
 				{{swimmers}} Swimmers
 			</div>
 			<div id="time">
@@ -125,7 +121,8 @@
 
 		<div id="length-wrapper" class='form-field-wrapper'>
 			<input type="radio" name="length-toggle" id="30-min" class="first" value="29"><label for="30-min">30 Min</label><!--
-			--><input type="radio" name="length-toggle" id="45-min" class="last" value="44"><label for="45-min">45 Min</label>
+			--><input type="radio" name="length-toggle" id="45-min" value="44"><label for="45-min">45 Min</label><!--
+			--><input type="radio" name="length-toggle" id="60-min" class="last" value="59"><label for="60-min">60 Min</label>
 		</div>
 	</div>
 </template>

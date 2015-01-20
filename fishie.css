@@ -1,21 +1,47 @@
-/* CSS declarations go here */
 
-	/* Time Header layout */
+		/* Sizing Class/Break blocks */
 
-#time-block {
-	display: inline-block;
-	height: 40px;
-	width: 68px;
-	text-align: center;
-	margin: 0 5px;
+.length-14 {
 	border: 1px solid black;
-	
+	width: 68px;      /* think 70 px (+2px border) */
+
+	margin: 5px 5px;
 }
 
+.length-29 {
+	border: 1px solid black;
+	width: 148px;
 
-	/* Instructor Layout */
+	margin: 5px 5px;
+}
 
-#instructor {
+.length-44 {
+	border: 1px solid black;
+	width: 230px;
+
+	margin: 5px 5px;
+}
+
+.length-59 {
+	border: 1px solid black;
+	width: 310px;
+
+	margin: 5px 5px;
+}
+	/* Time Header layout */
+#time-header {
+  display: flex;
+}
+
+#time-block {
+	height: 40px;
+	text-align: center;
+}
+
+		/* Instructor Layout */
+
+.classes-wrapper {
+	display: flex;
   margin-top: 15px;
 }
 .instructor-label {
@@ -24,20 +50,13 @@
 }
 
 #break-blocks {
-	display: inline-block;
-	height: 100%;
-	width: 68px;
 	text-align: center;
-	margin: 0 5px;
-	border: 1px solid black;
 }
 
 	/* Swim Class Styling */
 
+
 #swim-class {
-	display: inline-block;
-	width: 150px;
-	margin: 5px 6px;
 	border: 1px black solid;
 }
 
