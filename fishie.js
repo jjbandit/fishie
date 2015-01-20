@@ -65,41 +65,46 @@ if (Meteor.isClient) {
 
 	Template.lesson.helpers ({
 		getClassName: function(lesson) {
+
+			// SK levels are easy to get out.
 			if (lesson.classType == 'Swim Kids') {
-			 return lesson.classType + ' ' +lesson.level;
+			 return lesson.classType + ' ' +lesson.level.join('/');
+
+			// Prechool levels need special handling
 			} else if (lesson.classType == 'Preschool') {
 
-				switch(lesson.level) {
-					case 1:
-						return 'Starfish';
-						break;
-					case 2:
-						return 'Duck';
-						break;
-					case 3:
-						return 'Sea Turtle';
-						break;
-					case 4:
-						return 'Sea Otter';
-						break;
-					case 5:
-						return 'Salamander';
-						break;
-					case 6:
-						return 'Sunfish';
-						break;
-					case 7:
-						return 'Crocodile';
-						break;
-					case 8:
-						return 'Whale';
-						break;
-					default:
-						return 'Swim Preschool' + lesson.level;
-						console.log('default');
+			function getPreschoolLevel (level) {
+					switch(level) {
+						case 1:
+							return 'Starfish';
+						case 2:
+							return 'Duck';
+						case 3:
+							return 'Sea Turtle';
+						case 4:
+							return 'Sea Otter';
+						case 5:
+							return 'Salamander';
+						case 6:
+							return 'Sunfish';
+						case 7:
+							return 'Crocodile';
+						case 8:
+							return 'Whale';
+				};
+			}
+
+				if (lesson.split) {
+					var levelAry = [];
+
+					for (var i = 0; i < lesson.level.length; i++) {
+						levelAry.push(getPreschoolLevel(lesson.level[i]));
+				}
+				return levelAry.join(' / ');
+				} else {
+					return getPreschoolLevel(lesson.level);
 				}
 			}
-			
 		},
 	});
 	

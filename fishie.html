@@ -55,10 +55,12 @@
 
 <template name="lesson">
 	<div id="swim-class" class="length-{{length}}">
-			<input type="button" class='delete-lesson'	name="remove-class" value="X" />
+
+		<input type="button" class='delete-lesson'	name="remove-class" value="X" />
+
 		<div id="class-info">
 			<div id="level">
-				{{getClassName this}}
+					{{getClassName this}}
 				<br>
 				{{swimmers}} Swimmers
 			</div>
