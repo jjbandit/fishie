@@ -31,7 +31,7 @@
 
 <template	name='breakBlocks'>
 	<div id="break-blocks" class="length-14">
-		Break
+		<span class='break-label'>Break</span>
 	</div>
 </template>
 
@@ -97,7 +97,7 @@
 <template name="timeSelector">
 	<div id="time-wrapper" class="form-wrapper">
 		<div id="hour-wrapper" class="form-field-wrapper">
-			<input type="radio" name="time-toggle" id="time-1" class="first" value="1"><label for="time-1">1</label><!--
+			<input checked type="radio" name="time-toggle" id="time-1" class="first" value="1"><label for="time-1">1</label><!--
 			--><input type="radio" name="time-toggle" id="time-2" value="2"><label for="time-2">2</label><!--
 			--><input type="radio" name="time-toggle" id="time-3" value="3"><label for="time-3">3</label><!--
 			--><input type="radio" name="time-toggle" id="time-4" value="4"><label for="time-4">4</label><!--
@@ -112,19 +112,19 @@
 		</div>
 
 		<div id="minute-wrapper" class="form-field-wrapper">
-			<input type="radio" name="minute-toggle" class="first" value="00" id="00"><label for="00">00</label><!--
+			<input checked type="radio" name="minute-toggle" class="first" value="00" id="00"><label for="00">00</label><!--
 			--><input type="radio" name="minute-toggle" value="15" id="15"><label for="15">15</label><!--
 			--><input type="radio" name="minute-toggle" value="30" id="30"><label for="30">30</label><!--
 			--><input type="radio" name="minute-toggle" class="last" value="45" id="45"><label for="45">45</label>
 		</div>
 
 		<div id="am-pm-wrapper" class="form-field-wrapper">
-			<input type="radio" name="am-pm-toggle" id="AM" class="first" value="0"><label for="AM">AM</label><!--
+			<input checked type="radio" name="am-pm-toggle" id="AM" class="first" value="0"><label for="AM">AM</label><!--
 			--><input type="radio" name="am-pm-toggle" id="PM" class="last" value="1"><label for="PM">PM</label>
 		</div>
 
 		<div id="length-wrapper" class='form-field-wrapper'>
-			<input type="radio" name="length-toggle" id="30-min" class="first" value="29"><label for="30-min">30 Min</label><!--
+			<input checked type="radio" name="length-toggle" id="30-min" class="first" value="29"><label for="30-min">30 Min</label><!--
 			--><input type="radio" name="length-toggle" id="45-min" value="44"><label for="45-min">45 Min</label><!--
 			--><input type="radio" name="length-toggle" id="60-min" class="last" value="59"><label for="60-min">60 Min</label>
 		</div>
@@ -134,7 +134,7 @@
 <template name="levelSelector">
 	<div id="level-wrapper" class="form-wrapper">
 		<div id="swim-kids-wrapper" class="form-field-wrapper">
-			<input type="radio" name="level-toggle" id="sk1" class="first" value="1"><label for="sk1">SK 1</label><!--
+			<input checked type="radio" name="level-toggle" id="sk1" class="first" value="1"><label for="sk1">SK 1</label><!--
 			--><input type="radio" name="level-toggle" id="sk2" value="2"><label for="sk2">SK 2</label><!--
 			--><input type="radio" name="level-toggle" id="sk3" value="3"><label for="sk3">SK 3</label><!--
 			--><input type="radio" name="level-toggle" id="sk4" value="4"><label for="sk4">SK 4</label><!--
@@ -159,7 +159,7 @@
 	</div>
 
 	<div id="swimmers-wrapper" class="form-wrapper form-field-wrapper">
-		<input type="radio" name="swimmers-toggle" id="1" class="first" value="1"><label for="1">1</label><!--
+		<input checked type="radio" name="swimmers-toggle" id="1" class="first" value="1"><label for="1">1</label><!--
 		--><input type="radio" name="swimmers-toggle" id="2" value="2"><label for="2">2</label><!--
 		--><input type="radio" name="swimmers-toggle" id="3" value="3"><label for="3">3</label><!--
 		--><input type="radio" name="swimmers-toggle" id="4" value="4"><label for="4">4</label><!--

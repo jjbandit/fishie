@@ -215,8 +215,6 @@ Meteor.methods ({
 		//  Return a cursor containing any candidates for a split 
 		//  not sure if the AND is nessicary because of mongos implied and, but it works.
 
-		//  FIXME This doesn't split classes three ways because a split level ends up with an array
-		//  in the level property.  This is going to become a problem for 7-10 splits
 		splitCursor = Lessons.find({
 			$and : [
 				{ startTime: startTime },
@@ -229,11 +227,6 @@ Meteor.methods ({
 		});
 
 		var splitArray = splitCursor.fetch();
-
-		// FIXME This logic is dependant on which lesson is created first
-		// splits spanning a breakpoint will apply this rule according to the 
-		// second lesson
-		// ie. a 4/5 split will have a max of 8 but a 5/4 split will have a max of 6
 
 		// Determine the max number of swimmers for the new lessons level
 		var maxSwimmers = 0;

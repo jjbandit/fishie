@@ -34,7 +34,9 @@
 }
 
 #time-block {
-	height: 40px;
+	border-radius: 5px;
+	height: 50px;
+	line-height: 50px;
 	text-align: center;
 }
 
@@ -42,22 +44,28 @@
 
 .classes-wrapper {
 	display: flex;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 .instructor-label {
+	margin-top: 15px;
 	width: 100%;
 	display: block;
 }
 
 #break-blocks {
+	border-radius: 5px;
 	text-align: center;
 }
 
+#break-blocks span {
+  position: relative;
+	top: 40px;
+}
 	/* Swim Class Styling */
 
 
 #swim-class {
-	border: 1px black solid;
+	border-radius: 5px;
 }
 
 #class-info {
