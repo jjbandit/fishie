@@ -2,8 +2,6 @@ Lessons = new Mongo.Collection("lessons");
 
 if (Meteor.isClient) {
 
-	
-	
 	Template.body.helpers ({
 
 		instructor: function() {
@@ -212,7 +210,7 @@ Meteor.methods ({
 
 
 		// Check if there are classes within 1 level that coincide with the proposed class and if there are
-		// check number of participants.  Split it and return from the method if there are
+		// check number of participants.  Split it and return from the method if there are 
 
 		//  Return a cursor containing any candidates for a split 
 		//  not sure if the AND is nessicary because of mongos implied and, but it works.
@@ -261,17 +259,28 @@ Meteor.methods ({
 
 			// if we find one where both swimmers properties add to less than the breakpoint
 			if (splitArray[i].swimmers + swimmers <= maxSwimmers) {
-				
-				// nest the new lesson in the split property of the existing lesson 
 				Lessons.update(splitArray[i]._id, {$set: {split: true}});
 
-				Lessons.update(splitArray[i]._id, {$set: {level: [splitArray[i].level, level]}});
-				Lessons.update(splitArray[i]._id, {$set: {swimmers: [splitArray[i].swimmers, swimmers]}});
+				// Logic to set the smaller level into the first array index 
+				// so it looks nicer when it gets rendered
+				if (splitArray[i].level > level) {
+					bigLevel = splitArray[i].level;
+					bigSwimmers = splitArray[i].swimmers;
+					smallLevel = level;
+					smallSwimmers = swimmers;
+				} else {
+					bigLevel = level;
+					bigSwimmers = swimmers;
+					smallLevel = splitArray[i].level;
+					smallSwimmers = splitArray[i].swimmers;
+				}
+				Lessons.update(splitArray[i]._id, {$set: {level: [smallLevel, bigLevel]}});
+				Lessons.update(splitArray[i]._id, {$set: {swimmers: [smallSwimmers, bigSwimmers]}});
 				return;
 			}
 		};
 
-		// if split-class logic didn't hit a return insert a new Lesson record
+		// if the split-class logic didn't hit a return insert a new Lesson record
 		Lessons.insert ({
 			level: level,
 			classType: classType,
