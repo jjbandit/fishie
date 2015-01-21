@@ -181,15 +181,16 @@ if (Meteor.isClient) {
 			var level = parseInt($('input[name=level-toggle]:checked', '#level-wrapper').val());
 			var length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
 			var swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
+			var privateClass = parseInt($('input[name=private-toggle]:checked', '#private-wrapper').val());
 
-			Meteor.call('createClass', level, startTime, length, swimmers);
+			Meteor.call('createClass', level, startTime, length, swimmers, privateClass);
 		}
 	});
 }
 
 Meteor.methods ({
 
-	createClass: function(level, startTime, length, swimmers) {
+	createClass: function(level, startTime, length, swimmers, privateClass) {
 
 		// Validation
 		check(level, Match.Integer);
@@ -230,6 +231,7 @@ Meteor.methods ({
 			$and : [
 				{ startTime: startTime },
 				{ classType: classType },
+				{ privateClass: {$ne: 1}},
 				{ endTime: endTime },
 				{ $or : [
 					{ level: level + 1 },{ level: level - 1 } 
@@ -287,6 +289,7 @@ Meteor.methods ({
 		// if the split-class logic didn't hit a return insert a new Lesson record
 		Lessons.insert ({
 			level: level,
+			privateClass: privateClass,
 			classType: classType,
 			split: false,
 			instructor: 0,

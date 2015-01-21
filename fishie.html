@@ -69,7 +69,9 @@
 
 		<div id="class-info">
 			<div id="level">
-					{{getClassName this}}
+				{{privateClass}}
+				<br>
+				{{getClassName this}} 
 				<br>
 				{{swimmers}} Swimmers
 			</div>
@@ -99,10 +101,18 @@
 
 <template name="createClass">
 	<form>
+		{{> privateSelector}}
 		{{> levelSelector }}
 		{{> buttonControls }}
 		{{> timeSelector }}
 	</form>
+</template>
+
+<template name="privateSelector">
+	<div id="private-wrapper" class="form-wrapper">
+		<input checked type="radio" name="private-toggle" id="private-public" class="first" value="0"><label for="private-public">Public</label><!--
+		--><input type="radio" name="private-toggle" id="private-private" class="last" value="1"><label for="private-private">Private</label>
+	</div>
 </template>
 
 <template name="timeSelector">
