@@ -27,16 +27,16 @@ if (Meteor.isClient) {
 		},
 
 		breakBlock: function(lesson) {
-				
+
 			//FIXME Collection is possibly not ready before this fires.
 			prevLesson = Lessons.findOne({instructor: lesson.instructor, endTime: {$lt: lesson.startTime}, _id: {$ne: lesson._id}}, {sort: {startTime: -1}});
 
 		// get 15 minute blocks between the two lessons
 		if (prevLesson) {
-			var timeSpan = lesson.startTime.getTime() - prevLesson.endTime.getTime(); 
-		}	else { 
+			var timeSpan = lesson.startTime.getTime() - prevLesson.endTime.getTime();
+		}	else {
 			var firstTime = Lessons.findOne({}, {sort: {startTime: 1}}).startTime;
-			var timeSpan = lesson.startTime.getTime() - firstTime; 
+			var timeSpan = lesson.startTime.getTime() - firstTime;
 		}
 
 			// returns one block per 15 minute increment
@@ -46,12 +46,12 @@ if (Meteor.isClient) {
 
 			// return an array with one index for each block between lessons
 			for (var i = 1; i <= timeBlocks; i++) {
-				var blockTime = new Date(); 
+				var blockTime = new Date();
 				timeAry.push(i);
 			};
 
 			return timeAry;
-			
+
 		},
 	});
 
@@ -75,7 +75,7 @@ if (Meteor.isClient) {
 			// SK levels are easy to get out.
 			if (lesson.classType == 'Swim Kids') {
 				if (lesson.split) {
-					 return lesson.classType + ' ' +lesson.level.join('/');
+					return lesson.classType + ' ' +lesson.level.join('/');
 				} else {
 					return lesson.classType + ' ' + lesson.level;
 				}
@@ -117,7 +117,7 @@ if (Meteor.isClient) {
 			}
 		},
 	});
-	
+
 	Template.lesson.events ({
 		'click .delete-lesson' : function() {
 			Meteor.call('clearLesson', this._id);
@@ -131,16 +131,16 @@ if (Meteor.isClient) {
 			Meteor.call('updateLessonInstr', this._id, newInstr);
 
 		},
-	
+
 	});
-	
+
 	Template.timeHeader.helpers ({
 		getTimeBlocks: function() {
 			if (Lessons.findOne({})) {
 				var firstTime = Lessons.findOne({}, {sort: {startTime: 1}}).startTime;
 				var lastTime = Lessons.findOne({}, {sort: {endTime: -1}}).endTime;
 
-				var timeSpan = lastTime.getTime() - firstTime.getTime(); 
+				var timeSpan = lastTime.getTime() - firstTime.getTime();
 
 				// returns one block per 15 minute increment
 				var timeBlocks = (Math.round(timeSpan / 60000) + 1) / 15;
@@ -148,7 +148,7 @@ if (Meteor.isClient) {
 				var timeAry = [];
 
 				for (var i = 0; i < timeBlocks; i++) {
-					var blockTime = new Date(); 
+					var blockTime = new Date();
 
 					// set the current blocks time to the time of the first class
 					// plus offset it by the number of 15 minute increments we've been through
@@ -161,7 +161,7 @@ if (Meteor.isClient) {
 			}
 		},
 	});
-	
+
 	Template.createClass.events ({
 		'submit form' : function() {
 			// Prevent form refresh
@@ -217,7 +217,7 @@ Meteor.methods ({
 		var endTime = new Date(startTime.toJSON());
 		endTime.setMinutes(startTime.getMinutes() + length);
 
-		// Check what level and set the class type 
+		// Check what level and set the class type
 		var classType = 'Swim Kids';
 
 		if (level > 10) {
@@ -225,14 +225,14 @@ Meteor.methods ({
 		level = level -10;
 		}
 
-		// TODO 
+		// TODO
 		// This splits classes based on the order they are created and not based on optimal class sizes
 		// it should take into account all possible splits and choose to maximize participants
 
 		// Check if there are classes within 1 level that coincide with the proposed class and if there are
-		// check number of participants.  Split it and return from the method if there are 
+		// check number of participants.  Split it and return from the method if there are
 
-		//  Return a cursor containing any candidates for a split 
+		//  Return a cursor containing any candidates for a split
 		//  not sure if the AND is nessicary because of mongos implied and, but it works.
 
 		splitCursor = Lessons.find({
@@ -242,7 +242,7 @@ Meteor.methods ({
 				{ privateClass: {$ne: 1}},
 				{ endTime: endTime },
 				{ $or : [
-					{ level: level + 1 },{ level: level - 1 } 
+					{ level: level + 1 },{ level: level - 1 }
 				] },
 			]
 		});
@@ -251,7 +251,7 @@ Meteor.methods ({
 
 		// Determine the max number of swimmers for the new lessons level
 		var maxSwimmers = 0;
-	
+
 		// Several breakpoints for SK lessons
 		if (level < 5) {
 			maxSwimmers = 6;
@@ -275,7 +275,7 @@ Meteor.methods ({
 			if (splitArray[i].swimmers + swimmers <= maxSwimmers) {
 				Lessons.update(splitArray[i]._id, {$set: {split: true}});
 
-				// Logic to set the smaller level into the first array index 
+				// Logic to set the smaller level into the first array index
 				// so it looks nicer when it gets rendered
 				if (splitArray[i].level > level) {
 					bigLevel = splitArray[i].level;
@@ -307,7 +307,7 @@ Meteor.methods ({
 			endTime: endTime,
 			_id: strLessonID,
 		});
-		
+
 		// and sort it
 		Meteor.call('sortNewClass', lessonID);
 	},
@@ -319,7 +319,7 @@ Meteor.methods ({
 
 		var nst = newLesson_obj.startTime;
 		var net = newLesson_obj.endTime;
-		
+
 		// return the number of instructors by sorting by instructor # and returning the first one
 		var numInstructors = Lessons.findOne({},{sort: {instructor: -1}}).instructor;
 		// returns a cursor containing all classes that conflict with the new one
@@ -331,7 +331,7 @@ Meteor.methods ({
 
 		var conflictInstrs = [];
 		var conflictObjs = conflictCursor.fetch();
-		
+
 		conflictObjs.forEach(function(lsn) {
 			conflictInstrs.push(lsn.instructor);
 		});
@@ -346,7 +346,7 @@ Meteor.methods ({
 			}
 		};
 	},
-	
+
 	updateLessonInstr: function(lessonID, newInstr) {
 
 		check(lessonID, String);
@@ -360,30 +360,27 @@ Meteor.methods ({
 			var swapLessonInstructor = swapLesson.instructor;
 			var lesson_objInstructor = lesson_obj.instructor;
 
-			console.log('swapping!');
 			Lessons.update({_id: lessonID}, {$set: {instructor: swapLessonInstructor}} );
 			Lessons.update({_id: swapLesson._id}, {$set: {instructor: lesson_objInstructor}} );
-		
 		}
-		console.log(swapLesson);
 
 		Lessons.update(lessonID, {$set: {instructor: newInstr}});
 	},
 
 	clearLesson: function(lessonID) {
 		Lessons.remove(lessonID);
-		//	FIXME
-		//	It is possible for this behavior to leave an empty instructor by removing all
-		//	classes mapped to that instructor.
-		//	TODO Write a loop that checks for empty instructors and bumps all proceeding classes
-		//	down one instructor
+		// FIXME
+		// It is possible for this behavior to leave an empty instructor by removing all
+		// classes mapped to that instructor.
+		// TODO Write a loop that checks for empty instructors and bumps all proceeding classes
+		// down one instructor
 	},
 
 	clearAllLessons: function() {
-			Lessons.remove({});
+		Lessons.remove({});
 	}
 
-}); 
+});
 
 if (Meteor.isServer) {
 
