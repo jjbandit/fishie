@@ -1,11 +1,7 @@
 <template name="lesson">
 	<div id="swim-class" class="length-{{length}}">
 
-		<div class="lesson-control-wrapper">
-			<input type="text" class='change-lesson-instructor-value' name="change-lesson-instructor-value" value="" />
-			<input type="button" class='change-lesson-instructor' name="change-lesson-instructor" value=">" />
-			<input type="button" class='delete-lesson'	name="delete-lesson" value="X" />
-		</div>
+		{{> lessonControls}}
 
 		<div id="class-info">
 			<div id="level">
