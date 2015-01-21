@@ -78,10 +78,10 @@
 				{{swimmers}} Swimmers
 			</div>
 			<div id="time">
-				{{startTime.toLocaleTimeString}}
+				{{startTime.getHours}}:{{sanitizeMinutes startTime.getMinutes}}
 			</div>
-			<div id="end-time">
-				{{endTime.toLocaleTimeString}}
+			<div id="class-length">
+				{{length}}
 			</div>
 		</div>
 

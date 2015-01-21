@@ -62,6 +62,12 @@ if (Meteor.isClient) {
 	});
 
 	Template.lesson.helpers ({
+		sanitizeMinutes: function(mins) {
+			if (mins == 0) {
+				mins = "00"
+			}
+			return mins;
+		},
 		getClassName: function(lesson) {
 
 			// SK levels are easy to get out.
