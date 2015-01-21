@@ -1,0 +1,21 @@
+<template name="instructors">
+	{{!-- return an array containing an index for every instructor we have --}}
+	{{#each instructor}}
+
+		<span class='instructor-label'>Instructor {{this}}</span>
+		<div class="classes-wrapper">
+			{{!-- loop through the array returned by instructor helper rendering lessons for each index --}}
+			{{#each lessons this}}
+
+				{{!-- before rendering the lesson render any breaks preceding it --}}
+				{{#each breakBlock this}}
+					{{> breakBlocks}}
+				{{/each}}
+
+				{{!-- then render the lesson --}}
+				{{> lesson}}
+			{{/each}}
+
+		</div>
+	{{/each}}
+</template>
