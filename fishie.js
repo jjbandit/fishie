@@ -57,7 +57,9 @@ if (Meteor.isClient) {
 
 	Template.body.events ({
 		'click .clear' : function() {
+			if (confirm('Clear all lessons?')) {
 				Meteor.call("clearAllLessons");
+			}
 		}
 	});
 
@@ -378,7 +380,7 @@ Meteor.methods ({
 	},
 
 	clearAllLessons: function() {
-				Lessons.remove({})
+			Lessons.remove({});
 	}
 
 }); 
