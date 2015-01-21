@@ -216,6 +216,9 @@ Meteor.methods ({
 		level = level -10;
 		}
 
+		// TODO 
+		// This splits classes based on the order they are created and not based on optimal class sizes
+		// it should take into account all possible splits and choose to maximize participants
 
 		// Check if there are classes within 1 level that coincide with the proposed class and if there are
 		// check number of participants.  Split it and return from the method if there are 
@@ -286,7 +289,7 @@ Meteor.methods ({
 			level: level,
 			classType: classType,
 			split: false,
-			instructor: 1,
+			instructor: 0,
 			swimmers: swimmers,
 			startTime: startTime,
 			length: length,
@@ -299,16 +302,21 @@ Meteor.methods ({
 	},
 
 	sortNewClass: function(newLessonID) {
+
 		var newLessonID_str = newLessonID._str;
 		var newLesson_obj = Lessons.findOne({_id: newLessonID_str});
 
 		var nst = newLesson_obj.startTime;
 		var net = newLesson_obj.endTime;
-
-		// return the nubmer of instructors by sorting by instructor # and returning the first one
+		
+		// return the number of instructors by sorting by instructor # and returning the first one
 		var numInstructors = Lessons.findOne({},{sort: {instructor: -1}}).instructor;
 		// returns a cursor containing all classes that conflict with the new one
-		var conflictCursor = Lessons.find({ startTime:  {$lte: net}, length: newLesson_obj.length, _id: {$ne: newLessonID_str}, endTime: {$gte: nst} });
+		// NOTE when I expose this as a global variable and call conflictCursor the new lesson is included, however the
+		// console.log proceeding this does not return the new lesson.  Weird.  Not sure why, but the _id exclusion
+		// is working as written/intended
+		var conflictCursor = Lessons.find({ startTime:  {$lte: net}, _id: {$ne: newLessonID_str}, endTime: {$gte: nst} });
+		// console.log(conflictCursor);
 
 		var conflictInstrs = [];
 		var conflictObjs = conflictCursor.fetch();
