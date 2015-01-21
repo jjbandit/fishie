@@ -69,9 +69,11 @@
 
 		<div id="class-info">
 			<div id="level">
-				{{privateClass}}
-				<br>
-				{{getClassName this}} 
+				{{#if privateClass}}
+					<input type="text" class='private-name' name="private-name" placeholder="Private" />
+				{{else}}
+					{{getClassName this}} 
+				{{/if}}
 				<br>
 				{{swimmers}} Swimmers
 			</div>
