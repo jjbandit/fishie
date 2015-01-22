@@ -30,8 +30,6 @@ Template.createLesson.events ({
 		// We must create this here and pass it to the method so the server
 		// and client are aware of what the lessonID is going to be
 		var lessonID = new Meteor.Collection.ObjectID();
-		// Convert the ID object to a string so it parses correctly
-		lessonID_str = lessonID._str;
 		Meteor.call('createLesson', lessonID, level, startTime, length, swimmers, privateClass);
 	}
 });
