@@ -1,6 +1,14 @@
 <template name='lesson'>
-this comes from the lesson template
-	<div id="lesson">
-		{{getLesson this}}
-	</div>
+	{{#with getLesson this}}
+		<div id="lesson" class="length-{{length}}">
+			<ul>
+				{{#if privateLesson}}
+					<li><input type="text" name="private-name" class='private-name' placeholder='Private'/></li>
+				{{else}}
+					<li>{{lessonType}} {{level}}</li>
+				{{/if}}
+				<li>{{swimmers}} Swimmers</li>
+			</ul>
+		</div>
+		{{/with}}
 </template>
