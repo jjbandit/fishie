@@ -3,8 +3,13 @@ Template.timeHeader.helpers({
 		var firstLesson = Lessons.findOne({}, {sort: {lessonTime: 1}});
 		var lastLesson = Lessons.findOne({}, {sort: {lessonTime: -1}});
 		if (firstLesson) {
-			console.log(firstLesson.lessonTime[0]);
-			console.log(lastLesson.lessonTime[lastLesson.lessonTime.length - 1]);
+			var firstTime = new Date(firstLesson.lessonTime[0]);
+			var lastTime = new Date(lastLesson.lessonTime[lastLesson.lessonTime.length - 1]);
+			return blocks = Fishie.getTimeBlocks(firstTime, lastTime);
 		}
+	},
+	sanitizeTime: function() {
+		// TODO output something useful
+		return 'timeHeader.helpers,  ';
 	},
 });
