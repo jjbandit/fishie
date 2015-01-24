@@ -1,5 +1,15 @@
 body {
 background: #eee;
+	#instructor-list {
+		#instructor-wrapper {
+			input[type=text] {
+				margin-top: 10px;
+				width: 100%;
+				background: #eee;
+				border: 0;
+			}
+		}
+	}
 	#schedule {
 		border-top: 3px black solid;
 			/* Time Header layout */
@@ -88,7 +98,7 @@ background: #eee;
 	.form-field-wrapper {
 		margin-top: 5px;
 	}
-		/* Button styles */
+	/* Button styles */
 	input[type='radio'] {
 		display: none;
 	}

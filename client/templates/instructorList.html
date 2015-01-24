@@ -1,11 +1,13 @@
 <template name="instructorList">
 	<div id="instructor-list">
 		{{#each instructors}}
-		<div class="instructor">
+		<div id="instructor-wrapper">
 			<input type="text" name="instructor-name" class='instructor-name' placeholder='Instructor'/>
-			{{#each lessonList}}
-				{{>lesson this}}
-			{{/each}}
+			<div class="instructor">
+				{{#each lessonList}}
+					{{>lesson this}}
+				{{/each}}
+			</div>
 		</div>
 		{{/each}}
 	</div>

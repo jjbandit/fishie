@@ -8,12 +8,4 @@ Template.timeHeader.helpers({
 			return blocks = Fishie.getTimeBlocks(firstTime, lastTime);
 		}
 	},
-	sanitizeTime: function() {
-		var minutes = this.getMinutes();
-		if (minutes == 0) {
-			minutes = '00';
-		}
-		saneTime = this.getHours() + ":" + minutes;
-		return saneTime;
-	},
 });

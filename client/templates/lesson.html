@@ -8,7 +8,9 @@
 					<li>{{lessonType}} {{level}}</li>
 				{{/if}}
 				<li>{{swimmers}} Swimmers</li>
-				<li>{{lessonTime}}</li>
+					{{#each lessonTime}}
+						{{sanitizeTime this}}
+					{{/each}}
 			</ul>
 		</div>
 		{{/with}}
