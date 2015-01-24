@@ -4,7 +4,7 @@
 		<div id="instructor-wrapper">
 			<input type="text" name="instructor-name" class='instructor-name' placeholder='Instructor'/>
 			<div class="instructor">
-				{{#each lessonList}}
+				{{#each sortedLessonList lessonList}}
 					{{>lesson this}}
 				{{/each}}
 			</div>
@@ -12,4 +12,3 @@
 		{{/each}}
 	</div>
 </template>
-
