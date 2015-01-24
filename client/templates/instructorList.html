@@ -4,13 +4,17 @@
 		<div id="instructor-wrapper">
 			<input type="text" name="instructor-name" class='instructor-name' placeholder='Instructor'/>
 			<div class="instructor">
+<<<<<<< HEAD
 				{{#each lessonList}}
 					{{ renderBreaks this }}
 					{{> lesson this}}
+=======
+				{{#each sortedLessonList lessonList}}
+					{{>lesson this}}
+>>>>>>> temp
 				{{/each}}
 			</div>
 		</div>
 		{{/each}}
 	</div>
 </template>
-
