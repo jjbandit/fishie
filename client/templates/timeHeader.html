@@ -1,7 +1,9 @@
 <template name='timeHeader'>
 	<div id="time-header">
 		{{#each timeBlock}}
-			{{sanitizeTime}}
+			<div class="time-block length-14">
+				{{sanitizeTime}}
+			</div>
 		{{/each}}
 	</div>
 </template>

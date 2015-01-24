@@ -9,7 +9,11 @@ Template.timeHeader.helpers({
 		}
 	},
 	sanitizeTime: function() {
-		// TODO output something useful
-		return 'timeHeader.helpers,  ';
+		var minutes = this.getMinutes();
+		if (minutes == 0) {
+			minutes = '00';
+		}
+		saneTime = this.getHours() + ":" + minutes;
+		return saneTime;
 	},
 });

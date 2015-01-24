@@ -6,12 +6,12 @@ background: #eee;
 		#time-header {
 			padding-top: 25px;
 			display: flex;
-		}
-		#time-block {
-			border-radius: 5px;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
+			.time-block {
+				border-radius: 5px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
 		}
 		#lesson {
 			background: #ddd;
