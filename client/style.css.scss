@@ -123,4 +123,29 @@ background: #eee;
 	input[type='radio']:checked + label {
 		background-color: #E0F0FF;
 	}
+
+	input[type='checkbox'] {
+		display: none;
+	}
+	input[type='checkbox'].first + label  {
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+		border-left: 1px solid black;
+	}
+	input[type='checkbox'].last + label  {
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-right: 1px solid black;
+	}
+	input[type='checkbox'] + label {
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		display: inline-block;
+		position: relative;
+		text-align: center;
+		padding: 0.8em 1.2em;
+	}
+	input[type='checkbox']:checked + label {
+		background-color: #E0F0FF;
+	}
 }
