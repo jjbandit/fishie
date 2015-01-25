@@ -3,6 +3,7 @@ UI.registerHelper (
 		var minutes = timeObj.getMinutes();
 		var hours = timeObj.getHours();
 		var amPm = ' AM';
+		var day = timeObj.getDay();
 		if (minutes == 0) {
 			minutes = '00';
 		}
@@ -10,6 +11,6 @@ UI.registerHelper (
 			hours = hours - 12;
 			amPm = ' PM';
 		}
-		saneTime = hours + ":" + minutes + amPm;
+		saneTime = day + ' ' +  hours + ":" + minutes + amPm;
 		return saneTime;
 	});
