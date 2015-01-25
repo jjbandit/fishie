@@ -3,7 +3,7 @@ UI.registerHelper (
 		var minutes = timeObj.getMinutes();
 		var hours = timeObj.getHours();
 		var amPm = ' AM';
-		var day = timeObj.getDay();
+		var day = timeObj.toDateString().slice(0, 3);
 		if (minutes == 0) {
 			minutes = '00';
 		}
