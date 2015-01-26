@@ -5,7 +5,7 @@
 				{{#if privateLesson}}
 					<li><input type="text" name="private-name" class='private-name' placeholder='Private'/></li>
 				{{else}}
-					<li>{{lessonType}} {{level}}</li>
+					<li>{{sanitizeLevels levels}}</li>
 				{{/if}}
 				<li>{{swimmers}} Swimmers</li>
 				{{#each lessonTime}}
