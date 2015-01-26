@@ -1,6 +1,7 @@
 <template name='lesson'>
 	{{#with getLesson this}}
 		<div id="lesson" class="length-{{length}}">
+			{{> lessonControls}}
 			<ul>
 				{{#if privateLesson}}
 					<li><input type="text" name="private-name" class='private-name' placeholder='Private'/></li>
