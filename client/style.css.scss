@@ -1,134 +1,107 @@
 body {
-
-	#roster {
+background: #eee;
+	#instructor-list {
+		#instructor-wrapper {
+			input[type=text] {
+				margin-top: 10px;
+				width: 100%;
+				background: #eee;
+				border: 0;
+			}
+		}
+	}
+	#schedule {
 		border-top: 3px black solid;
 			/* Time Header layout */
-
 		#time-header {
 			padding-top: 25px;
 			display: flex;
+			.time-block {
+				border-radius: 5px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
 		}
-
-		#time-block {
+		#lesson {
+			background: #ddd;
 			border-radius: 5px;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
+			ul {
+				margin:3px 0 0 0;
+				padding:0 0 0 3px;
+				list-style:none;
+					input.private-name {
+						width: 135px;
+						background: #ddd;
+						border: 0;
+					}
+			}
+			.lesson-control-wrapper {
+				height: 25px;
+				width: auto;
+				input.delete-lesson-input {
+					float: right;
+				}
+				input.change-lesson-instructor-value {
+					width: 20px;
+					height: 18px;
+					margin-right: 0;
+					border: 0;
+					border-bottom: 1px solid #333;
+					text-align: center;
+					background: #ddd;
+				}
+				input {
+					margin: 3px 4px;
+				}
+			}
 		}
 	}
-	background: #eee;
-
 			/* Sizing Class/Break blocks */
-
 	.length-14 {
 		border: 1px solid black;
 		width: 68px;      /* think 70 px (+2px border) */
-
 		margin: 5px 5px;
 	}
-
 	.length-29 {
 		border: 1px solid black;
 		width: 148px;
-
 		margin: 5px 5px;
 	}
-
 	.length-44 {
 		border: 1px solid black;
 		width: 230px;
-
 		margin: 5px 5px;
 	}
-
 	.length-59 {
 		border: 1px solid black;
 		width: 310px;
-
 		margin: 5px 5px;
 	}
-
 			/* Instructor Layout */
-
-	.classes-wrapper {
+	.instructor {
 		display: flex;
 		margin-top: 5px;
 	}
-	.instructor-label {
-		margin-top: 15px;
-		width: 100%;
-		display: block;
-	}
-
 	#break-blocks {
 		border-radius: 5px;
 		text-align: center;
 	}
-
 	#break-blocks span {
 		position: relative;
 		top: 40px;
 	}
-
-
-
-
-	/* Swim Class Styling */
-
-
-	input.delete-lesson-input {
-		float: right;
-	}
-
-	#swim-class {
-		background: #ddd;
-		border-radius: 5px;
-
-		#class-info {
-			margin-top: 3px;
-			padding-left: 5px;
-
-				input.private-name {
-					width: 135px;
-					background: #ddd;
-					border: 0;
-				}
-		}
-
-		.lesson-control-wrapper {
-			height: 25px;
-			width: auto;
-
-			input.change-lesson-instructor-value {
-				width: 20px;
-				height: 18px;
-				margin-right: 0;
-				border: 0;
-				border-bottom: 1px solid #333;
-				text-align: center;
-				background: #ddd;
-			}
-
-			input {
-				margin: 3px 4px;
-			}
-		}
-	}
-
 		/* Form Layout */
 	.form-wrapper {
 		padding-bottom: 30px;
 	}
-
 	.form-field-wrapper {
 		margin-top: 5px;
 	}
-
-		/* Button styles */
+	/* Button styles */
 	input[type='radio'] {
 		display: none;
 	}
-
 	input[type='radio'].first + label  {
 		border-top-left-radius: 10px;
 		border-bottom-left-radius: 10px;
@@ -139,7 +112,6 @@ body {
 		border-bottom-right-radius: 10px;
 		border-right: 1px solid black;
 	}
-
 	input[type='radio'] + label {
 		border-top: 1px solid black;
 		border-bottom: 1px solid black;
@@ -148,8 +120,32 @@ body {
 		text-align: center;
 		padding: 0.8em 1.2em;
 	}
-
 	input[type='radio']:checked + label {
+		background-color: #E0F0FF;
+	}
+
+	input[type='checkbox'] {
+		display: none;
+	}
+	input[type='checkbox'].first + label  {
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+		border-left: 1px solid black;
+	}
+	input[type='checkbox'].last + label  {
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-right: 1px solid black;
+	}
+	input[type='checkbox'] + label {
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		display: inline-block;
+		position: relative;
+		text-align: center;
+		padding: 0.8em 1.2em;
+	}
+	input[type='checkbox']:checked + label {
 		background-color: #E0F0FF;
 	}
 }

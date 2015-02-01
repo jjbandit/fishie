@@ -1,25 +1,20 @@
-<template name="lesson">
-	<div id="swim-class" class="length-{{length}}">
-
-		{{> lessonControls}}
-
-		<div id="class-info">
-			<div id="level">
-				{{#if privateClass}}
-					<input type="text" class='private-name' name="private-name" placeholder="Private" />
+<template name='lesson'>
+	{{#with getLesson this}}
+		<div id="lesson" class="length-{{length}}">
+			{{> lessonControls}}
+			<ul>
+				{{#if privateLesson}}
+					<li><input type="text" name="private-name" class='private-name' placeholder='Private'/></li>
 				{{else}}
-					{{getClassName this}}
+					<li>{{sanitizeLevels levels}}</li>
 				{{/if}}
-				<br>
-				{{swimmers}} Swimmers
-			</div>
-			<div id="time">
-				{{startTime.getHours}}:{{sanitizeMinutes startTime.getMinutes}}
-			</div>
-			<div id="class-length">
-				{{length}}
-			</div>
+				<li>{{swimmers}} Swimmers</li>
+				{{#each lessonTime}}
+					<div>
+						{{sanitizeTime this}}
+					</div>
+				{{/each}}
+			</ul>
 		</div>
-
-	</div>
+		{{/with}}
 </template>

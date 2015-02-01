@@ -1,0 +1,11 @@
+<template name='lessonList'>
+	<div id="lesson-list">
+		{{#each lessons}}
+			<div class="lesson">
+				type/level: {{levels}}<br>
+				instr: {{instructor}} <br>
+				time: {{lessonTime}}
+			</div>
+		{{/each}}
+	</div>
+</template>

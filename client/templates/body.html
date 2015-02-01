@@ -4,9 +4,11 @@
 
 <body>
   <h1>Fishie</h1>
-	{{> createClass }}
-	<div id="roster">
-		{{> timeHeader }}
-		{{> instructors }}
+	{{> createLesson }}
+	<div id="schedule">
+		{{> timeHeader}}
+		{{> instructorList}}
+		=========================
+		{{> lessonList}}
 	</div>
 </body>

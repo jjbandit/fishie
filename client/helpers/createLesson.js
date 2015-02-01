@@ -1,4 +1,4 @@
-Template.createClass.events ({
+Template.createLesson.events ({
 	'submit form' : function() {
 		// Prevent form refresh
 		event.preventDefault();
@@ -26,7 +26,13 @@ Template.createClass.events ({
 		var length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
 		var swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
 		var privateClass = parseInt($('input[name=private-toggle]:checked', '#private-wrapper').val());
+		var weekdays = $('input[name=weekday-toggle]:checked', '#weekday-wrapper').map( function() {
+			return $(this).val();
+		}).get();
 
-		Meteor.call('createClass', level, startTime, length, swimmers, privateClass);
+		// We must create this here and pass it to the method so the server
+		// and client are aware of what the lessonID is going to be
+		var lessonID = new Meteor.Collection.ObjectID();
+		Meteor.call('createLesson', lessonID, level, weekdays, startTime, length, swimmers, privateClass);
 	}
 });
