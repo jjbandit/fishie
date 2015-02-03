@@ -11,7 +11,13 @@ Template.instructorList.helpers ({
 			instructor: lessonObj.instructor,
 			lessonTime: {$lt: lessonObj.lessonTime[0]},
 		}, {sort: {lessonTime: -1}} );
-		if (prevLesson !== undefined) {
+		// prevLesson returns undefined if its the instructors first lesson
+		// so we should render breaks based on the first lesson
+		// in the whole sets start time
+		if (prevLesson === undefined) {
+			firstLesson = Lessons.findOne({}, {sort: {lessonTime: 1}});
+			var blocks = Fishie.getTimeBlocks(firstLesson.lessonTime[0], lessonObj.lessonTime[0]);
+		} else {
 			var blocks = Fishie.getTimeBlocks(prevLesson.endTime(), lessonObj.lessonTime[0]);
 		}
 		// console.log(blocks);
