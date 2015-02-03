@@ -5,6 +5,9 @@
 			<input type="text" name="instructor-name" class='instructor-name' placeholder='Instructor'/>
 			<div class="instructor">
 				{{#each sortedLessonList lessonList}}
+					{{#each getBreaks this}}
+						break!
+					{{/each}}
 					{{>lesson this}}
 				{{/each}}
 			</div>
