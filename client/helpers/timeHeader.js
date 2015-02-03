@@ -3,7 +3,7 @@ Template.timeHeader.helpers({
 		var firstLesson = Lessons.findOne({}, {sort: {lessonTime: 1}});
 		var lastLesson = Lessons.findOne({}, {sort: {lessonTime: -1}});
 		if (firstLesson) {
-			var firstTime = firstLesson.lessonTime[0];
+			var firstTime = firstLesson.startTime();
 			var lastTime = lastLesson.endTime();
 			var blocks = Fishie.getTimeBlocks(firstTime, lastTime);
 			return blocks;
