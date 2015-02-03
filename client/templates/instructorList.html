@@ -6,7 +6,7 @@
 			<div class="instructor">
 				{{#each sortedLessonList lessonList}}
 					{{#each getBreaks this}}
-						break!
+						{{> break}}
 					{{/each}}
 					{{>lesson this}}
 				{{/each}}

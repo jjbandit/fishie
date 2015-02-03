@@ -3,10 +3,9 @@ Template.timeHeader.helpers({
 		var firstLesson = Lessons.findOne({}, {sort: {lessonTime: 1}});
 		var lastLesson = Lessons.findOne({}, {sort: {lessonTime: -1}});
 		if (firstLesson) {
-			var firstTime = new Date(firstLesson.lessonTime[0]);
-			var lastTime = new Date(lastLesson.lessonTime[0]);
+			var firstTime = firstLesson.lessonTime[0];
+			var lastTime = lastLesson.endTime();
 			blocks = Fishie.getTimeBlocks(firstTime, lastTime);
-			console.log(blocks);
 			return blocks;
 		}
 	},

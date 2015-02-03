@@ -17,7 +17,6 @@ background: #eee;
 			padding-top: 25px;
 			display: flex;
 			.time-block {
-				border-radius: 5px;
 				height: 50px;
 				line-height: 50px;
 				text-align: center;
@@ -25,7 +24,6 @@ background: #eee;
 		}
 		#lesson {
 			background: #ddd;
-			border-radius: 5px;
 			ul {
 				margin:3px 0 0 0;
 				padding:0 0 0 3px;
@@ -59,21 +57,25 @@ background: #eee;
 	}
 			/* Sizing Class/Break blocks */
 	.length-14 {
+		border-radius: 5px;
 		border: 1px solid black;
 		width: 68px;      /* think 70 px (+2px border) */
 		margin: 5px 5px;
 	}
 	.length-29 {
+		border-radius: 5px;
 		border: 1px solid black;
 		width: 148px;
 		margin: 5px 5px;
 	}
 	.length-44 {
+		border-radius: 5px;
 		border: 1px solid black;
 		width: 230px;
 		margin: 5px 5px;
 	}
 	.length-59 {
+		border-radius: 5px;
 		border: 1px solid black;
 		width: 310px;
 		margin: 5px 5px;
@@ -84,7 +86,6 @@ background: #eee;
 		margin-top: 5px;
 	}
 	#break-blocks {
-		border-radius: 5px;
 		text-align: center;
 	}
 	#break-blocks span {

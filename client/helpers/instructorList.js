@@ -7,14 +7,14 @@ Template.instructorList.helpers ({
 		return lessonCursor;
 	},
 	getBreaks: function(lessonObj) {
-		var undefined;
-		lastLesson = Lessons.findOne( {
+		prevLesson = Lessons.findOne( {
 			instructor: lessonObj.instructor,
 			lessonTime: {$lt: lessonObj.lessonTime[0]},
 		}, {sort: {lessonTime: -1}} );
-		if (lastLesson != undefined) {
-			var blocks = Fishie.getTimeBlocks(lastLesson.lessonTime[lastLesson.lessonTime.length - 1], lessonObj.lessonTime[0]);
+		if (prevLesson !== undefined) {
+			var blocks = Fishie.getTimeBlocks(prevLesson.endTime(), lessonObj.lessonTime[0]);
 		}
+		// console.log(blocks);
 		return blocks;
 		// console.log(lessonObj);
 		// console.log(lastLesson);
