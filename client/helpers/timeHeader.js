@@ -5,7 +5,7 @@ Template.timeHeader.helpers({
 		if (firstLesson) {
 			var firstTime = firstLesson.lessonTime[0];
 			var lastTime = lastLesson.endTime();
-			blocks = Fishie.getTimeBlocks(firstTime, lastTime);
+			var blocks = Fishie.getTimeBlocks(firstTime, lastTime);
 			return blocks;
 		}
 	},
