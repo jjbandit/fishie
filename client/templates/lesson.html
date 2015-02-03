@@ -9,11 +9,14 @@
 					<li>{{sanitizeLevels levels}}</li>
 				{{/if}}
 				<li>{{swimmers}} Swimmers</li>
-				{{#each lessonTime}}
+				<div>
 					<div>
-						{{sanitizeTime this}}
+						{{sanitizeTime startTime}}
 					</div>
-				{{/each}}
+					<div>
+						{{sanitizeTime endTime}}
+					</div>
+				</div>
 			</ul>
 		</div>
 		{{/with}}
