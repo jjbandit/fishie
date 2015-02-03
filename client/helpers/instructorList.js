@@ -7,19 +7,29 @@ Template.instructorList.helpers ({
 		return lessonCursor;
 	},
 	getBreaks: function(lessonObj) {
-		prevLesson = Lessons.findOne( {
+		var prevLesson = Lessons.findOne( {
 			instructor: lessonObj.instructor,
 			lessonTime: {$lt: lessonObj.startTime()},
 		}, {sort: {lessonTime: -1}} );
-		// prevLesson returns undefined if its the instructors first lesson
+		// prevLesson returns undefined if its the instructors first scheduled lesson
 		// so we should render breaks based on the first lesson
 		// in the whole sets start time
 		if (prevLesson === undefined) {
-			firstLesson = Lessons.findOne({}, {sort: {lessonTime: 1}});
-			var blocks = Fishie.getTimeBlocks(firstLesson.startTime(), lessonObj.startTime());
+			var overallFirstLesson = Lessons.findOne({}, {sort: {lessonTime: 1}});
+			var blocks = Fishie.getTimeBlocks(overallFirstLesson.startTime(), lessonObj.startTime());
 		} else {
 			var blocks = Fishie.getTimeBlocks(prevLesson.endTime(), lessonObj.startTime());
 		}
 		return blocks;
-	}
+	},
+	trailingBreaks: function(lessonObj) {
+		var nextLesson = Lessons.findOne( {
+			instructor: lessonObj.instructor,
+			lessonTime: {$gt: lessonObj.endTime()},
+		} );
+		if (nextLesson === undefined) {
+			var lastLesson = Lessons.findOne({}, {sort: {lessonTime: -1}});
+			return Fishie.getTimeBlocks(lessonObj.endTime(), lastLesson.endTime());
+		}
+	},
 });

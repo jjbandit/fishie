@@ -7,6 +7,7 @@ background: #eee;
 				width: 100%;
 				background: #eee;
 				border: 0;
+				outline: 0;
 			}
 		}
 	}
@@ -85,10 +86,10 @@ background: #eee;
 		display: flex;
 		margin-top: 5px;
 	}
-	#break-blocks {
+	#break-block {
 		text-align: center;
 	}
-	#break-blocks span {
+	#break-block span {
 		position: relative;
 		top: 40px;
 	}
