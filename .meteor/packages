@@ -8,3 +8,4 @@ meteor-platform
 autopublish
 insecure
 fourseven:scss@2.0.0-beta_1
+mizzao:jquery-ui

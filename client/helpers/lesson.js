@@ -10,3 +10,8 @@ Template.lesson.helpers ({
 		}
 	},
 });
+Template.lesson.rendered = function () {
+	console.log('yay');
+	var dragTarget = this.$('#lesson');
+	dragTarget.draggable({cursor: "crosshair", handle: "div#lesson-controls"});
+};
