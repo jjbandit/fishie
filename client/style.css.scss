@@ -35,10 +35,13 @@ background: #eee;
 						border: 0;
 					}
 			}
-			.lesson-control-wrapper {
-				height: 25px;
+			#lesson-controls {
+				height: 26px;
 				width: auto;
-				input.delete-lesson-input {
+				background: #aaa;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				input.clear-lesson {
 					float: right;
 				}
 				input.change-lesson-instructor-value {
@@ -51,7 +54,7 @@ background: #eee;
 					background: #ddd;
 				}
 				input {
-					margin: 3px 4px;
+					margin: 2px 3px;
 				}
 			}
 		}
