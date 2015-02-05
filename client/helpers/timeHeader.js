@@ -1,7 +1,7 @@
 Template.timeHeader.helpers({
 	timeBlock: function() {
-		var firstLesson = Lessons.findOne({}, {sort: {lessonTime: 1}});
-		var lastLesson = Lessons.findOne({}, {sort: {lessonTime: -1}});
+		var firstLesson = Lessons.findOne({}, {sort: {lessonTimes: 1}});
+		var lastLesson = Lessons.findOne({}, {sort: {lessonTimes: -1}});
 		if (firstLesson) {
 			var firstTime = firstLesson.startTime();
 			var lastTime = lastLesson.endTime();
