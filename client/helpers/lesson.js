@@ -12,6 +12,6 @@ Template.lesson.helpers ({
 });
 Template.lesson.rendered = function () {
 	console.log('yay');
-	var dragTarget = this.$('#lesson');
-	dragTarget.draggable({cursor: "crosshair", handle: "div#lesson-controls"});
+	var dragTarget = this.$('div#lesson');
+	dragTarget.draggable({cursor: "move", handle: "div#lesson-controls"});
 };
