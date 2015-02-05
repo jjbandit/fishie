@@ -11,19 +11,18 @@ Template.lesson.helpers ({
 	},
 });
 Template.lesson.events ({
-	'mousedown #lesson-controls': function() {
+	'mousedown div#lesson-controls.ui-draggable-handle': function() {
+		console.log('mouseDown');
 		var lessonTimes = this.lessonTimes;
+		var length = this.length;
 		var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}}).fetch();
 		// console.log(availableInstructors);
-		if (availableInstructors.length > 0) {
-			Fishie.addGhostLessons(availableInstructors, lessonTimes);
-		}
+		Fishie.addGhostLessons(availableInstructors, lessonTimes);
 	}
 });
 
 
 Template.lesson.rendered = function () {
-	console.log('yay');
 	var dragTarget = this.$('div#lesson');
 	dragTarget.draggable({cursor: "move", handle: "div#lesson-controls", revert: true});
 };
