@@ -3,13 +3,15 @@ Template.instructorList.helpers ({
 		return Instructors.find();
 	},
 	sortedLessonList: function(lessonID_ary) {
-		lessonCursor = Lessons.find({_id: {$in: lessonID_ary}}, {sort: {lessonTimes: 1}});
+		// console.log(lessonID_ary);
+		var lessonCursor = Lessons.find({_id: {$in: lessonID_ary}}, {sort: {lessonTimes: 1}});
 		return lessonCursor;
 	},
 	getBreaks: function(lessonObj) {
+		var lessonStartTime = lessonObj.startTime()
 		var prevLesson = Lessons.findOne( {
 			instructor: lessonObj.instructor,
-			lessonTimes: {$lt: lessonObj.startTime()},
+			lessonTimes: {$lt: lessonStartTime},
 		}, {sort: {lessonTimes: -1}} );
 		// prevLesson returns undefined if its the instructors first scheduled lesson
 		// so we should render breaks based on the first lesson

@@ -1,5 +1,6 @@
 Template.lessonControls.events ({
-	'click .clear-lesson': function(attribute) {
-		Meteor.call('clearLesson', this._id);
+	'mousedown .clear-lesson': function(attribute) {
+		console.log(this._id);
+		Meteor.call('clearLessons', [this._id]);
 	},
 });

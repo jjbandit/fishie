@@ -12,7 +12,8 @@ Template.lesson.helpers ({
 });
 Template.lesson.events ({
 	'mousedown div#lesson-controls.ui-draggable-handle': function() {
-		console.log('mouseDown');
+		// Lessons are removed in the global body.events so we can mouseup anywhere,
+		// even though the cursor should always be inside the handle
 		var lessonTimes = this.lessonTimes;
 		var length = this.length;
 		var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}}).fetch();
