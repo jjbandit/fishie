@@ -24,9 +24,21 @@ Template.lesson.events ({
 		$(event.target.parentElement).addClass("z-top");
 	}
 });
-
-
 Template.lesson.rendered = function () {
+	// set draggable on regular lessons
 	var dragTarget = this.$('div#lesson');
-	dragTarget.draggable({cursor: "move", handle: "div#lesson-controls", revert: true});
+	dragTarget.draggable({cursor: "move",
+		handle: "div#lesson-controls",
+		revert: true,
+	});
+	if (this.data.ghost) {
+		console.log('i see a ghost');
+		var dropTarget = this.$('div#lesson.ghost');
+		console.log(dropTarget);
+		dropTarget.droppable({
+			drop: function() {
+				console.log('dropped');
+			}
+		});
+	}
 };

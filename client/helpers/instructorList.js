@@ -1,6 +1,6 @@
 Template.instructorList.helpers ({
 	instructors: function() {
-		return Instructors.find({},{sort: {_id: 1}});
+		return Instructors.find({},{sort: {createdAt: 1}});
 	},
 	sortedLessonList: function(lessonID_ary) {
 		// console.log(lessonID_ary);
