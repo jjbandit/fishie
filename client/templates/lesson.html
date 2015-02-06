@@ -1,6 +1,8 @@
 <template name='lesson'>
 	{{#with getLesson this}}
-		<div id="lesson" class="length-{{length}}">
+	<div id="lesson" class="length-{{length}}{{#if ghost}} ghost{{/if}}">
+			{{#if ghost}}
+			{{else}}
 			{{> lessonControls}}
 			<ul>
 				{{#if privateLesson}}
@@ -18,6 +20,7 @@
 					</div>
 				</div>
 			</ul>
+			{{/if}}
 		</div>
 		{{/with}}
 </template>

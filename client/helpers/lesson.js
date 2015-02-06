@@ -18,7 +18,10 @@ Template.lesson.events ({
 		var length = this.length;
 		var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}}).fetch();
 		// console.log(availableInstructors);
-		Fishie.addGhostLessons(availableInstructors, lessonTimes);
+		Fishie.addGhostLessons(availableInstructors, lessonTimes, length);
+		// add a z-index class so the lesson stays on top of DOM rendered after it
+		console.log(event.target.parentElement);
+		$(event.target.parentElement).addClass("z-top");
 	}
 });
 

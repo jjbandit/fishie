@@ -1,4 +1,7 @@
 body {
+	.z-top {
+	  z-index: 10000;
+	}
 background: #eee;
 	#instructor-list {
 		#instructor-wrapper {
@@ -23,8 +26,16 @@ background: #eee;
 				text-align: center;
 			}
 		}
+		// this cannot be nested in lesson because it is not a child of lesson, it is on the same selector
+		#lesson.ghost{
+			background: #dfd;
+		}
 		#lesson {
 			background: #ddd;
+			#ghost {
+				background: red;
+				margin: red;
+			}
 			ul {
 				margin:3px 0 0 0;
 				padding:0 0 0 3px;
