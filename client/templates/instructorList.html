@@ -5,11 +5,11 @@
 			<input type="text" name="instructor-name" class='instructor-name' placeholder='Instructor'/>
 			<div class="instructor">
 				{{#each sortedLessonList lessonList}}
-					{{#each getBreaks this}}
+					{{#each getLeadingBreaks this}}
 						{{> break}}
 					{{/each}}
 					{{>lesson this}}
-					{{#each trailingBreaks this}}
+					{{#each getTrailingBreaks this}}
 						{{> break}}
 					{{/each}}
 				{{/each}}
