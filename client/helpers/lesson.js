@@ -11,16 +11,17 @@ Template.lesson.helpers ({
 	},
 });
 Template.lesson.events ({
-	'mousedown div#lesson-controls.ui-draggable-handle': function() {
+	'dragstart div#lesson': function() {
 		// Lessons are removed in the global body.events so we can mouseup anywhere,
 		// even though the cursor should always be inside the handle
 		var lessonTimes = this.lessonTimes;
 		var length = this.length;
 		var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}}).fetch();
+		// set a session variable so we can find out what we're dropping in the drop: function
+		Session.set('dragTargetObj', this);
 		// console.log(availableInstructors);
 		Fishie.addGhostLessons(availableInstructors, lessonTimes, length);
 		// add a z-index class so the lesson stays on top of DOM rendered after it
-		console.log(event.target.parentElement);
 		$(event.target.parentElement).addClass("z-top");
 	}
 });
@@ -34,10 +35,13 @@ Template.lesson.rendered = function () {
 	if (this.data.ghost) {
 		console.log('i see a ghost');
 		var dropTarget = this.$('div#lesson.ghost');
-		console.log(dropTarget);
+		var dropTargetObj = this.data;
 		dropTarget.droppable({
 			drop: function() {
-				console.log('dropped');
+				var dragTargetObj = Session.get('dragTargetObj');
+				Fishie.removeGhostLessons();
+				Fishie.addLessonToInstr(dropTargetObj.instructor ,dragTargetObj);
+				// Instructors.update(dragTargetObj.instructor, {lessonList: {$pull: dragTargetObj._id}});
 			}
 		});
 	}
