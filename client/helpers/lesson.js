@@ -30,7 +30,10 @@ Template.lesson.events ({
 		var leadingBreaks = Fishie.getLeadingBreaks(lessonObj);
 		var trailingBreaks = Fishie.getTrailingBreaks(lessonObj);
 		var totalTimeAvailable = _.union(leadingBreaks, trailingBreaks, lessonTimes);
-		console.log(totalTimeAvailable);
+		totalTimeAvailable = $.map(totalTimeAvailable, function( val, i ) {
+			return val.getTime()
+		});
+
 		// Get all lessons that intersect with the totalTimeAvailable and lessonTimes
 		// IE lessons that interfere with drag-n-dropping the dragTarget and can fit into the free time
 		// the dragTarget.instructor has available
@@ -43,11 +46,23 @@ Template.lesson.events ({
 		}).fetch();
 		intersectingLessonsLength = intersectingLessons.length;
 		for (var i = 0; i < intersectingLessonsLength; i++) {
+
 			var intersectingLessonTimesLength = intersectingLessons[i].lessonTimes.length;
+			var lessonOutsideTime = false;
 			for (var l = 0; l < intersectingLessonTimesLength; l++) {
-				if (_.contains(intersectingLesson[i].lessonTimes[l]));
+				var k = $.inArray(intersectingLessons[i].lessonTimes[l].getTime(), totalTimeAvailable);
+				if (k > -1) {
+					console.log(k);
+				continue;
+				} else {
+					lessonOutsideTime = true;
+					break;
+				}
 			};
-			Lessons.update(intersectingLessons[i]._id, {$set: {ghost: true}});
+
+			if (!lessonOutsideTime) {
+				Lessons.update(intersectingLessons[i]._id, {$set: {ghost: true}});
+			}
 		};
 	}
 });
