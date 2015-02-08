@@ -3,6 +3,7 @@ Template.body.events ({
 	'dragstop' : function() {
 		console.log('mouseup');
 		Fishie.removeGhostLessons();
+		Fishie.unsetAllGhosts();
 		// remove the z-index class
 		$("div").removeClass("z-top");
 	}

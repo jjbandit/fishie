@@ -14,8 +14,8 @@ Template.lesson.events ({
 	'dragstart div#lesson': function() {
 		// Lessons are removed in the global body.events so we can mouseup anywhere,
 		// even though the cursor should always be inside the handle
+		var lessonObj = this;
 		var lessonTimes = this.lessonTimes;
-		console.log(lessonTimes);
 		var length = this.length;
 		var lessonID = this._id;
 		var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}}).fetch();
@@ -26,12 +26,29 @@ Template.lesson.events ({
 		// add a z-index class so the lesson stays on top of DOM rendered after it
 		$(event.target.parentElement).addClass("z-top");
 		// PART TWO ==
-		// Get all lessons that intersect with the element being dragged
-		var intersectingLessons = Lessons.find({_id: {$ne: lessonID}, ghost: {$exists: false}, lessonTimes: {$in: lessonTimes}}).fetch();
-		console.log(intersectingLessons);
 		// Check if the lesson we're dragging can be swapped for each lesson returned
-		// => Need to get breaks on each side of the lesson with getTimeBlocks
-		
+		var leadingBreaks = Fishie.getLeadingBreaks(lessonObj);
+		var trailingBreaks = Fishie.getTrailingBreaks(lessonObj);
+		var totalTimeAvailable = _.union(leadingBreaks, trailingBreaks, lessonTimes);
+		console.log(totalTimeAvailable);
+		// Get all lessons that intersect with the totalTimeAvailable and lessonTimes
+		// IE lessons that interfere with drag-n-dropping the dragTarget and can fit into the free time
+		// the dragTarget.instructor has available
+		var intersectingLessons = Lessons.find({
+			$and: [
+				{_id: {$ne: lessonID}},
+				{ghost: {$exists: false}},
+				{lessonTimes: {$in: lessonTimes}},
+			]
+		}).fetch();
+		intersectingLessonsLength = intersectingLessons.length;
+		for (var i = 0; i < intersectingLessonsLength; i++) {
+			var intersectingLessonTimesLength = intersectingLessons[i].lessonTimes.length;
+			for (var l = 0; l < intersectingLessonTimesLength; l++) {
+				if (_.contains(intersectingLesson[i].lessonTimes[l]));
+			};
+			Lessons.update(intersectingLessons[i]._id, {$set: {ghost: true}});
+		};
 	}
 });
 Template.lesson.rendered = function () {

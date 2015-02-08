@@ -11,6 +11,6 @@ Template.instructorList.helpers ({
 		return Fishie.getLeadingBreaks(lessonObj);
 	},
 	getTrailingBreaks: function(lessonObj) {
-		return Fishie.getTrailingBreaks(lessonObj);
+		return Fishie.getTrailingBreaks(lessonObj, false);
 	},
 });
