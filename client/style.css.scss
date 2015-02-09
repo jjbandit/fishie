@@ -28,6 +28,7 @@ background: #eee;
 		}
 		// this cannot be nested in lesson because it is not a child of lesson, it is on the same selector
 		#lesson.ghost{
+			opacity: 0.5;
 			background: #dfd;
 		}
 		#lesson {
