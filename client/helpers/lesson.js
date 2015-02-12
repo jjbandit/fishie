@@ -86,23 +86,25 @@ Template.lesson.rendered = function () {
 	dragTarget.draggable({cursor: "move",
 		handle: "div#lesson-controls",
 		revert: true,
-		axis: "y"
+		// axis: "y"
 	});
 	// set droppable on ghost lessons
-	if (this.data.ghost) {
-		var dropTarget = this.$('div#lesson.ghost');
+		var dropTarget = this.$('div#lesson');
 		var dropTargetObj = this.data;
 		dropTarget.droppable({
 			drop: function() {
 				var dragTargetObj = Session.get('dragTargetObj');
 				Meteor.call('unsetAllGhosts');
 				Fishie.removeGhostLessons();
-				Fishie.addLessonToInstr(dropTargetObj.instructor ,dragTargetObj);
+				if (dropTargetObj.levels[0] != "ghost") {
+					Fishie.swapLessons(dragTargetObj, dropTargetObj);
+				} else {
+					Fishie.addLessonToInstr(dropTargetObj.instructor ,dragTargetObj);
+				}
 			}
 		});
 		// FIXME UNFORTUNATELY THIS BREAKS THE LAYOUT OCCASIONALLY WHEN IT GETS SCALED BY THE BROWSER
 		// it looks sick though
 		// dragTarget.hide();
 		// dragTarget.show({effect: 'drop', easing: 'easeOutExpo', duration: 600});
-	}
 };
