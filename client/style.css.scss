@@ -26,17 +26,17 @@ background: #eee;
 				text-align: center;
 			}
 		}
-		// this cannot be nested in lesson because it is not a child of lesson, it is on the same selector
+		// these cannot be nested in lesson because it is not a child of lesson, it is on the same selector level
 		#lesson.ghost{
 			opacity: 0.5;
 			background: #dfd;
 		}
+		// must be second
+		#lesson.ghost-hover{
+			background: #aea;
+		}
 		#lesson {
 			background: #ddd;
-			#ghost {
-				background: red;
-				margin: red;
-			}
 			ul {
 				margin:3px 0 0 0;
 				padding:0 0 0 3px;

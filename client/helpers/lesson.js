@@ -84,6 +84,7 @@ Template.lesson.rendered = function () {
 	// set droppable on ghost lessons
 	dropTarget.droppable({
 		tolerance: 'pointer',
+		hoverClass: 'ghost-hover',
 		drop: function() {
 			var dragTargetObj = Session.get('dragTargetObj');
 			if(!$(this).hasClass('ghost')) {
