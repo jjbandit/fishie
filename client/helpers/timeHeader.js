@@ -20,7 +20,7 @@ Template.timeHeader.helpers({
 			hours = hours - 12;
 			amPm = ' PM';
 		}
-		saneTime = hours + ":" + minutes + amPm;
+		var saneTime = hours + ":" + minutes + amPm;
 		return saneTime;
 	}
 });

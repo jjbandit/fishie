@@ -11,6 +11,6 @@ UI.registerHelper (
 			hours = hours - 12;
 			amPm = ' PM';
 		}
-		saneTime = day + ' ' +  hours + ":" + minutes + amPm;
+		var saneTime = day + ' ' +  hours + ":" + minutes + amPm;
 		return saneTime;
 	});
