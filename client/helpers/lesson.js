@@ -37,6 +37,7 @@ Template.lesson.events ({
 			$and: [
 				{_id: {$ne: lessonID}},
 				{ghost: {$exists: false}},
+				{owner: Meteor.userId()},
 				{lessonTimes: {$in: lessonTimes}},
 			]
 		}).fetch();
@@ -79,7 +80,6 @@ Template.lesson.rendered = function () {
 	dragTarget.draggable({cursor: "move",
 		handle: "div#lesson-controls",
 		revert: true,
-		// axis: "y"
 	});
 	// set droppable on ghost lessons
 	dropTarget.droppable({
@@ -118,8 +118,4 @@ Template.lesson.rendered = function () {
 			Session.set('dragTargetObj', '');
 		}
 	});
-		// FIXME UNFORTUNATELY THIS BREAKS THE LAYOUT OCCASIONALLY WHEN IT GETS SCALED BY THE BROWSER
-		// it looks sick though
-		// dragTarget.hide();
-		// dragTarget.show({effect: 'drop', easing: 'easeOutExpo', duration: 600});
 };
