@@ -1,6 +1,6 @@
 Template.lesson.helpers ({
 	getLesson: function(lessonID) {
-		return Lessons.findOne(lessonID);
+		return Lessons.findOne(lessonID, {owner: Meteor.userId()});
 	},
 	sanitizeLevels: function(levelsAry) {
 		if (levelsAry[0] > 10) {
@@ -18,7 +18,7 @@ Template.lesson.events ({
 		var lessonTimes = this.lessonTimes;
 		var length = this.length;
 		var lessonID = this._id;
-		var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}}).fetch();
+		var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}, owner: Meteor.userId()}).fetch();
 		Fishie.addGhostLessons(availableInstructors, lessonTimes, length);
 		// add a z-index class so the lesson stays on top of DOM rendered after it
 		$(event.target.parentElement).addClass("z-top");
@@ -113,7 +113,6 @@ Template.lesson.rendered = function () {
 				} else {
 					Fishie.addLessonToInstr(dropTargetObj.instructor ,dragTargetObj);
 				}
-				// console.log(Instructors.find().fetch());
 			}
 			// Unset session for next time
 			Session.set('dragTargetObj', '');
