@@ -5,9 +5,11 @@
 <body>
   <h1>Fishie</h1>
 	{{> loginButtons}}
-	{{> createLesson }}
-	<div id="schedule">
-		{{> timeHeader}}
-		{{> instructorList}}
-	</div>
+	{{#if currentUser}}
+		{{> createLesson }}
+		<div id="schedule">
+			{{> timeHeader}}
+			{{> instructorList}}
+		</div>
+	{{/if}}
 </body>
