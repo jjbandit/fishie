@@ -64,7 +64,7 @@ Template.lesson.events ({
 		};
 		for (var i = 0; i < intersectingLessonsLength; i++) {
 			if ($.inArray(intersectingLessons[i].instructor, lessonsOutsideTime) == -1){
-				Lessons.update(intersectingLessons[i]._id, {$set: {ghost: true}});
+				Fishie.setGhostLesson(intersectingLessons[i]);
 			}
 		};
 		// set some session variables so we can find out what we're dropping in the drop: function
@@ -89,6 +89,7 @@ Template.lesson.rendered = function () {
 			var dragTargetObj = Session.get('dragTargetObj');
 			if(!$(this).hasClass('ghost')) {
 				console.log('!dropped on a ghost');
+				Fishie.unsetAllGhosts();
 				return false;
 			} else {
 				console.log('dropped on a ghost');
