@@ -1,0 +1,17 @@
+<template name='display-set'>
+	<head>
+		<title>Fishie</title>
+	</head>
+
+	<body>
+		<h1>Fishie</h1>
+		{{> loginButtons}}
+		{{#if currentUser}}
+			{{> createLesson }}
+			<div id="schedule">
+				{{> timeHeader}}
+				{{> instructorList}}
+			</div>
+		{{/if}}
+	</body>
+</template>
