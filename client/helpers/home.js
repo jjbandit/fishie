@@ -1,10 +1,14 @@
 Template.home.events ({
 
+	// Handle the New Set input
 	'click input#new-set': function () {
-		var domNode = $('body').get();
-		console.log(domNode);
-		Blaze.render('timeSelector', domNode[0] );
-		console.log('clickey!');
+
+		// Check for time builder template and return out if it's there
+		if ( $('.builder').get().length > 0 ) { return; }
+
+		// Otherwise render the template as a child of body
+		var body = $('body').get();
+		var v = Blaze.render(Template.buildSet, body[0] );
 	},
 
 	'click input#select-set' : function() {
