@@ -1,6 +1,7 @@
 Meteor.methods({
 	createLessonSet: function (weekdays) {
 		var newSetID = new Mongo.ObjectID();
-		LessonSets.insert({_id: newSetID, weekdays: weekdays, owner: Meteor.userId()});
+		var newSetID_str = newSetID._str;
+		LessonSets.insert({_id: newSetID_str, weekdays: weekdays, owner: Meteor.userId()});
 	}
 });
