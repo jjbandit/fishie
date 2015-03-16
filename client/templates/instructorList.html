@@ -1,6 +1,8 @@
 <template name="instructorList">
+	{{setId}}
+	{{> timeHeader setId=setId}}
 	<div id="instructor-list">
-		{{#each instructors}}
+		{{#each instructors setId}}
 		<div id="instructor-wrapper">
 			<input type="text" name="instructor-name" class='instructor-name' placeholder='Instructor'/>
 			<div class="instructor">

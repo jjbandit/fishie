@@ -16,23 +16,27 @@ Template.createLesson.events ({
 			hour=hour+12;
 		};
 
+		// Seconds and milleseconds are set when startTime is initialized
 		startTime.setHours(hour);
 		startTime.setMinutes(minute);
-		// Set seconds/milliseconds for sorting
-		startTime.setSeconds(0);
-		startTime.setMilliseconds(0);
 
 		var level = parseInt($('input[name=level-toggle]:checked', '#level-wrapper').val());
 		var length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
 		var swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
 		var privateClass = parseInt($('input[name=private-toggle]:checked', '#private-wrapper').val());
+
+		// This is some magic copy/pasted from stackOverflow I don't really understand
 		var weekdays = $('input[name=weekday-toggle]:checked', '#weekday-wrapper').map( function() {
 			return $(this).val();
 		}).get();
 
-		// We must create this here and pass it to the method so the server
-		// and client are aware of what the lessonID is going to be
+		// Get the id of the set we're adding the lesson to
+		// The lesson is never made aware of what set it belongs to but this is the only
+		// entry point so we have to send it in here
+		var setID = Router.current().params._id;
+		// We must create a lesson ID here and pass it to the create method so the server
+		// and client are on the same page as far as the lessonID goes
 		var lessonID = new Meteor.Collection.ObjectID();
-		Meteor.call('createLesson', lessonID, level, weekdays, startTime, length, swimmers, privateClass);
+		Meteor.call('createLesson', setID, lessonID, level, weekdays, startTime, length, swimmers, privateClass);
 	}
 });

@@ -1,6 +1,6 @@
 Template.instructorList.helpers ({
-	instructors: function() {
-		return Instructors.find({owner: Meteor.userId()}, {sort: {createdAt: 1}});
+	instructors: function(setId) {
+		return Instructors.find({owner: Meteor.userId(), set: setId}, {sort: {createdAt: 1}});
 	},
 	sortedLessonList: function(lessonID_ary) {
 		var lessonCursor = Lessons.find({_id: {$in: lessonID_ary}, owner: Meteor.userId()}, {sort: {lessonTimes: 1}});

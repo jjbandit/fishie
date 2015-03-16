@@ -1,7 +1,8 @@
 Template.timeHeader.helpers({
-	timeBlock: function() {
-		var firstLesson = Lessons.findOne({owner: Meteor.userId()}, {sort: {lessonTimes: 1}});
-		var lastLesson = Lessons.findOne({owner: Meteor.userId()}, {sort: {lessonTimes: -1}});
+	timeBlock: function(setId) {
+		console.log(setId);
+		var firstLesson = Lessons.findOne({owner: Meteor.userId(), set: setId}, {sort: {lessonTimes: 1}});
+		var lastLesson = Lessons.findOne({owner: Meteor.userId(), set: setId}, {sort: {lessonTimes: -1}});
 		if (firstLesson) {
 			var firstTime = firstLesson.startTime();
 			var lastTime = lastLesson.endTime();

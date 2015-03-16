@@ -1,7 +1,15 @@
 Template.lessonSetTemplate.helpers({
 
+	idString: function (objectIdObj) {
+		return objectIdObj.valueOf();
+		console.log(objectIdObj.toString());
+	},
+
 	sanitizeWeekdays: function (weekdays) {
 		
+		// This can be done with an array much more cleanly;
+		// have an index corresponding to each day of week
+		// then just query the array
 		var returnArray = [];
 		var ln = weekdays.length;
 		for (var i = 0; i < ln; i++) {
