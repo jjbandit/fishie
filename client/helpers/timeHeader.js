@@ -1,11 +1,11 @@
 Template.timeHeader.helpers({
 	timeBlock: function(setId) {
-		console.log(setId);
-		var firstLesson = Lessons.findOne({owner: Meteor.userId(), set: setId}, {sort: {lessonTimes: 1}});
-		var lastLesson = Lessons.findOne({owner: Meteor.userId(), set: setId}, {sort: {lessonTimes: -1}});
-		if (firstLesson) {
-			var firstTime = firstLesson.startTime();
-			var lastTime = lastLesson.endTime();
+		var setObj = LessonSets.findOne(setId);
+		var timeSpan = setObj.timeSpan();
+		var firstTime = timeSpan[0];
+		var lastTime = timeSpan[timeSpan.length - 1];
+
+		if (firstTime && lastTime) {
 			var blocks = Fishie.getTimeBlocks(firstTime, lastTime);
 			return blocks;
 		}

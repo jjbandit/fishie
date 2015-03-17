@@ -1,12 +1,14 @@
-Template.lessonSetTemplate.helpers({
+Template.lessonSetTemplate.events({
+	'click input#remove-set' : function () {
+		Meteor.call('clearLessonSet', this._id);
+	}
+});
 
+Template.lessonSetTemplate.helpers({
 	idString: function (objectIdObj) {
 		return objectIdObj.valueOf();
-		console.log(objectIdObj.toString());
 	},
-
 	sanitizeWeekdays: function (weekdays) {
-		
 		// This can be done with an array much more cleanly;
 		// have an index corresponding to each day of week
 		// then just query the array
