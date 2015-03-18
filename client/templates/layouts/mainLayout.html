@@ -3,9 +3,8 @@
 		<title>Fishie</title>
 	</head>
 
-	<h1>Fishie</h1>
-	<body>
+	{{> loginButtons}}
+	<h1><a href="{{ urlFor 'createOrSelectSet' }}">Fishie</a></h1>
 		{{> yield}}
-	</body>
 </template>
 
