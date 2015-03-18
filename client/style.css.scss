@@ -1,5 +1,11 @@
+// Settings for printing - unsupported in Safari
+@page {
+	size: auto;
+	margin: 0mm;
+}
 body {
 background: #eee;
+// margin: 0px;
 	.z-top {
 		z-index: 10000;
 	}
