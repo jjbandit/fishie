@@ -12,3 +12,8 @@ Template.buildSet.events ({
 		Router.go('setShow', {_id: setID._str});
 	}
 });
+
+Template.setShow.rendered = function () {
+	$('#select-set-wrapper').remove();
+	$('#build-set-wrapper').remove();
+};
