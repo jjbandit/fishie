@@ -1,0 +1,36 @@
+<template name="timeSelector">
+	<div id="time-wrapper" class="form-wrapper">
+		<div id="hour-wrapper" class="form-field-wrapper">
+			<input checked type="radio" name="time-toggle" id="time-1" class="first" value="1"><label for="time-1">1</label><!--
+			--><input type="radio" name="time-toggle" id="time-2" value="2"><label for="time-2">2</label><!--
+			--><input type="radio" name="time-toggle" id="time-3" value="3"><label for="time-3">3</label><!--
+			--><input type="radio" name="time-toggle" id="time-4" value="4"><label for="time-4">4</label><!--
+			--><input type="radio" name="time-toggle" id="time-5" value="5"><label for="time-5">5</label><!--
+			--><input type="radio" name="time-toggle" id="time-6" value="6"><label for="time-6">6</label><!--
+			--><input type="radio" name="time-toggle" id="time-7" value="7"><label for="time-7">7</label><!--
+			--><input type="radio" name="time-toggle" id="time-8" value="8"><label for="time-8">8</label><!--
+			--><input type="radio" name="time-toggle" id="time-9" value="9"><label for="time-9">9</label><!--
+			--><input type="radio" name="time-toggle" id="time-10" value="10"><label for="time-10">10</label><!--
+			--><input type="radio" name="time-toggle" id="time-11" value="11"><label for="time-11">11</label><!--
+			--><input type="radio" name="time-toggle" id="time-12" class="last" value="12"><label for="time-12">12</label>
+		</div>
+
+		<div id="minute-wrapper" class="form-field-wrapper">
+			<input checked type="radio" name="minute-toggle" class="first" value="00" id="00"><label for="00">00</label><!--
+			--><input type="radio" name="minute-toggle" value="15" id="15"><label for="15">15</label><!--
+			--><input type="radio" name="minute-toggle" value="30" id="30"><label for="30">30</label><!--
+			--><input type="radio" name="minute-toggle" class="last" value="45" id="45"><label for="45">45</label>
+		</div>
+
+		<div id="am-pm-wrapper" class="form-field-wrapper">
+			<input checked type="radio" name="am-pm-toggle" id="AM" class="first" value="0"><label for="AM">AM</label><!--
+			--><input type="radio" name="am-pm-toggle" id="PM" class="last" value="1"><label for="PM">PM</label>
+		</div>
+
+		<div id="length-wrapper" class='form-field-wrapper'>
+			<input checked type="radio" name="length-toggle" id="30-min" class="first" value="29"><label for="30-min">30 Min</label><!--
+			--><input type="radio" name="length-toggle" id="45-min" value="44"><label for="45-min">45 Min</label><!--
+			--><input type="radio" name="length-toggle" id="60-min" class="last" value="59"><label for="60-min">60 Min</label>
+		</div>
+	</div>
+</template>

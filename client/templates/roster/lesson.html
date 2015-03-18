@@ -1,0 +1,23 @@
+<template name='lesson'>
+	{{#with getLesson this}}
+	<div id="lesson" class="length-{{length}}{{#if ghost}} ghost{{/if}}">
+			{{> lessonControls}}
+			<ul>
+				{{#if privateLesson}}
+					<li><input type="text" name="private-name" class='private-name' placeholder='Private'/></li>
+				{{else}}
+					<li>{{sanitizeLevels levels}}</li>
+				{{/if}}
+				<li>{{swimmers}} Swimmers</li>
+				<div>
+					<div>
+						{{sanitizeTime startTime}}
+					</div>
+					<div>
+						{{sanitizeTime endTime}}
+					</div>
+				</div>
+			</ul>
+		</div>
+		{{/with}}
+</template>

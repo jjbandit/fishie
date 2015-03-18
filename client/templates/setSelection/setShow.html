@@ -1,0 +1,8 @@
+<template name='setShow'>
+		{{#if currentUser}}
+			{{> createLesson }}
+			<div id="schedule">
+				{{> instructorList setId=_id}}
+			</div>
+		{{/if}}
+</template>
