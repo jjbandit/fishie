@@ -1,5 +1,4 @@
 Template.createOrSelectSet.events ({
-
 	'click input#new-set': function () {
 		$('#build-set-wrapper').show();
 		$('#select-set-wrapper').hide();
@@ -9,7 +8,6 @@ Template.createOrSelectSet.events ({
 		$('#select-set-wrapper').show();
 		$('#build-set-wrapper').hide();
 	}
-
 });
 
 Template.createOrSelectSet.rendered = function () {
