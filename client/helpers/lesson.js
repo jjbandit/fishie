@@ -26,6 +26,7 @@ Template.lesson.events ({
 		// Check if the lesson we're dragging can be swapped for each lesson returned
 		var leadingBreaks = Fishie.getLeadingBreaks(lessonObj);
 		var trailingBreaks = Fishie.getTrailingBreaks(lessonObj);
+		console.log(trailingBreaks);
 		var totalTimeAvailable = _.union(leadingBreaks, lessonTimes, trailingBreaks);
 		totalTimeAvailable = $.map(totalTimeAvailable, function( val, i ) {
 			return val.getTime()
