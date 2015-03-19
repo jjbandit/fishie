@@ -11,6 +11,17 @@ Template.lesson.helpers ({
 	},
 });
 Template.lesson.events ({
+	'click div#lesson-content': function() {
+		// Insert a text area to edit the lesson comments
+		if (this.privateLesson){
+			var comments = $(event.target).text().trim();
+			$(event.target).prepend('<textarea id="private-comments">' + comments + '</textarea>');
+		}
+	},
+	'blur textarea#private-comments': function () {
+		Fishie.addCommentsToLesson(this, event.target.value);
+		$(event.target).remove();
+	},
 	'dragstart div#lesson': function() {
 		// Lessons are removed in the global body.events so we can mouseup anywhere,
 		// even though the cursor should always be inside the handle
