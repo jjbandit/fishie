@@ -4,7 +4,7 @@ Template.createLesson.events ({
 		event.preventDefault();
 
 		// Set time for lesson
-		var startTime = new Date(1989, 0, 0, 0, 0, 0, 0);
+		var startTime = new Date(1989, 0, 6, 0, 0, 0, 0);
 
 		// Get values from radio buttons and convert to integers
 		var hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
