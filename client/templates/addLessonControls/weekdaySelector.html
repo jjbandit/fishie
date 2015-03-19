@@ -1,5 +1,10 @@
 <template name='weekdaySelector'>
 	<div id="weekday-wrapper" class='form-wrapper'>
+		{{#if checkSetId setId}}
+		{{#each setWeekday setId}}
+			{{> weekday weekday=this}}
+		{{/each}}
+		{{else}}
 		<input checked type="checkbox" name="weekday-toggle" id="weekday-sunday" class="first" value="0"><label for="weekday-sunday">Sunday</label><!--
 		--><input type="checkbox" name="weekday-toggle" id="weekday-monday" value="1"><label for="weekday-monday">Monday</label><!--
 		--><input type="checkbox" name="weekday-toggle" id="weekday-tuesday" value="2"><label for="weekday-tuesday">Tuesday</label><!--
@@ -7,5 +12,6 @@
 		--><input type="checkbox" name="weekday-toggle" id="weekday-thursday" value="4"><label for="weekday-thursday">Thursday</label><!--
 		--><input type="checkbox" name="weekday-toggle" id="weekday-friday" value="5"><label for="weekday-friday">Friday</label><!--
 		--><input type="checkbox" name="weekday-toggle" id="weekday-saturday" class="last" value="6"><label for="weekday-saturday">Saturday</label>
+		{{/if}}
 	</div>
 </template>

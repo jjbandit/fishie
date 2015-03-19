@@ -1,6 +1,6 @@
 <template name='setShow'>
 		{{#if currentUser}}
-			{{> createLesson }}
+			{{> createLesson setId=_id }}
 			<div id="schedule">
 				<input type="button" name="print" id="print-page" value="Print">
 				{{> instructorList setId=_id}}
