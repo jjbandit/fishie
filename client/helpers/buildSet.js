@@ -6,6 +6,8 @@ Template.buildSet.events ({
 			return $(this).val();
 		}).get();
 
+		if (weekdays.length === 0) { return; }
+
 		var setID = new Mongo.ObjectID();
 		Meteor.call('createLessonSet', setID, weekdays);
 

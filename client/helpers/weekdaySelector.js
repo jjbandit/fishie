@@ -9,5 +9,4 @@ Template.weekdaySelector.helpers({
 		}
 		return false;
 	}
-
 });
