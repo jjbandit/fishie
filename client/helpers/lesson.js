@@ -99,11 +99,9 @@ Template.lesson.rendered = function () {
 		drop: function() {
 			var dragTargetObj = Session.get('dragTargetObj');
 			if(!$(this).hasClass('ghost')) {
-				console.log('!dropped on a ghost');
 				Fishie.unsetAllGhosts();
 				return false;
 			} else {
-				console.log('dropped on a ghost');
 				// These have to come first unfortunately because mongo doesn't allow us to unset
 				//     just one instance of a value from an array, it removes all instances of a value
 				//     which leaves us with lessons without times in the lessonTimes array
