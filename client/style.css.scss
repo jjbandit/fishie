@@ -110,16 +110,18 @@ background: #eee;
 	.instructor {
 		display: flex;
 		margin-top: 5px;
-	}
-	#break-block {
-		background: #ddd;
-		text-align: center;
-		// Fix break text rendering through dragged nodes
-		z-index: 0;
-	}
-	#break-block span {
-		position: relative;
-		top: 40px;
+		#break-block {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #ddd;
+			// Fix break text rendering through dragged nodes
+			z-index: 0;
+		}
+		#break-block span {
+			position: relative;
+			top: 40%;
+		}
 	}
 		/* Form Layout */
 	.form-wrapper {

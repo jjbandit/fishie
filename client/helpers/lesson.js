@@ -1,6 +1,6 @@
 Template.lesson.helpers ({
-	getLesson: function(lessonID) {
-		return Lessons.findOne(lessonID, {owner: Meteor.userId()});
+	getLesson: function(lessonObjOrID) {
+		return Lessons.findOne(lessonObjOrID, {owner: Meteor.userId()});
 	},
 	sanitizeLevels: function(levelsAry) {
 		if (levelsAry[0] > 10) {

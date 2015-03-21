@@ -1,14 +1,11 @@
 <template name='lesson'>
 	{{#with getLesson this}}
+	<div class='block-wrapper'>
 	<div id="lesson" class="length-{{length}}{{#if ghost}} ghost{{/if}}">
 		{{> lessonControls}}
 		<div id='lesson-content'>
 			{{#if privateLesson}}
-				{{#if comments}}
-					{{comments}}
-				{{else}}
-					A Private
-				{{/if}}
+			private!
 			{{else}}
 				<ul>
 					<li>{{sanitizeLevels levels}}</li>
@@ -19,5 +16,13 @@
 			{{/if}}
 			</div>
 		</div>
+
+		{{#if sharesWith}}
+			{{#each sharesWith}}
+				{{> lesson this}}
+			{{/each}}
+		{{/if}}
+	</div>
+
 		{{/with}}
 </template>
