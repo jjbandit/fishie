@@ -15,8 +15,6 @@ Template.instructorList.helpers ({
 // Template.
 Template.instructorList.events ( {
 	'blur input.instructor-name': function () {
-		console.log(this);
-		console.log(event.target.value);
 		Fishie.setInstructorName(this, event.target.value);
 	},
 });
