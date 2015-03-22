@@ -37,6 +37,8 @@ Template.createLesson.events ({
 		// We must create a lesson ID here and pass it to the create method so the server
 		// and client are on the same page as far as the lessonID goes
 		var lessonID = new Meteor.Collection.ObjectID();
-		Meteor.call('createLesson', setID, lessonID, level, weekdays, startTime, length, swimmers, privateClass);
+		// Same with the instructor for the case that we're inserting a new one
+		var instrID = new Meteor.Collection.ObjectID();
+		Meteor.call('createLesson', setID, instrID, lessonID, level, weekdays, startTime, length, swimmers, privateClass);
 	}
 });
