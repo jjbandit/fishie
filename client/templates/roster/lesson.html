@@ -1,7 +1,7 @@
 <template name='lesson'>
-	{{#with getLesson this}}
 	<div class='block-wrapper'>
 	<div id="lesson" class="length-{{length}}{{#if ghost}} ghost{{/if}}">
+		{{_id}}
 		{{> lessonControls}}
 		<div id='lesson-content'>
 			{{#if privateLesson}}
@@ -19,10 +19,9 @@
 
 		{{#if sharesWith}}
 			{{#each sharesWith}}
-				{{> lesson this}}
+				{{> lesson getLesson this}}
 			{{/each}}
 		{{/if}}
 	</div>
 
-		{{/with}}
 </template>

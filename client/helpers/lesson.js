@@ -88,9 +88,10 @@ Template.lesson.rendered = function () {
 	var dragTarget = this.$('div#lesson');
 	var dropTarget = this.$('div#lesson');
 	var dropTargetObj = this.data;
-	dragTarget.draggable({cursor: "move",
+	dragTarget.draggable({
+		cursor: "move",
 		handle: "div#lesson-controls",
-		revert: true,
+		revert: true
 	});
 	// set droppable on ghost lessons
 	dropTarget.droppable({
@@ -98,10 +99,21 @@ Template.lesson.rendered = function () {
 		hoverClass: 'ghost-hover',
 		drop: function() {
 			var dragTargetObj = Session.get('dragTargetObj');
+			// If we're dropping on a lesson that's not a ghost, return out
 			if(!$(this).hasClass('ghost')) {
 				Fishie.unsetAllGhosts();
 				return false;
 			} else {
+
+				// If the object we're dragging has a parent pull the dragged _id from the
+				// parents sharesWith so it doesn't get rendered twice
+				if (dragTargetObj.parent) {
+					Meteor.call('pullShareLesson', dragTargetObj.parent, dragTargetObj);
+					dragTargetObj.instructor = '';
+					dragTargetObj.parent = undefined;
+				}
+
+
 				// These have to come first unfortunately because mongo doesn't allow us to unset
 				//     just one instance of a value from an array, it removes all instances of a value
 				//     which leaves us with lessons without times in the lessonTimes array
