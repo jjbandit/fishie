@@ -32,7 +32,8 @@ background: #eee;
 				text-align: center;
 			}
 		}
-		// these cannot be nested in lesson because it is not a child of lesson, it is on the same selector level
+		// These cannot be nested in lesson
+		// because we're targeting div#lesson.ghost not div#lesson .ghost
 		#lesson.ghost{
 			opacity: 0.5;
 			background: #dfd;
@@ -41,8 +42,10 @@ background: #eee;
 		#lesson.ghost-hover{
 			background: #aea;
 		}
+
 		#lesson {
 			background: #ddd;
+			height: 100%;
 			ul {
 				margin:3px 0 0 0;
 				padding:0 0 0 3px;
