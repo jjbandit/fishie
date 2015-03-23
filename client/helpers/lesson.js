@@ -17,12 +17,15 @@ Template.lesson.helpers ({
 });
 
 Template.lesson.events ({
-	'click div#lesson-content': function() {
-		// Insert a text area to edit the lesson comments
-		if (this.privateLesson){
-			var comments = $(event.target).text().trim();
-			$(event.target).prepend('<textarea id="private-comments">' + comments + '</textarea>');
-		}
+	// 'click div.private-name': function() {
+	// 	// Insert a text area to edit the lesson comments
+	// 	if (this.privateLesson){
+	// 		var comments = $(event.target).text().trim();
+	// 		$(event.target).prepend('<textarea id="private-comments">' + comments + '</textarea>');
+	// 	}
+	// },
+	'blur input.private-name': function () {
+		Fishie.addNameToLesson(this, event.target.value);
 	},
 	'blur textarea#private-comments': function () {
 		Fishie.addCommentsToLesson(this, event.target.value);

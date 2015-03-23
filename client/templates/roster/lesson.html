@@ -5,7 +5,11 @@
 			{{> lessonControls}}
 			<div id='lesson-content'>
 				{{#if privateLesson}}
-					{{else}}
+					<input type="text" name="private-name" class='private-name'
+						value="{{name}}" placeholder='Private Name'/>
+					<input type="text" name="private-level" class='private-Level'
+						value="{{sanitizeLevels levels}}" placeholder='Private Level'/>
+				{{else}}
 					<ul>
 						<li>{{sanitizeLevels levels}}</li>
 						<li>{{swimmers}} Swimmers</li>

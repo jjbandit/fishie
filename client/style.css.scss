@@ -46,6 +46,16 @@ background: #eee;
 		#lesson {
 			background: #ddd;
 			height: 100%;
+
+				// Private name boxes
+				input[type=text] {
+					margin-top: 10px;
+					width: 100%;
+					background: #ddd;
+					border: 0;
+					outline: 0;
+				}
+
 			ul {
 				margin:3px 0 0 0;
 				padding:0 0 0 3px;
@@ -62,6 +72,7 @@ background: #eee;
 				background: #aaa;
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
+
 				input.clear-lesson {
 					float: right;
 				}
