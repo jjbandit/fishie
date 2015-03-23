@@ -7,8 +7,10 @@
 				{{#if privateLesson}}
 					<input type="text" name="private-name" class='private-name'
 						value="{{name}}" placeholder='Private Name'/>
-					<input type="text" name="private-level" class='private-Level'
-						value="{{sanitizeLevels levels}}" placeholder='Private Level'/>
+					<div class='comments'>
+						{{sanitizeLevels levels}} <br>
+						{{comments}}
+					</div>
 				{{else}}
 					<ul>
 						<li>{{sanitizeLevels levels}}</li>

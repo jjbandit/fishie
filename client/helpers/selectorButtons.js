@@ -1,13 +1,9 @@
 Template.selectorButtons.events ({
 	'click .clear-lessons' : function() {
+		var setID = Router.current().params._id;
 		if (confirm('Clear all lessons?')) {
-			Meteor.call("clearAllLessons");
+			Meteor.call("clearAllLessons", setID);
 		}
-	},
-	'click .clear-instructors' : function() {
-		if (confirm('Clear all instructors?')) {
-			Meteor.call("clearAllInstructors");
-		}
-	},
+	}
 });
 
