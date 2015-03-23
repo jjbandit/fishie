@@ -2,6 +2,11 @@ Template.lesson.helpers ({
 	getLesson: function(lessonObjOrID) {
 		return Lessons.findOne(lessonObjOrID, {owner: Meteor.userId()});
 	},
+	getWeekdays: function (lessonObj) {
+		var days = Fishie.getWeekdays(lessonObj);
+		days =  UI._globalHelpers['sanitizeWeekdays'](days);
+		return days;
+	},
 	sanitizeLevels: function(levelsAry) {
 		if (levelsAry[0] > 10) {
 			return 'Preschool ' + levelsAry;
@@ -10,6 +15,7 @@ Template.lesson.helpers ({
 		}
 	},
 });
+
 Template.lesson.events ({
 	'click div#lesson-content': function() {
 		// Insert a text area to edit the lesson comments
@@ -33,6 +39,11 @@ Template.lesson.events ({
 		Fishie.addGhostLessons(availableInstructors, lessonTimes, length);
 		// add a z-index class so the lesson stays on top of DOM rendered after it
 		$(event.target.parentElement).addClass("z-top");
+		// return out if we're dragging a lesson with a parent; it can't be swapped
+		if (lessonObj.parent) {
+			Session.set('dragTargetObj', lessonObj);
+			return;
+		}
 		// PART TWO ==
 		// Check if the lesson we're dragging can be swapped for each lesson returned
 		var leadingBreaks = Fishie.getLeadingBreaks(lessonObj);
@@ -48,6 +59,7 @@ Template.lesson.events ({
 			$and: [
 				{_id: {$ne: lessonID}},
 				{ghost: {$exists: false}},
+				{parent: {$exists: false}},
 				{owner: Meteor.userId()},
 				{lessonTimes: {$in: lessonTimes}},
 			]
@@ -79,7 +91,7 @@ Template.lesson.events ({
 			}
 		};
 		// set some session variables so we can find out what we're dropping in the drop: function
-		Session.set('dragTargetObj', this);
+		Session.set('dragTargetObj', lessonObj);
 		Session.set('intersectingLessons', intersectingLessons);
 	}
 });
@@ -99,8 +111,9 @@ Template.lesson.rendered = function () {
 		hoverClass: 'ghost-hover',
 		drop: function() {
 			var dragTargetObj = Session.get('dragTargetObj');
-			// If we're dropping on a lesson that's not a ghost, return out
-			if(!$(this).hasClass('ghost')) {
+			// If we're dropping on a lesson that's not a ghost,
+			// or dropping on a lesson that has a parent object, return out
+			if(!$(this).hasClass('ghost') || dropTargetObj.parent) {
 				Fishie.unsetAllGhosts();
 				return false;
 			} else {
@@ -108,11 +121,14 @@ Template.lesson.rendered = function () {
 				// If the object we're dragging has a parent pull the dragged _id from the
 				// parents sharesWith so it doesn't get rendered twice
 				if (dragTargetObj.parent) {
+					// Return out if we're trying to swap a lesson with a parent
+					if (dropTargetObj.levels[0] !== 'ghost') {
+						return;
+					}
 					Meteor.call('pullShareLesson', dragTargetObj.parent, dragTargetObj);
 					dragTargetObj.instructor = '';
 					dragTargetObj.parent = undefined;
 				}
-
 
 				// These have to come first unfortunately because mongo doesn't allow us to unset
 				//     just one instance of a value from an array, it removes all instances of a value
