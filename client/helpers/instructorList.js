@@ -17,4 +17,20 @@ Template.instructorList.events ( {
 	'blur input.instructor-name': function () {
 		Fishie.setInstructorName(this, event.target.value);
 	},
+	'click input#print-page' : function () {
+		// First hide everything we don't want to print
+		$('div#lesson-controls').hide(0);
+		$('form#create-lesson-controls').hide(0);
+		$('div#login-buttons').hide(0);
+		$('h1#logo').hide(0);
+		$('div.print-page-wrapper').hide(0);
+
+		window.print();
+
+		$('div#lesson-controls').show(0);
+		$('form#create-lesson-controls').show(0);
+		$('div#login-buttons').show(0);
+		$('h1#logo').show(0);
+		$('div.print-page-wrapper').show(0);
+	}
 });

@@ -1,4 +1,7 @@
 <template name="instructorList">
+	<div class='print-page-wrapper'>
+		<input type="button" name="print" id="print-page" value="Print">
+	</div>
 	{{> timeHeader setId=setId}}
 	<div id="instructor-list">
 		{{#each instructors setId}}

@@ -1,25 +1,27 @@
 <template name='lesson'>
 	<div class='block-wrapper'>
 		<div id="lesson" class="length-{{length}}{{#if ghost}} ghost{{/if}}">
-			{{_id}}
+			<div class='lesson-id'>{{_id}}</div>
 			{{> lessonControls}}
 			<div id='lesson-content'>
+				<ul>
+				{{#each sanitizeLevels levels}}
+					<li>{{this}}</li>
+				{{/each}}
+
 				{{#if privateLesson}}
 					<input type="text" name="private-name" class='private-name'
 						value="{{name}}" placeholder='Private Name'/>
 					<div class='comments'>
-						{{sanitizeLevels levels}} <br>
 						{{comments}}
 					</div>
+					{{getWeekdays this}}
 				{{else}}
-					<ul>
-						<li>{{sanitizeLevels levels}}</li>
 						<li>{{swimmers}} Swimmers</li>
 						<!-- <li>{{sanitizeTime startTime}}</li> -->
 						<!-- <li>{{sanitizeTime endTime}}</li> -->
-					</ul>
 				{{/if}}
-				{{getWeekdays this}}
+				</ul>
 			</div>
 		</div>
 

@@ -8,11 +8,21 @@ Template.lesson.helpers ({
 		return days;
 	},
 	sanitizeLevels: function(levelsAry) {
-		if (levelsAry[0] > 10) {
-			return 'Preschool ' + levelsAry;
-		} else {
-			return 'Swim Kids ' + levelsAry;
+		var preLevels = ['Starfish', 'Duck', 'Sea Turtle', 'Sea Otter', 'Salamander', 'Sunfish', 'Crocodile', 'Whale'];
+		var returnArray = [];
+
+		// This loop builds an array with sanitized level names for the client
+		var ln = levelsAry.length;
+		for (var i = 0; i < ln; i++) {
+			if (levelsAry[i] > 10) {
+				// Subtract 11 because Starfish is the 11th level (after sk 1-10)
+				// to get to a 0 based index
+				returnArray.push(preLevels[levelsAry[i] - 11]);
+			} else {
+				returnArray.push('Swim Kids ' + levelsAry[i]);
+			}
 		}
+		return returnArray;
 	},
 });
 

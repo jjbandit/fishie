@@ -26,25 +26,25 @@ UI.registerHelper (
 		for (var i = 0; i < ln; i++) {
 			switch (parseInt(weekdays[i], 10)) {
 				case 0:
-					returnArray.push("Sunday");
+					returnArray.push("Sun");
 					continue;
 				case 1:
-					returnArray.push("Monday");
+					returnArray.push("Mon");
 					continue;
 				case 2:
-					returnArray.push("Tuesday");
+					returnArray.push("Tue");
 					continue;
 				case 3:
-					returnArray.push("Wednesday");
+					returnArray.push("Wed");
 					continue;
 				case 4:
-					returnArray.push("Thursday");
+					returnArray.push("Thu");
 					continue;
 				case 5:
-					returnArray.push("Frday");
+					returnArray.push("Fri");
 					continue;
 				case 6:
-					returnArray.push("Saturday");
+					returnArray.push("Sat");
 					continue;
 			}
 		}
