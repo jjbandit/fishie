@@ -27,7 +27,7 @@
 
   // Configure environment
   "env": {
-    "ROOT_URL": "http://fishie.jessejames.com",
+    "ROOT_URL": "http://fishie.jessejames.ca",
     "PORT": 8080,
     "NODE_ENV": "producton"
   },
