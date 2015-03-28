@@ -1,8 +1,6 @@
 <template name='setShow'>
-		{{#if currentUser}}
-			{{> createLesson setId=_id }}
-			<div id="schedule">
-				{{> instructorList setId=_id}}
-			</div>
-		{{/if}}
+	{{> createLesson setId=_id }}
+	<div id="schedule">
+		{{> instructorList setId=_id}}
+	</div>
 </template>

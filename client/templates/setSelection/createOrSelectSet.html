@@ -1,10 +1,12 @@
 <template name="createOrSelectSet">
 	<body>
-		<div class='selector form-wrapper'>
-			<form>
-				<input type="radio" class="last first" name="new-select" id="new-set" value="0"><label for="new-set">New Set</label>
-				<input type="radio" class="last first" name="new-select" id="select-set" value="0"><label for="select-set">Select Set</label>
-			</form>
-		</div>
+		{{#if currentUser}}
+			<div class='selector form-wrapper'>
+				<form>
+					<input type="radio" class="last first" name="new-select" id="new-set" value="0"><label for="new-set">New Set</label>
+					<input type="radio" class="last first" name="new-select" id="select-set" value="0"><label for="select-set">Select Set</label>
+				</form>
+			</div>
+		{{/if}}
 	</body>
 </template>
