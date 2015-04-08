@@ -108,6 +108,8 @@ Template.lesson.events ({
 		Session.set('intersectingLessons', intersectingLessons);
 	}
 });
+
+
 Template.lesson.rendered = function () {
 	// set draggable on regular lessons
 	var dragTarget = this.$('div#lesson');
@@ -118,6 +120,7 @@ Template.lesson.rendered = function () {
 		handle: "div#lesson-controls",
 		revert: true
 	});
+
 	// set droppable on ghost lessons
 	dropTarget.droppable({
 		tolerance: 'pointer',
@@ -143,7 +146,7 @@ Template.lesson.rendered = function () {
 					dragTargetObj.parent = undefined;
 				}
 
-				// These have to come first unfortunately because mongo doesn't allow us to unset
+				// These remove statemets have to come first because mongo doesn't allow us to unset
 				//     just one instance of a value from an array, it removes all instances of a value
 				//     which leaves us with lessons without times in the lessonTimes array
 				//     if we insert lessons before we remove them

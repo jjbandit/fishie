@@ -1,5 +1,6 @@
 Template.selectSet.helpers({
 	lessonSet: function() {
-		return LessonSets.find().fetch();
+		var uid = Meteor.userId();
+		return LessonSets.find({owner: uid}).fetch();
 	}
 });

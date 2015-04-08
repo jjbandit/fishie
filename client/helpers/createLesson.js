@@ -3,6 +3,8 @@ Template.createLesson.events ({
 		// Prevent form refresh
 		event.preventDefault();
 
+		if (!Meteor.user()) { return false; }
+
 		// Set time for lesson
 		var startTime = new Date(1989, 0, 6, 0, 0, 0, 0);
 
