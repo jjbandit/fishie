@@ -1,5 +1,5 @@
 Template.buildSet.events ({
-	'submit': function () {
+	'submit': function (event) {
 		event.preventDefault();
 
 		var weekdays = $('input[name=weekday-toggle]:checked', '#weekday-wrapper').map( function() {

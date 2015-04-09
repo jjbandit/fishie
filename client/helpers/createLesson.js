@@ -1,5 +1,5 @@
 Template.createLesson.events ({
-	'submit form' : function() {
+	'submit form' : function(event) {
 		// Prevent form refresh
 		event.preventDefault();
 

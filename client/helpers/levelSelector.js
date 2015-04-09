@@ -1,5 +1,5 @@
 Template.levelSelector.events ({
-	'change input.level-toggle': function () {
+	'change input.level-toggle': function (event) {
 		// Uncheck the currently checked lesson-length
 		$('input[name=length-toggle]:checked', '#create-lesson-controls').prop('checked', false);
 
