@@ -3,7 +3,11 @@ Template.instructorList.helpers ({
 		return Instructors.find({owner: Meteor.userId(), set: setId}, {sort: {createdAt: 1}});
 	},
 	sortedLessonList: function(lessonID_ary) {
-		return Lessons.find({_id: {$in: lessonID_ary}, owner: Meteor.userId()}, {sort: {lessonTimes: 1}}).fetch();
+		var sortedList =  Lessons.find({_id: {$in: lessonID_ary}, owner: Meteor.userId()}, {sort: {lessonTimes: 1}}).fetch();
+
+
+		console.log(sortedList);
+		return sortedList;
 	},
 	getLeadingBreaks: function(lessonObj) {
 		return Fishie.getLeadingBreaks(lessonObj);
