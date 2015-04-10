@@ -1,12 +1,11 @@
 Template.createLesson.events ({
-	'submit form' : function() {
+	'submit form' : function(event) {
 		// Prevent form refresh
 		event.preventDefault();
 
 		if (!Meteor.user()) { return false; }
 
 		// Set time for lesson
-		var startTime = new Date(1989, 0, 6, 0, 0, 0, 0);
 
 		// Get values from radio buttons and convert to integers
 		var hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
@@ -42,5 +41,31 @@ Template.createLesson.events ({
 		// Same with the instructor for the case that we're inserting a new one
 		var instrID = new Meteor.Collection.ObjectID();
 		Meteor.call('createLesson', setID, instrID, lessonID, level, weekdays, startTime, length, swimmers, privateClass);
+	},
+
+	'change .upload-lessons' : function(event) {
+		var setId = Router.current().params._id;
+		var startTime = new Date(1989, 0, 6, 0, 0, 0, 0);
+
+		$('.upload-lessons').parse({
+			config: {
+				worker: true,
+				complete: function(results, file) {
+					$.each(results.data, function() {
+						var instrID = new Meteor.Collection.ObjectID();
+						var lessonID = new Meteor.Collection.ObjectID();
+						var level = parseInt((this[10] || "0").match(/\d/)) || 0;
+						Meteor.call('createLesson', setId, instrID, lessonID, level, [0], startTime, 30, 2, false);
+						
+					});
+
+				}	
+			},
+
+			complete: function()
+			{
+				console.log('done lessons');
+			}
+		});
 	}
 });
