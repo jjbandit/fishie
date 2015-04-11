@@ -6,7 +6,7 @@ Template.instructorList.helpers ({
 		var sortedList =  Lessons.find({_id: {$in: lessonID_ary}, owner: Meteor.userId()}, {sort: {lessonTimes: 1}}).fetch();
 
 
-		console.log(sortedList);
+		// console.log(sortedList);
 		return sortedList;
 	},
 	getLeadingBreaks: function(lessonObj) {
