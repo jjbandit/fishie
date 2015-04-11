@@ -56,19 +56,49 @@ Template.createLesson.events ({
 				complete: function(results, file) {
 					console.log(results);
 					$.each(results.data, function() {
+
+						// FIXME Not sure if we can do much about this
+						// Papaparse treats newlines as new rows and returns an extra empty object at the EOF
+						// so we have to check for this object :/
+						if (this.length === 1) { return; }
+
 						var instrID = new Meteor.Collection.ObjectID()._str;
 						var lessonID = new Meteor.Collection.ObjectID()._str;
+
+						// Here we're assuming that the csv we're feeding papaparse ALWAYS has the same format.
+						// Sounds sketchy at best considering CLASS..
 						var level = parseInt((this[10]).match(/\d+/));
+
+						// parseInt returns NaN when match doesn't encounter a number in the level index (this[10])
+						// so we know we're dealing with either a preschool level or some garbage
+						// TODO Handle preschool levels and private levels
+						if (isNaN(level)) {
+							return true;
+						}
+
+						// Get end time
+						var splitDate = this[22].split('-');
+						var startTime = new Date(splitDate[0]);
+						startTime.setDate(7);
+						startTime.setMonth(0);
+						startTime.setYear(1989);
+						var defaultDate = '7 Jan 1989 ';
+						var endTime = new Date(defaultDate.concat(splitDate[1]));
+						console.log(startTime);
+						console.log(endTime);
+						var diff = endTime.getTime() - startTime.getTime();
+						diff = (diff / 60000) - 1;
+
+						// Sanity check
 						var swimmers = parseInt((this[25]).match(/\d+/));
 						var barcode = parseInt((this[11]).match(/\d+/));
-
-						if (isNaN(level) || isNaN(barcode)) {
+						if (isNaN(swimmers) || isNaN(barcode)) {
 							return true;
 						}
 
 						if (barcodeList.indexOf(barcode) === -1) {
 							barcodeList.push(barcode);
-							var lessonObj = Fishie.parseLessonObject(lessonID, setId, level, false, swimmers, [0], startTime, 29);
+							var lessonObj = Fishie.parseLessonObject(lessonID, setId, level, false, swimmers, [0], startTime, diff);
 							lessonObj.barcode = barcode;
 							Meteor.call('createLesson', lessonObj);
 						}
