@@ -47,7 +47,7 @@ Template.createLesson.events ({
 	'change .upload-lessons' : function(event) {
 		// We have to pass in a set Id because it's only available to us on the client
 		var setId = Router.current().params._id;
-		var startTime = new Date(1989, 0, 6, 0, 0, 0, 0);
+		var startTime = new Date(1989, 0, 6, 2, 0, 0, 0);
 
 		var barcodeList = [];
 
@@ -56,8 +56,8 @@ Template.createLesson.events ({
 				complete: function(results, file) {
 					console.log(results);
 					$.each(results.data, function() {
-						var instrID = new Meteor.Collection.ObjectID();
-						var lessonID = new Meteor.Collection.ObjectID();
+						var instrID = new Meteor.Collection.ObjectID()._str;
+						var lessonID = new Meteor.Collection.ObjectID()._str;
 						var level = parseInt((this[10]).match(/\d+/));
 						var swimmers = parseInt((this[25]).match(/\d+/));
 						var barcode = parseInt((this[11]).match(/\d+/));
@@ -70,7 +70,7 @@ Template.createLesson.events ({
 							barcodeList.push(barcode);
 							var lessonObj = Fishie.parseLessonObject(lessonID, setId, level, false, swimmers, [0], startTime, 29);
 							lessonObj.barcode = barcode;
-							// Meteor.call('createLesson', lessonObj);
+							Meteor.call('createLesson', lessonObj);
 						}
 					});
 				}
