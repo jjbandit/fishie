@@ -48,6 +48,7 @@ Template.createLesson.events ({
 		// We have to pass in a set Id because it's only available to us on the client
 		var setId = Router.current().params._id;
 
+		// Keep track of what barcodes we've already added to the set
 		var barcodeList = [];
 
 		$('.upload-lessons').parse({
@@ -57,6 +58,9 @@ Template.createLesson.events ({
 					$.each(results.data, function() {
 						// Here we're assuming that the csv we're feeding papaparse ALWAYS has the same format.
 						// Sounds sketchy at best considering CLASS..
+
+						// TODO I've noticed there are occations where there are two or more unique barcodes that
+						// refer to the same level.  We need to check for those and condense classes when nessicary
 
 						// FIXME Not sure if we can do much about this
 						// Papaparse treats newlines as new rows and returns an extra empty object at the EOF
@@ -81,6 +85,7 @@ Template.createLesson.events ({
 							// to create a pair of dates that make sense for us to use
 							var splitDate = this[22].split('-');
 							var startTime = new Date(splitDate[0]);
+							// Set to standard week
 							startTime.setDate(7);
 							startTime.setMonth(0);
 							startTime.setYear(1989);
@@ -117,7 +122,6 @@ Template.createLesson.events ({
 									return true;
 								}
 							}
-
 
 							// If after all that processing level is still NaN break out
 							if (isNaN(level)){
