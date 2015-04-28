@@ -58,12 +58,15 @@ Template.createLesson.events ({
 					$.each(results.data, function() {
 						// Here we're assuming that the csv we're feeding papaparse ALWAYS has the same format.
 						// Sounds sketchy at best considering CLASS..
+						// TODO Upon further testing I've noticed that not all outputs from CLASS work with this
+						// parser.  Write a better one.
 
 						// TODO I've noticed there are occations where there are two or more unique barcodes that
 						// refer to the same level.  We need to check for those and condense classes when nessicary
 
 						// FIXME Not sure if we can do much about this
 						// Papaparse treats newlines as new rows and returns an extra empty object at the EOF
+						// because CLASS outputs a newline character at the end of the csv file,
 						// so we have to check for this object :/
 						if (this.length === 1) { return; }
 
@@ -112,8 +115,8 @@ Template.createLesson.events ({
 
 										// This refers to the values in preLevels
 										if (levelString.indexOf(this) > -1){
-											// Add 10 so we get preschool levels
-											level = preLevels.indexOf(this.toString()) + 10;
+											// Add 11 so we get preschool levels
+											level = preLevels.indexOf(this.toString()) + 11;
 										}
 									});
 								}
