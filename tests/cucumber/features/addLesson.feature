@@ -13,4 +13,4 @@ Feature: Add a lesson to Lessons collection
 	Scenario:
 		Given The logged in user has created a "Monday" Lesson Set
 		When I submit the default form
-		Then I should have one lesson appearing in the Schedule section
+		Then I should have 1 lesson appearing in the Schedule section

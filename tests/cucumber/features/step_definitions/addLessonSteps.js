@@ -53,19 +53,15 @@ module.exports = function () {
 			.submitForm('#create-lesson-controls');
 			callback();
 	});
-	this.Then(/^I should have one lesson appearing in the Schedule section$/, function (callback) {
+	this.Then(/^I should have (\d+) lesson appearing in the Schedule section$/, function (numLessons, callback) {
 		this.browser
 			.waitForExist('.block-wrapper')
 			.waitForVisible('.block-wrapper')
 			.elements('.block-wrapper', function (err, elems) {
-				chai.assert.lengthOf(elems.value, 1, 'num lessons == 1').and.notify(callback);
-				// elems.value.should.have.length(1).and.notify(callback);
+				chai.assert.lengthOf(elems.value, numLessons,
+						'Expected ' + numLessons + ' lessons, but got ' +
+						elems.value.length + '.');
+				callback();
 			});
-		// callback();
-			// .elements('.block-wrapper').then(
-			// function (elems) {
-			// 	console.log(elems);
-			// 	// console.log(count);
-			// });
 	});
 }
