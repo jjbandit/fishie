@@ -5,6 +5,7 @@
 }
 body {
 background: #eee;
+font-size: 13px;
 // margin: 0px;
 	.z-top {
 		z-index: 10000;
@@ -13,7 +14,7 @@ background: #eee;
 		border-bottom: 3px solid black;
 	}
 	#instructor-list {
-		#instructor-wrapper {
+		.instructor-wrapper {
 			page-break-after: auto;
 
 			input[type=text] {

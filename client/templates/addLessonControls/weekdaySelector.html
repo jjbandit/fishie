@@ -5,13 +5,13 @@
 			{{> weekday weekday=this}}
 		{{/each}}
 		{{else}}
-		<input type="checkbox" name="weekday-toggle" id="weekday-sunday" class="first" value="0"><label for="weekday-sunday">Sunday</label><!--
-		--><input type="checkbox" name="weekday-toggle" id="weekday-monday" value="1"><label for="weekday-monday">Monday</label><!--
-		--><input type="checkbox" name="weekday-toggle" id="weekday-tuesday" value="2"><label for="weekday-tuesday">Tuesday</label><!--
-		--><input type="checkbox" name="weekday-toggle" id="weekday-wednesday" value="3"><label for="weekday-wednesday">Wednesday</label><!--
-		--><input type="checkbox" name="weekday-toggle" id="weekday-thursday" value="4"><label for="weekday-thursday">Thursday</label><!--
-		--><input type="checkbox" name="weekday-toggle" id="weekday-friday" value="5"><label for="weekday-friday">Friday</label><!--
-		--><input type="checkbox" name="weekday-toggle" id="weekday-saturday" class="last" value="6"><label for="weekday-saturday">Saturday</label>
+		<input type="checkbox" name="weekday-toggle" id="weekday-sunday" class="first" value="0"><label id='weekday-sunday-label' for="weekday-sunday">Sunday</label><!--
+		--><input type="checkbox" name="weekday-toggle" id="weekday-monday" value="1"><label id='weekday-monday-label' for="weekday-monday">Monday</label><!--
+		--><input type="checkbox" name="weekday-toggle" id="weekday-tuesday" value="2"><label id='weekday-tuesday-label' for="weekday-tuesday">Tuesday</label><!--
+		--><input type="checkbox" name="weekday-toggle" id="weekday-wednesday" value="3"><label id='weekday-wednesday-label' for="weekday-wednesday">Wednesday</label><!--
+		--><input type="checkbox" name="weekday-toggle" id="weekday-thursday" value="4"><label id='weekday-thursday-label' for="weekday-thursday">Thursday</label><!--
+		--><input type="checkbox" name="weekday-toggle" id="weekday-friday" value="5"><label id='weekday-friday-label' for="weekday-friday">Friday</label><!--
+		--><input type="checkbox" name="weekday-toggle" id="weekday-saturday" class="last" value="6"><label id='weekday-saturday-label' for="weekday-saturday">Saturday</label>
 		{{/if}}
 	</div>
 </template>
