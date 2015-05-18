@@ -4,7 +4,13 @@ Feature: Add a lesson to Lessons collection
 	I want to add lessons to the Lessons Collection
 	So that I can modify my roster
 
+	Background:
+		Given I navigate to ""
+		And "Bob" has logged in
+
+
+	@dev
 	Scenario:
-		Given I have an empty Lessons Collection
-		When I add a lesson to the Collection
-		Then I should have one lesson in the Collection
+		Given The logged in user has created a "Monday" Lesson Set
+		When I submit the default form
+		Then I should have one lesson appearing in the Schedule section

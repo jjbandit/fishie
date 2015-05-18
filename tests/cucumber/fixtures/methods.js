@@ -1,13 +1,26 @@
 (function () {
 
-  'use strict';
+	'use strict';
 
-  Meteor.methods({
-    'reset' : function() {
-      // you can do some resetting of your app here
-      // fixture code will only execute inside mirrors neither runs
-      // inside the main app nor gets bundled to production.
-    }
-  });
+Meteor.startup(function() {
+
+	if (Meteor.isClient || !process.env.IS_MIRROR) {
+		return;
+	}
+});
+
+Meteor.methods({
+	'reset' : function(thing) {
+		Lessons.remove({});
+		LessonSets.remove({});
+		Instructors.remove({});
+	},
+
+
+	'fixtures/user/createDefault': function(user) {
+		Meteor.users.remove({});
+		Accounts.createUser(user);
+	}
+});
 
 })();
