@@ -14,11 +14,15 @@ Meteor.methods({
 		Lessons.remove({});
 		LessonSets.remove({});
 		Instructors.remove({});
+		Meteor.users.remove({});
+		// Meteor.users.remove({});
+		// Invalidate all sessions
+		// Meteor.users.update({}, {$set: { "services.resume.loginTokens" : [] }}, {multi: true});
+
 	},
 
 
 	'fixtures/user/createDefault': function(user) {
-		Meteor.users.remove({});
 		Accounts.createUser(user);
 	}
 });
