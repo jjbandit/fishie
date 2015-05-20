@@ -83,7 +83,17 @@ module.exports = function () {
 			.getText('.lesson-level').should.become('Swim Kids 1').and.notify(callback);
 	});
 
-	this.Then(/^I should see (\d+) Lesson and (\d+) Instructor appearing in the Schedule section$/,
+this.Then(/^I should see (\d+) Break blocks$/, function (breakBlocksStr, callback) {
+	var breakBlocks = parseInt(breakBlocksStr);
+
+	this.browser
+	.elements('.break-block', function (err, elems) {
+		chai.expect(elems.value.length).to.equal(breakBlocks);
+		callback();
+	});
+});
+
+	this.Then(/^I should see (\d+) Lesson and (\d+) Instructor$/,
 			function (numLessons, numInstructors, callback) {
 
 		var numLessons = parseInt(numLessons);
