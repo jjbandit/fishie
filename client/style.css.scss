@@ -151,7 +151,7 @@ font-size: 13px;
 	.instructor {
 		display: flex;
 		margin-top: 5px;
-		#break-block {
+		.break-block {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -159,7 +159,7 @@ font-size: 13px;
 			// Fix break text rendering through dragged nodes
 			z-index: 0;
 		}
-		#break-block span {
+		.break-block span {
 			position: relative;
 			top: 40%;
 		}
