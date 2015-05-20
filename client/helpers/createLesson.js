@@ -143,6 +143,7 @@ Template.createLesson.events ({
 			complete: function()
 			{
 				console.log('done lessons');
+				$('.upload-lessons-input').replaceWith ( $('.upload-lessons-input').clone(true) );
 			}
 		});
 	}
