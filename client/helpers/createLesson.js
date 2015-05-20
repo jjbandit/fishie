@@ -44,14 +44,14 @@ Template.createLesson.events ({
 		Meteor.call('createLesson', lessonID, instrID, setID, level, weekdays, startTime, length, swimmers, privateClass);
 	},
 
-	'change .upload-lessons' : function(event) {
+	'change .upload-lessons-input' : function(event) {
 		// We have to pass in a set Id because it's only available to us on the client
 		var setId = Router.current().params._id;
 
 		// Keep track of what barcodes we've already added to the set
 		var barcodeList = [];
 
-		$('.upload-lessons').parse({
+		$('.upload-lessons-input').parse({
 			config: {
 				complete: function(results, file) {
 					console.log(results);
