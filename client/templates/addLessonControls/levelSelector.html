@@ -1,6 +1,10 @@
 <template name="levelSelector">
+
+	<div>
+		<span class='stage level'> {{getLevel}} </span>
+	</div>
+
 	<div id="level-wrapper" class="form-wrapper">
-		<strong>Level Selector</strong>
 		<div id="swim-kids-wrapper" class="form-field-wrapper">
 			<input checked type="radio" name="level-toggle" id="sk-1" class="level-toggle first" value="1"><label id="sk-1-label" for="sk-1">SK 1</label><!--
 			--><input type="radio" name="level-toggle" id="sk-2" class="level-toggle" value="2"><label id="sk-2-label" for="sk-2">SK 2</label><!--
@@ -24,18 +28,22 @@
 			--><input type="radio" name="level-toggle" class="level-toggle" value="17" id="crocodile"><label for="crocodile">Crocodile</label><!--
 			--><input type="radio" name="level-toggle" class="last level-toggle" value="18" id="whale"><label for="whale">Whale</label>
 		</div>
+	</div>
 
-		<div id="swimmers-wrapper" class="form-field-wrapper">
-			<input checked type="radio" name="swimmers-toggle" id="swimmers-1" class="first" value="1"><label id="swimmers-1-label" for="swimmers-1">1</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-2" value="2"><label id="swimmers-2-label" for="swimmers-2">2</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-3" value="3"><label id="swimmers-3-label" for="swimmers-3">3</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-4" value="4"><label id="swimmers-4-label" for="swimmers-4">4</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-5" value="5"><label id="swimmers-5-label" for="swimmers-5">5</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-6" value="6"><label id="swimmers-6-label" for="swimmers-6">6</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-7" value="7"><label id="swimmers-7-label" for="swimmers-7">7</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-8" value="8"><label id="swimmers-8-label" for="swimmers-8">8</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-9" value="9"><label id="swimmers-9-label" for="swimmers-9">9</label><!--
-			--><input type="radio" name="swimmers-toggle" id="swimmers-10" class="last" value="10"><label id="swimmers-10-label" for="swimmers-10">10</label>
-		</div>
+	<div>
+		<span class='stage num-swimmers'> {{getNumSwimmers}} Swimmers </span>
+	</div>
+
+	<div id="swimmers-wrapper" class="form-field-wrapper">
+		<input checked type="radio" name="swimmers-toggle" id="swimmers-1" class='swimmers-toggle first' value="1"><label id="swimmers-1-label" for="swimmers-1">1</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-2" class='swimmers-toggle' value="2"><label id="swimmers-2-label" for="swimmers-2">2</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-3" class='swimmers-toggle' value="3"><label id="swimmers-3-label" for="swimmers-3">3</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-4" class='swimmers-toggle' value="4"><label id="swimmers-4-label" for="swimmers-4">4</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-5" class='swimmers-toggle' value="5"><label id="swimmers-5-label" for="swimmers-5">5</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-6" class='swimmers-toggle' value="6"><label id="swimmers-6-label" for="swimmers-6">6</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-7" class='swimmers-toggle' value="7"><label id="swimmers-7-label" for="swimmers-7">7</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-8" class='swimmers-toggle' value="8"><label id="swimmers-8-label" for="swimmers-8">8</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-9" class='swimmers-toggle' value="9"><label id="swimmers-9-label" for="swimmers-9">9</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-10" class='swimmers-toggle last' value="10"><label id="swimmers-10-label" for="swimmers-10">10</label>
 	</div>
 </template>

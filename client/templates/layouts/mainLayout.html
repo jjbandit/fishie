@@ -1,11 +1,10 @@
 <template name='mainLayout'>
-	<head>
-		<title>Fishie</title>
-	</head>
-	<form id='login-form'>
-		{{> loginButtons}}
-	</form>
-	<h1 id='logo'><a href="{{ urlFor 'createOrSelectSet' }}">Fishie</a></h1>
+	<div class='container-fluid'>
+		<form id='login-form'>
+			{{> loginButtons}}
+		</form>
+		<h1 id='logo'><a href="{{ urlFor 'createOrSelectSet' }}">Fishie</a></h1>
+	</div>
 		{{> yield}}
 </template>
 

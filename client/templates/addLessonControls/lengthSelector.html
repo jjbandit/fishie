@@ -1,0 +1,10 @@
+<template name='lengthSelector'>
+	<div>
+		<span class='stage length'> {{getLength}} Minutes</span>
+	</div>
+	<div id="length-wrapper" class='form-field-wrapper'>
+		<input checked type="radio" name="length-toggle" id="30-min" class="length-toggle first" value="29"><label id="30-min-label" for="30-min">30 Min</label><!--
+		--><input type="radio" name="length-toggle" id="45-min" class='length-toggle' value="44"><label id="45-min-label" for="45-min">45 Min</label><!--
+		--><input type="radio" name="length-toggle" id="60-min" class='length-toggle last' value="59"><label id="60-min-label" for="60-min">60 Min</label>
+	</div>
+</template>
