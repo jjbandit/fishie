@@ -24,8 +24,8 @@ Scenario:
 # @dev
 Scenario:
 	Given The logged in user has created a "Monday" Lesson Set
-	When Create a "SK 1" at 12:00 PM with 3 swimmers
-	And Create a "SK 1" at 1:00 PM with 3 swimmers
+	And Create a "SK 2" at 2:00 PM with 2 swimmers
+	And Create a "SK 5" at 5:00 PM with 5 swimmers
 	Then I should see 2 Lesson and 1 Instructor
 
 # @dev

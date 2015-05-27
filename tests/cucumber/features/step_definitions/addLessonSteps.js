@@ -54,24 +54,32 @@ module.exports = function () {
 
 	this.When(/^Create a "([^"]*)" at (\d+):(\d+) ([^"]*) with (\d+) swimmers$/,
 			function (levelString, hourString, minuteString, amPmString, numSwimmersString, callback) {
-		var levelSelector = '#' + levelString.toLowerCase().replace( ' ' , '-' ) + '-label';
-		var swimmerSelector = '#swimmers-' + numSwimmersString + '-label';
-		var hourSelector = '#time-hour-' + hourString + '-label';
-		var minSelector = '#time-minute-' + minuteString + '-label';
-		var amPmSelector = '#' + amPmString + '-label';
+		var levelRadioSelector = '#' + levelString.toLowerCase().replace( ' ' , '-' ) + '-label';
+		var swimmerRadioSelector = '#swimmers-' + numSwimmersString + '-label';
+		var hourRadioSelector = '#time-hour-' + hourString + '-label';
+		var minRadioSelector = '#time-minute-' + minuteString + '-label';
+		var amPmRadioSelector = '#' + amPmString + '-label';
 
 		this.browser
-			.click(levelSelector)
-			.click(swimmerSelector)
-			.click(hourSelector)
-			.click(minSelector)
-			.click(amPmSelector)
+			.waitForVisible('#selectors-wrapper')
+			.click('span.level')
+			.click(levelRadioSelector)
+			.click('span.num-swimmers')
+			.click(swimmerRadioSelector)
+			.click('span.hour')
+			.click(hourRadioSelector)
+			.click('span.minute')
+			.click(minRadioSelector)
+			.click('span.am-pm')
+			.click(amPmRadioSelector)
 			.click('#submit-create-lessons');
 
-		// Wait for write to db
+			this.browser.saveScreenshot(process.env.PWD + '/tests/cucumber/.screenshots/' + levelString + '.png');
+		var fing = this.browser;
+		// // Wait for write to db
 		setTimeout( function () {
 			callback();
-		}, 300);
+		}, 500);
 	});
 
 	this.When(/^I submit the default form$/, function (callback) {
