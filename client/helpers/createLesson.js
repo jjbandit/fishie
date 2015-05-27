@@ -1,6 +1,3 @@
-Template.createLesson.helpers ({
-
-});
 Template.createLesson.events ({
 	'submit form' : function(event) {
 		// Prevent form refresh

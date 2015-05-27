@@ -1,30 +1,27 @@
 Template.timeSelector.events ({
-	'change input.hour-toggle' : function (event) {
+	// Handlers that hide the radio buttons and set Sessions when they're clicked
+	'click input.hour-toggle' : function (event) {
 		$( '#hour-wrapper' ).hide();
 		Session.set('Stage.hour', event.target.value);
 	},
-	'change input.minute-toggle' : function (event) {
+	'click input.minute-toggle' : function (event) {
 		$( '#minute-wrapper' ).hide();
 		Session.set('Stage.minute', event.target.value);
 	},
-	'change input.am-pm-toggle' : function (event) {
+	'click input.am-pm-toggle' : function (event) {
 		$( '#am-pm-wrapper' ).hide();
-		var amPm = 'PM';
-
-		if (parseInt(event.target.value) === 0) {
-			amPm = 'AM';
-		}
-
+		var amPm = parseInt(event.target.value) ? 'PM' : 'AM' ;
 		Session.set('Stage.amPm', amPm);
 	},
 
-	'click .hour' : function (event) {
+	// Handlers to expose the radio buttons when the appropriate span selector is clicked
+	'click span.hour' : function (event) {
 		$(' #hour-wrapper ' ).show();
 	},
-	'click .minute' : function (event) {
+	'click span.minute' : function (event) {
 		$(' #minute-wrapper ' ).show();
 	},
-	'click .am-pm' : function (event) {
+	'click span.am-pm' : function (event) {
 		$(' #am-pm-wrapper ' ).show();
 	},
 });

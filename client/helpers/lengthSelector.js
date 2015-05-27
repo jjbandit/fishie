@@ -5,11 +5,13 @@ Template.lengthSelector.helpers ({
 });
 
 Template.lengthSelector.events ({
-	'change input.length-toggle' : function (event) {
+	// Handlers that hide the radio buttons and set Sessions when they're clicked
+	'click input.length-toggle' : function (event) {
 		$( '#length-wrapper' ).hide();
 		Session.set('Stage.length', parseInt(event.target.value) + 1);
 	},
-	'click .length' : function (event) {
+	// Handlers to expose the radio buttons when the appropriate span selector is clicked
+	'click span.length' : function (event) {
 		$(' #length-wrapper ' ).show();
 	}
 });

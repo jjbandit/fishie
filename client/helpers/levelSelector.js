@@ -22,19 +22,23 @@ Template.levelSelector.events ({
 		// Check the appropriate length radio and fire the change event
 		var jqString = 'input[name=length-toggle]' + '[value=' + lessonLength + ']';
 		$(jqString, '#create-lesson-controls').prop('checked', true).trigger('change');
+	},
 
+	// Handlers that hide the radio buttons and set Sessions when they're clicked
+	'click input.level-toggle': function (event) {
 		$( '#level-wrapper' ).hide();
 		Session.set('Stage.level', event.target.id);
 	},
-	'change input.swimmers-toggle' : function (event) {
+	'click input.swimmers-toggle' : function (event) {
 		$( '#swimmers-wrapper' ).hide();
 		Session.set('Stage.swimmers', event.target.value);
 	},
 
-	'click .level' : function (event) {
+	// Handlers to expose the radio buttons when the appropriate span selector is clicked
+	'click span.level' : function (event) {
 		$(' #level-wrapper ' ).show();
 	},
-	'click .num-swimmers' : function (event) {
+	'click span.num-swimmers' : function (event) {
 		$(' #swimmers-wrapper ' ).show();
 	}
 });
