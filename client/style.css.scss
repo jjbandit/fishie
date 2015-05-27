@@ -3,16 +3,35 @@
 	size: auto;
 	margin: 0mm;
 }
+
 body {
 background: #eee;
-font-size: 13px;
-// margin: 0px;
-	.z-top {
-		z-index: 10000;
+list-style: none;
+
+	// Hide selector radios
+	#hour-wrapper,
+	#minute-wrapper,
+	#am-pm-wrapper,
+	#level-wrapper,
+	#length-wrapper,
+	#swimmers-wrapper {
+		display: none;
 	}
+
 	#create-lesson-controls {
 		border-bottom: 3px solid black;
+
+		.stage {
+			font-size: 42px;
+			cursor: pointer;
+			border-radius: 4px;
+			padding: 1.5px 4px;
+		}
+		.stage:hover {
+			background: #ddd;
+		}
 	}
+
 	#instructor-list {
 		.instructor-wrapper {
 			page-break-after: auto;
@@ -30,7 +49,7 @@ font-size: 13px;
 		.print-page-wrapper {
 			margin-top: 10px;
 			width: 100%;
-			height: 40px;
+			height: 45px;
 			input#print-page {
 				display: block;
 				float: right;
@@ -177,6 +196,11 @@ font-size: 13px;
 	.form-field-wrapper {
 		margin-top: 5px;
 	}
+
+	.z-top {
+		z-index: 10000;
+	}
+
 	/* Button styles */
 	input[type='radio'] {
 		display: none;
@@ -200,7 +224,7 @@ font-size: 13px;
 		padding: 0.8em 1em;
 	}
 	input[type='radio']:checked + label {
-		background-color: #E0F0FF;
+		background-color: #ddd;
 	}
 
 	input[type='checkbox'] {
@@ -225,6 +249,6 @@ font-size: 13px;
 		padding: 0.8em 1.2em;
 	}
 	input[type='checkbox']:checked + label {
-		background-color: #E0F0FF;
+		background-color: #ddd;
 	}
 }
