@@ -1,3 +1,6 @@
+Template.createLesson.helpers ({
+
+});
 Template.createLesson.events ({
 	'submit form' : function(event) {
 		// Prevent form refresh
@@ -9,7 +12,7 @@ Template.createLesson.events ({
 		var startTime = new Date(1989, 0, 6, 0, 0, 0, 0);
 
 		// Get values from radio buttons and convert to integers
-		var hour = parseInt($('input[name=time-toggle]:checked', '#hour-wrapper').val());
+		var hour = parseInt($('input[name=hour-toggle]:checked', '#hour-wrapper').val());
 		var minute = parseInt($('input[name=minute-toggle]:checked', '#minute-wrapper').val());
 		var Pm = parseInt($('input[name=am-pm-toggle]:checked', '#am-pm-wrapper').val());
 
