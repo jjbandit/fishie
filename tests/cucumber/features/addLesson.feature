@@ -21,7 +21,7 @@ Scenario:
 	When I click on ".clear-lesson"
 	Then I should see 0 Lesson and 0 Instructor
 
-# @dev
+@dev
 Scenario:
 	Given The logged in user has created a "Monday" Lesson Set
 	And Create a "SK 2" at 2:00 PM with 2 swimmers

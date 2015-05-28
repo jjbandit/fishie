@@ -5,23 +5,30 @@ module.exports = function () {
 
 	this.Given(/"([^"]*)" has logged in/, function(name, callback) {
 
-			this.browser.execute( function () {
+			var browser = this.browser;
+			this.browser.executeAsync( function (done) {
 				Meteor.logout();
+				done();
+			}, function (err, ret) {
+				if (err) {
+					console.log(err);
+				} else {
+					browser
+					.waitForVisible('a.dropdown-toggle')
+					.click('a.dropdown-toggle')
+					.waitForVisible('#signup-link')
+					.click('#signup-link')
+					.setValue('#login-email', name + '@test.com')
+					.setValue('#login-password', 'testPassword123')
+					// Click login button
+					.click('#login-buttons-password')
+					// Wait to be logged in
+					.waitForExist('#login-buttons-logout')
+					// Ensure user sucessfully logged in
+					.getText('a.dropdown-toggle').should.become(name + '@test.com').and.notify(callback);
+				}
 			});
 
-			this.browser
-			.waitForVisible('a.dropdown-toggle')
-			.click('a.dropdown-toggle')
-			.waitForVisible('#signup-link')
-			.click('#signup-link')
-			.setValue('#login-email', name + '@test.com')
-			.setValue('#login-password', 'testPassword123')
-			// Click login button
-			.click('#login-buttons-password')
-			// Wait to be logged in
-			.waitForExist('#login-buttons-logout')
-			// Ensure user sucessfully logged in
-			.getText('a.dropdown-toggle').should.become(name + '@test.com').and.notify(callback);
 	});
 
 		this.Given(/^I click on "([^"]*)"$/, function (element, callback) {
@@ -54,32 +61,34 @@ module.exports = function () {
 
 	this.When(/^Create a "([^"]*)" at (\d+):(\d+) ([^"]*) with (\d+) swimmers$/,
 			function (levelString, hourString, minuteString, amPmString, numSwimmersString, callback) {
-		var levelRadioSelector = '#' + levelString.toLowerCase().replace( ' ' , '-' ) + '-label';
-		var swimmerRadioSelector = '#swimmers-' + numSwimmersString + '-label';
-		var hourRadioSelector = '#time-hour-' + hourString + '-label';
-		var minRadioSelector = '#time-minute-' + minuteString + '-label';
-		var amPmRadioSelector = '#' + amPmString + '-label';
 
-		this.browser
-			.waitForVisible('#selectors-wrapper')
-			.click('span.level')
-			.click(levelRadioSelector)
-			.click('span.num-swimmers')
-			.click(swimmerRadioSelector)
-			.click('span.hour')
-			.click(hourRadioSelector)
-			.click('span.minute')
-			.click(minRadioSelector)
-			.click('span.am-pm')
-			.click(amPmRadioSelector)
-			.click('#submit-create-lessons');
+		var browser = this.browser;
 
-			this.browser.saveScreenshot(process.env.PWD + '/tests/cucumber/.screenshots/' + levelString + '.png');
-		var fing = this.browser;
-		// // Wait for write to db
 		setTimeout( function () {
-			callback();
-		}, 500);
+			var levelRadioSelector = '#' + levelString.toLowerCase().replace( ' ' , '-' ) + '-label';
+			var swimmerRadioSelector = '#swimmers-' + numSwimmersString + '-label';
+			var hourRadioSelector = '#time-hour-' + hourString + '-label';
+			var minRadioSelector = '#time-minute-' + minuteString + '-label';
+			var amPmRadioSelector = '#' + amPmString + '-label';
+
+			browser
+				.waitForVisible('#selectors-wrapper')
+				.click('span.level')
+				.click(levelRadioSelector)
+				.click('span.num-swimmers')
+				.click(swimmerRadioSelector)
+				.click('span.hour')
+				.click(hourRadioSelector)
+				.click('span.minute')
+				.click(minRadioSelector)
+				.click('span.am-pm')
+				.click(amPmRadioSelector)
+				.click('#submit-create-lessons');
+
+				// this.browser.saveScreenshot(process.env.PWD + '/tests/cucumber/.screenshots/' + levelString + '.png');
+
+				callback();
+		}, 1500);
 	});
 
 	this.When(/^I submit the default form$/, function (callback) {
@@ -121,6 +130,6 @@ this.Then(/^I should see (\d+) Break blocks$/, function (breakBlocksStr, callbac
 					callback();
 				});
 
-			}, 500);
+			}, 1000);
 	});
 }
