@@ -1,6 +1,6 @@
 <template name="lessonSetTemplate">
 	<div>
 		<input type="button" name="X" class='form-field-wrapper' id="remove-set" value="X">
-		<a href='{{ urlFor "setShow" }}'>{{sanitizeWeekdays this.weekdays}}</a>
+		<a class='set-link' href='{{ urlFor "setShow" }}'>{{sanitizeWeekdays this.weekdays}}</a>
 	</div>
 </template>

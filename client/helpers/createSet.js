@@ -1,4 +1,4 @@
-Template.buildSet.events ({
+Template.createSet.events ({
 	'submit': function (event) {
 		event.preventDefault();
 
@@ -8,9 +8,9 @@ Template.buildSet.events ({
 
 		if (weekdays.length === 0) { return; }
 
-		var setID = new Mongo.ObjectID();
-		Meteor.call('createLessonSet', setID, weekdays);
+		var setId = new Meteor.Collection.ObjectID()._str;
+		Meteor.call('createLessonSet', weekdays, setId);
 
-		Router.go('setShow', {_id: setID._str});
+		Router.go('setShow', {_id: setId});
 	}
 });

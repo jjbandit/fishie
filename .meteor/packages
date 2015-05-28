@@ -7,8 +7,12 @@
 meteor-platform
 fourseven:scss@2.0.0-beta_1
 mizzao:jquery-ui
-accounts-ui
 accounts-password
 iron:router
 harrison:papa-parse
 meteorhacks:kadira
+mike:mocha
+xolvio:cucumber
+practicalmeteor:sinon
+twbs:bootstrap
+ian:accounts-ui-bootstrap-3

@@ -3,17 +3,37 @@
 	size: auto;
 	margin: 0mm;
 }
+
 body {
 background: #eee;
-// margin: 0px;
-	.z-top {
-		z-index: 10000;
+list-style: none;
+
+	// Hide selector radios
+	#hour-wrapper,
+	#minute-wrapper,
+	#am-pm-wrapper,
+	#level-wrapper,
+	#length-wrapper,
+	#swimmers-wrapper {
+		display: none;
 	}
+
 	#create-lesson-controls {
 		border-bottom: 3px solid black;
+
+		.stage {
+			font-size: 42px;
+			cursor: pointer;
+			border-radius: 4px;
+			padding: 1.5px 4px;
+		}
+		.stage:hover {
+			background: #ddd;
+		}
 	}
+
 	#instructor-list {
-		#instructor-wrapper {
+		.instructor-wrapper {
 			page-break-after: auto;
 
 			input[type=text] {
@@ -29,7 +49,7 @@ background: #eee;
 		.print-page-wrapper {
 			margin-top: 10px;
 			width: 100%;
-			height: 40px;
+			height: 45px;
 			input#print-page {
 				display: block;
 				float: right;
@@ -150,7 +170,7 @@ background: #eee;
 	.instructor {
 		display: flex;
 		margin-top: 5px;
-		#break-block {
+		.break-block {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -158,7 +178,7 @@ background: #eee;
 			// Fix break text rendering through dragged nodes
 			z-index: 0;
 		}
-		#break-block span {
+		.break-block span {
 			position: relative;
 			top: 40%;
 		}
@@ -195,6 +215,11 @@ background: #eee;
 	.form-field-wrapper {
 		margin-top: 5px;
 	}
+
+	.z-top {
+		z-index: 10000;
+	}
+
 	/* Button styles */
 	input[type='radio'] {
 		display: none;
@@ -218,7 +243,7 @@ background: #eee;
 		padding: 0.8em 1em;
 	}
 	input[type='radio']:checked + label {
-		background-color: #E0F0FF;
+		background-color: #ddd;
 	}
 
 	input[type='checkbox'] {
@@ -243,6 +268,6 @@ background: #eee;
 		padding: 0.8em 1.2em;
 	}
 	input[type='checkbox']:checked + label {
-		background-color: #E0F0FF;
+		background-color: #ddd;
 	}
 }

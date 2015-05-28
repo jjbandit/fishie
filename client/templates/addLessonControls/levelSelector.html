@@ -1,17 +1,21 @@
 <template name="levelSelector">
+
+	<div>
+		<span class='stage level'> {{getLevel}} </span>
+	</div>
+
 	<div id="level-wrapper" class="form-wrapper">
-		<strong>Level Selector</strong>
 		<div id="swim-kids-wrapper" class="form-field-wrapper">
-			<input checked type="radio" name="level-toggle" id="sk1" class="level-toggle first" value="1"><label for="sk1">SK 1</label><!--
-			--><input type="radio" name="level-toggle" id="sk2" class="level-toggle" value="2"><label for="sk2">SK 2</label><!--
-			--><input type="radio" name="level-toggle" id="sk3" class="level-toggle" value="3"><label for="sk3">SK 3</label><!--
-			--><input type="radio" name="level-toggle" id="sk4" class="level-toggle" value="4"><label for="sk4">SK 4</label><!--
-			--><input type="radio" name="level-toggle" id="sk5" class="level-toggle" value="5"><label for="sk5">SK 5</label><!--
-			--><input type="radio" name="level-toggle" id="sk6" class="level-toggle" value="6"><label for="sk6">SK 6</label><!--
-			--><input type="radio" name="level-toggle" id="sk7" class="level-toggle" value="7"><label for="sk7">SK 7</label><!--
-			--><input type="radio" name="level-toggle" id="sk8" class="level-toggle" value="8"><label for="sk8">SK 8</label><!--
-			--><input type="radio" name="level-toggle" id="sk9" class="level-toggle" value="9"><label for="sk9">SK 9</label><!--
-			--><input type="radio" name="level-toggle" id="sk10" class="level-toggle last" value="10"><label for="sk10">SK 10</label>
+			<input checked type="radio" name="level-toggle" id="sk-1" class="level-toggle first" value="1"><label id="sk-1-label" for="sk-1">SK 1</label><!--
+			--><input type="radio" name="level-toggle" id="sk-2" class="level-toggle" value="2"><label id="sk-2-label" for="sk-2">SK 2</label><!--
+			--><input type="radio" name="level-toggle" id="sk-3" class="level-toggle" value="3"><label id="sk-3-label" for="sk-3">SK 3</label><!--
+			--><input type="radio" name="level-toggle" id="sk-4" class="level-toggle" value="4"><label id="sk-4-label" for="sk-4">SK 4</label><!--
+			--><input type="radio" name="level-toggle" id="sk-5" class="level-toggle" value="5"><label id="sk-5-label" for="sk-5">SK 5</label><!--
+			--><input type="radio" name="level-toggle" id="sk-6" class="level-toggle" value="6"><label id="sk-6-label" for="sk-6">SK 6</label><!--
+			--><input type="radio" name="level-toggle" id="sk-7" class="level-toggle" value="7"><label id="sk-7-label" for="sk-7">SK 7</label><!--
+			--><input type="radio" name="level-toggle" id="sk-8" class="level-toggle" value="8"><label id="sk-8-label" for="sk-8">SK 8</label><!--
+			--><input type="radio" name="level-toggle" id="sk-9" class="level-toggle" value="9"><label id="sk-9-label" for="sk-9">SK 9</label><!--
+			--><input type="radio" name="level-toggle" id="sk-10" class="level-toggle last" value="10"><label id="sk-10-label" for="sk-10">SK 10</label>
 		</div>
 
 		<div id="preschool-wrapper" class="form-field-wrapper">
@@ -24,18 +28,22 @@
 			--><input type="radio" name="level-toggle" class="level-toggle" value="17" id="crocodile"><label for="crocodile">Crocodile</label><!--
 			--><input type="radio" name="level-toggle" class="last level-toggle" value="18" id="whale"><label for="whale">Whale</label>
 		</div>
+	</div>
 
-		<div id="swimmers-wrapper" class="form-field-wrapper">
-			<input checked type="radio" name="swimmers-toggle" id="1" class="first" value="1"><label for="1">1</label><!--
-			--><input type="radio" name="swimmers-toggle" id="2" value="2"><label for="2">2</label><!--
-			--><input type="radio" name="swimmers-toggle" id="3" value="3"><label for="3">3</label><!--
-			--><input type="radio" name="swimmers-toggle" id="4" value="4"><label for="4">4</label><!--
-			--><input type="radio" name="swimmers-toggle" id="5" value="5"><label for="5">5</label><!--
-			--><input type="radio" name="swimmers-toggle" id="6" value="6"><label for="6">6</label><!--
-			--><input type="radio" name="swimmers-toggle" id="7" value="7"><label for="7">7</label><!--
-			--><input type="radio" name="swimmers-toggle" id="8" value="8"><label for="8">8</label><!--
-			--><input type="radio" name="swimmers-toggle" id="9" value="9"><label for="9">9</label><!--
-			--><input type="radio" name="swimmers-toggle" id="10" class="last" value="10"><label for="10">10</label>
-		</div>
+	<div>
+		<span class='stage num-swimmers'> {{getNumSwimmers}} Swimmers </span>
+	</div>
+
+	<div id="swimmers-wrapper" class="form-field-wrapper">
+		<input checked type="radio" name="swimmers-toggle" id="swimmers-1" class='swimmers-toggle first' value="1"><label id="swimmers-1-label" for="swimmers-1">1</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-2" class='swimmers-toggle' value="2"><label id="swimmers-2-label" for="swimmers-2">2</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-3" class='swimmers-toggle' value="3"><label id="swimmers-3-label" for="swimmers-3">3</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-4" class='swimmers-toggle' value="4"><label id="swimmers-4-label" for="swimmers-4">4</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-5" class='swimmers-toggle' value="5"><label id="swimmers-5-label" for="swimmers-5">5</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-6" class='swimmers-toggle' value="6"><label id="swimmers-6-label" for="swimmers-6">6</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-7" class='swimmers-toggle' value="7"><label id="swimmers-7-label" for="swimmers-7">7</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-8" class='swimmers-toggle' value="8"><label id="swimmers-8-label" for="swimmers-8">8</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-9" class='swimmers-toggle' value="9"><label id="swimmers-9-label" for="swimmers-9">9</label><!--
+		--><input type="radio" name="swimmers-toggle" id="swimmers-10" class='swimmers-toggle last' value="10"><label id="swimmers-10-label" for="swimmers-10">10</label>
 	</div>
 </template>
