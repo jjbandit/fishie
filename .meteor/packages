@@ -5,14 +5,14 @@
 # but you can also edit it by hand.
 
 meteor-platform
-fourseven:scss@2.0.0-beta_1
+fourseven:scss
 mizzao:jquery-ui
 accounts-password
 iron:router
 harrison:papa-parse
-meteorhacks:kadira
 mike:mocha
 xolvio:cucumber
 practicalmeteor:sinon
 twbs:bootstrap
 ian:accounts-ui-bootstrap-3
+meteorhacks:kadira

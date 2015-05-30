@@ -1,6 +1,6 @@
 <template name='weekdaySelector'>
 	<div id="weekday-wrapper" class='form-wrapper'>
-		{{#if checkSetId setId}}
+		{{#if setId}}
 		{{#each setWeekday setId}}
 			{{> weekday weekday=this}}
 		{{/each}}
