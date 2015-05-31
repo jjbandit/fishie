@@ -1,14 +1,12 @@
 <template name="createLesson">
-	<div class='container-fluid'>
-		<form id='create-lesson-controls'>
-			{{> weekdaySelector setId=setId }}
-			{{> privateSelector }}
-			<div id='selectors-wrapper' class='form-wrapper'>
-				{{> timeSelector }}
-				{{> levelSelector }}
-				{{> lengthSelector}}
-			</div>
-			{{> selectorButtons }}
-		</form>
-	</div>
+	<form id='create-lesson-controls'>
+		{{> weekdaySelector setId=setId }}
+		{{> privateSelector }}
+		<div id='selectors-wrapper' class='form-wrapper'>
+			{{> timeSelector }}
+			{{> levelSelector }}
+			{{> lengthSelector}}
+		</div>
+		{{> selectorButtons }}
+	</form>
 </template>

@@ -12,10 +12,6 @@ Template.createOrSelectSet.events ({
 
 Template.createOrSelectSet.rendered = function () {
 	var body = $('body').get();
-	// Prevent flicker -> render and hide our select/create templates
-	// after the home template has rendered.
-	Blaze.render(Template.selectSet, body[0]);
 	$('#select-set-wrapper').hide();
-	Blaze.render(Template.createSet, body[0]);
 	$('#create-set-wrapper').hide();
 };
