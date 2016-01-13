@@ -8,27 +8,27 @@ Background:
 	Given I navigate to ""
 	And "Jesse" has logged in
 
-# @dev
+  # @dev
 Scenario:
 	Given The logged in user has created a "Monday" Lesson Set
 	When I submit the default form
 	Then I should see 1 Lesson and 1 Instructor
 
-# @dev
+  # @dev
 Scenario:
 	Given The logged in user has created a "Monday" Lesson Set
 	And I submit the default form
 	When I click on ".clear-lesson"
 	Then I should see 0 Lesson and 0 Instructor
 
-@dev
+  # @dev
 Scenario:
 	Given The logged in user has created a "Monday" Lesson Set
 	And Create a "SK 2" at 2:00 PM with 2 swimmers
 	And Create a "SK 5" at 5:00 PM with 5 swimmers
 	Then I should see 2 Lesson and 1 Instructor
 
-# @dev
+  # @dev
 Scenario:
 	Given The logged in user has created a "Tuesday" Lesson Set
 	When Create a "SK 2" at 12:00 PM with 3 swimmers

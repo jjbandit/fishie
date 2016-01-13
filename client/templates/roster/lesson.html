@@ -1,33 +1,40 @@
 <template name='lesson'>
-	<div class='block-wrapper'>
-		<div id="lesson" class="length-{{length}}{{#if ghost}} ghost{{/if}}">
-			<div class='lesson-id'>{{_id}}</div>
-			{{> lessonControls}}
-			<div id='lesson-content'>
-				<ul>
-				{{#each sanitizeLevels levels}}
-					<li class='lesson-level'>{{this}}</li>
-				{{/each}}
 
-				{{#if privateLesson}}
-					<input type="text" name="private-name" class='private-name'
-						value="{{name}}" placeholder='Private Name'/>
-					<div class='comments'>
-						{{comments}}
-					</div>
-					{{getWeekdays this}}
-				{{else}}
-						<li>{{swimmers}} Swimmers</li>
-				{{/if}}
-				</ul>
-			</div>
-		</div>
+  <div class='block-wrapper'>
 
-		{{#if sharesWith}}
-			{{#each sharesWith}}
-				{{> lesson getLesson this}}
-			{{/each}}
-		{{/if}}
-	</div>
+    {{#if sharedIds}}
+
+      {{#each sharedIds}}
+        {{> lesson getLesson this}}
+      {{/each}}
+
+    {{ else }}
+
+      <div id="lesson" class="length-{{length}}{{#if ghost}} ghost{{/if}}">
+        <div class='lesson-id'>{{_id}}</div>
+        {{> lessonControls}}
+        <div id='lesson-content'>
+          <ul>
+          {{#each sanitizeLevels levels}}
+            <li class='lesson-level'>{{this}}</li>
+          {{/each}}
+
+          {{#if privateLesson}}
+            <input type="text" name="private-name" class='private-name'
+              value="{{name}}" placeholder='Private Name'/>
+            <div class='comments'>
+              {{comments}}
+            </div>
+            {{getWeekdays this}}
+          {{else}}
+              <li>{{swimmers}} Swimmers</li>
+          {{/if}}
+          </ul>
+        </div>
+      </div>
+
+    {{/if}}
+
+  </div>
 
 </template>

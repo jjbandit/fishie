@@ -26,6 +26,7 @@ Template.createLesson.events ({
 		var length = parseInt($('input[name=length-toggle]:checked', '#length-wrapper').val());
 		var swimmers = parseInt($('input[name=swimmers-toggle]:checked', '#swimmers-wrapper').val());
 		var privateClass = parseInt($('input[name=private-toggle]:checked', '#private-wrapper').val());
+    privateClass = privateClass === 0 ? true : false ;
 
 		// This is some magic copy/pasted from stackOverflow I don't really understand
 		var weekdays = $('input[name=weekday-toggle]:checked', '#weekday-wrapper').map( function() {

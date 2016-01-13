@@ -9,19 +9,19 @@ Background:
 	And "Bill" has logged in
 	And The logged in user has created a "Monday" Lesson Set
 
-# @dev
+  # @dev
 Scenario:
 	Given Create a "SK 1" at 12:00 PM with 3 swimmers
 	When Create a "SK 2" at 12:00 PM with 3 swimmers
 	Then I should see 1 Lesson and 1 Instructor
 
-# @dev
+  # @dev
 Scenario:
 	Given Create a "SK 1" at 12:00 PM with 3 swimmers
 	When Create a "SK 2" at 12:00 PM with 4 swimmers
 	Then I should see 2 Lesson and 2 Instructor
 
-# @dev
+  # @dev
 Scenario:
 	Given Create a "SK 2" at 12:00 PM with 3 swimmers
 	And Create a "SK 3" at 12:00 PM with 3 swimmers
@@ -29,7 +29,7 @@ Scenario:
 	When Create a "SK 1" at 12:00 PM with 3 swimmers
 	Then I should see 2 Lesson and 2 Instructor
 
-# @dev
+  # @dev
 Scenario:
 	Given Create a "SK 2" at 12:00 PM with 3 swimmers
 	And Create a "SK 3" at 12:00 PM with 3 swimmers

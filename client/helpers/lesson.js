@@ -135,7 +135,7 @@ Template.lesson.rendered = function () {
       } else {
 
         // If the object we're dragging has a parent pull the dragged _id from the
-        // parents sharesWith so it doesn't get rendered twice
+        // parents sharedIds so it doesn't get rendered twice
         if (dragTargetObj.parent) {
           // Return out if we're trying to swap a lesson with a parent
           if (dropTargetObj.levels[0] !== 'ghost') {

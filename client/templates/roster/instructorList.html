@@ -1,25 +1,25 @@
 <template name="instructorList">
-	<div class='print-page-wrapper'>
-		<input type="button" name="print" id="print-page" value="Print">
-	</div>
-	{{> timeHeader setId=setId}}
-	<div id="instructor-list">
-		{{#each instructors setId}}
-		<div class="instructor-wrapper">
-			<input type="text" name="instructor-name" class='instructor-name'
-				value="{{name}}" placeholder='Instructor'/>
-			<div class="instructor">
-				{{#each sortedLessonList lessonList}}
-					{{#each getLeadingBreaks this}}
-						{{> break}}
-					{{/each}}
-					{{>lesson this}}
-					{{#each getTrailingBreaks this}}
-						{{> break}}
-					{{/each}}
-				{{/each}}
-			</div>
-		</div>
-		{{/each}}
-	</div>
+  <div class='print-page-wrapper'>
+    <input type="button" name="print" id="print-page" value="Print">
+  </div>
+  {{> timeHeader setId=setId}}
+  <div id="instructor-list">
+    {{#each instructors setId}}
+    <div class="instructor-wrapper">
+      <input type="text" name="instructor-name" class='instructor-name'
+        value="{{name}}" placeholder='Instructor'/>
+      <div class="instructor">
+        {{#each sortedLessonList lessonList}}
+          {{#each getLeadingBreaks this}}
+            {{> break}}
+          {{/each}}
+          {{>lesson this}}
+          {{#each getTrailingBreaks this}}
+            {{> break}}
+          {{/each}}
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </template>
