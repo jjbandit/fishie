@@ -46,25 +46,35 @@ Template.lesson.events ({
     // even though the cursor should always be inside the handle
     var lessonObj = this;
     var lessonTimes = this.lessonTimes;
+    var weekdays = this.weekdays;
     var length = this.length;
     var lessonID = this._id;
-    var availableInstructors = Instructors.find({lessonTimes: {$nin: lessonTimes}, owner: Meteor.userId()}).fetch();
+
+    var availableInstructors = Instructors.find({
+
+      lessonTimes: {
+        $nin: lessonTimes
+      },
+
+      owner: Meteor.userId()
+
+    }).fetch();
+
     Fishie.addGhostLessons(availableInstructors, lessonTimes, length);
+
     // add a z-index class so the lesson stays on top of DOM rendered after it
     $(event.target.parentElement).addClass("z-top");
-    // return out if we're dragging a lesson with a parent; it can't be swapped
-    if (lessonObj.parent) {
-      Session.set('dragTargetObj', lessonObj);
-      return;
-    }
+
     // PART TWO ==
     // Check if the lesson we're dragging can be swapped for each lesson returned
     var leadingBreaks = Fishie.getLeadingBreaks(lessonObj);
     var trailingBreaks = Fishie.getTrailingBreaks(lessonObj);
     var totalTimeAvailable = _.union(leadingBreaks, lessonTimes, trailingBreaks);
+
     totalTimeAvailable = $.map(totalTimeAvailable, function( val, i ) {
       return val.getTime()
     });
+
     // Get all lessons that intersect with the totalTimeAvailable and lessonTimes
     // IE lessons that interfere with drag-n-dropping the dragTarget and can fit into the free time
     // the dragTarget.instructor has available
@@ -72,11 +82,12 @@ Template.lesson.events ({
       $and: [
         {_id: {$ne: lessonID}},
         {ghost: {$exists: false}},
-        {parent: {$exists: false}},
         {owner: Meteor.userId()},
         {lessonTimes: {$in: lessonTimes}},
+        {weekdays: {$nin: weekdays}},
       ]
     }).fetch();
+
     var intersectingLessonsLength = intersectingLessons.length;
     var lessonsOutsideTime = [];
 
@@ -127,9 +138,9 @@ Template.lesson.rendered = function () {
     hoverClass: 'ghost-hover',
     drop: function(event) {
       var dragTargetObj = Session.get('dragTargetObj');
-      // If we're dropping on a lesson that's not a ghost,
-      // or dropping on a lesson that has a parent object, return out
-      if(!$(this).hasClass('ghost') || dropTargetObj.parent) {
+
+      // If we're dropping on a lesson that's not a ghost return out
+      if( ! $(this).hasClass('ghost') ) {
         Fishie.unsetAllGhosts();
         return false;
       } else {
@@ -141,29 +152,39 @@ Template.lesson.rendered = function () {
           if (dropTargetObj.levels[0] !== 'ghost') {
             return;
           }
-          Meteor.call('pullShareLesson', dragTargetObj.parent, dragTargetObj);
+          var setId = Router.current().params._id; // We have to pass this to remove the lessons parent
+          Meteor.call('pullShareLesson', dragTargetObj, setId);
+
+          // Don't strip lesson times from the instructor when we add the lesson to a different one
           dragTargetObj.instructor = '';
-          dragTargetObj.parent = undefined;
+
+          dragTargetObj.parent = undefined;  // We just stripped this from it's parent.
         }
 
         // These remove statemets have to come first because mongo doesn't allow us to unset
-        //     just one instance of a value from an array, it removes all instances of a value
-        //     which leaves us with lessons without times in the lessonTimes array
-        //     if we insert lessons before we remove them
+        // just one instance of a value from an array, it removes all instances of a value
+        // which leaves us with lessons without times in the lessonTimes array
+        // if we insert lessons before we remove them
+        //
         // This ensures actual lessons get the ghost property removed
         Fishie.unsetAllGhosts();
+
         // This removes lessons with levels[0] == ghost
         Fishie.removeGhostLessons();
+
         if (dropTargetObj.levels[0] != "ghost") {
           var intersectingLessons = Session.get('intersectingLessons');
           var intersectingLessonsLength = intersectingLessons.length;
           var swapList = [];
+
           for (var i = 0; i < intersectingLessonsLength; i++) {
             if (intersectingLessons[i].instructor == dropTargetObj.instructor) {
               swapList.push(intersectingLessons[i]);
             }
-          };
+          }
+
           Fishie.swapLessons(dragTargetObj, swapList);
+
         } else {
           Fishie.addLessonToInstr(dropTargetObj.instructor ,dragTargetObj);
         }
